@@ -1,11 +1,11 @@
 <template>
     <div>
         <h1>Register</h1>
+        <!-- use v-models for binding -->
         <input
         type = "email"
         name = "email"
         v-model = email 
-        <!-- for binding -->
         placeholder= "email"/>
         <br>
         <input
@@ -48,7 +48,7 @@ import AuthenticationServices from '@/services/AuthenticationServices'
                 // print data in the function
                 console.log(response.data)
             }
-        }.
+        },
         mounted (){ // email input changes to hello world after 2 seconds
             setTimeout(function(){
                 this.email = "hello world"
