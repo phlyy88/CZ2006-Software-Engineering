@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Register from '@/components/Register'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,12 @@ Vue.use(VueRouter)
     name: 'mainpage',
     component: () => import('../components/MainPage.vue')
   },
+  {
+    //Create path for register
+    path: '/register',
+    name: 'register',
+    component: Register
+  }
 ]
 
 const router = new VueRouter({
