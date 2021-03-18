@@ -24,6 +24,11 @@ Vue.use(VueRouter)
     name: 'mainpage',
     component: () => import('../components/MainPage.vue')
   },
+  {
+    path: '/hdb-overview',
+    name: 'hdb-overview',
+    component: () => import('../components/HDB-Overview.vue')
+  },
 ]
 
 const router = new VueRouter({
