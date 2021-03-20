@@ -28,6 +28,11 @@ Vue.use(VueRouter)
     path: '/hdb-overview',
     name: 'hdb-overview',
     component: () => import('../components/HDB-Overview.vue')
+  }, 
+   {
+    path: '/hdb-filter',
+    name: 'hdb-filter',
+    component: () => import('../components/HDB-Filter.vue')
   },
 ]
 

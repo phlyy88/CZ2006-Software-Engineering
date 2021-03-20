@@ -1,7 +1,7 @@
 <template>
     <div class="vue-template">
         <div class="vertical-center">
-            <div class="inner-block" width=1000 >
+            <div class="inner-block" >
 
                 <form>
                     <h1>HDB overview</h1>
