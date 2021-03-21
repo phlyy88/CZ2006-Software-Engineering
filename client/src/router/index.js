@@ -22,8 +22,11 @@ Vue.use(VueRouter)
   {
     path: '/mainpage',
     name: 'mainpage',
-    component: () => import('../components/MainPage.vue')
-  },
+    component: () => import('../components/MainPage.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  }
 ]
 
 const router = new VueRouter({
@@ -31,5 +34,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") == null) {
+      next({
+        path: "/"
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 
 export default router

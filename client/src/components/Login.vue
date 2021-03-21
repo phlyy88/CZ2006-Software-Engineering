@@ -6,11 +6,11 @@
                     <h3>Sign In</h3>
 
                     <div class="form-group">
-                        <label>Email address</label>
+                        <label>Email Address</label>
                         <input
                             type="email"
                             class="form-control form-control-lg" 
-                            v-model="email"
+                            v-model="login.email"
                         />
                     </div>
 
@@ -19,14 +19,14 @@
                         <input
                             type="password"
                             class="form-control form-control-lg"
-                            v-model="password"
+                            v-model="login.password"
                         />
                     </div>
 
                     <button
                         type="submit"
                         class="btn btn-dark btn-lg btn-block"
-                        @click="login">Sign In
+                        @click="loginUser">Sign In
                     </button> <!-- on click, call method "login" -->
 
                     <p class="forgot-password text-right mt-2 mb-4">
@@ -46,27 +46,30 @@
     </div>
 </template>
 
-
-
 <script>
     export default {
         data() {
             return {
-                email: '',
-                password: ''
-            }
-        },
-        watch: { //watch for changes in email and password value, not necessary for now
-            email (value) {
-                console.log('Email changed value', value)
-            },
-            password (value) {
-                console.log('Password changed value', value)
+                login: {
+                    email: '',
+                    password: ''
+                }
             }
         },
         methods: {
-            login () {
-                console.log('sign in button was clicked')
+            async loginUser() {
+                try {
+                    let response = await this.$http.post("/user/login", this.login);
+                    let token = response.data.token;
+                    localStorage.setItem("jwt", token);
+                    if (token) {
+                        this.$swal("Success", "Login Successful", "success");
+                        this.$router.push("/mainpage");
+                    }
+                } catch (err) {
+                    this.$swal("Error", "Something Went Wrong", "error");
+                    console.log(err.response);
+                }
             }
         }
     }

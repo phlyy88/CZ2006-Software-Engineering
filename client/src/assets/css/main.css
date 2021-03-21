@@ -19,9 +19,9 @@ html,
   height: 100%;
 }
 
-.App {
-  padding-top: 300px; /*offset for navbar*/
-}
+/* .App {
+  padding-top: 300px;
+} */
 
 .navbar-light {
   background-color: #ffffff;
