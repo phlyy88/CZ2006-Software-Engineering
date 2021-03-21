@@ -17,21 +17,6 @@ app.use(cors())
 // DELETE /api/customers/1  delete customer of id 1
 // POST /api/customers      create all customers
 
-// root page is login page
-// app.post('/login', (req, res) => {
-//     const { email, password } = req.body;
-
-//     const user = users.find(u => {
-//         return u.email === email && u.password === password
-//     })
-
-//     if (user) {
-//         res.redirect('/mainpage')
-//     } else {
-//         res.redirect('/')
-//     }
-// })
-
 MongoClient.connect('mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test', { useUnifiedTopology: true })
 .then(client => {
     console.log('Connected to Database')
@@ -52,6 +37,11 @@ MongoClient.connect('mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/tes
     // })
 })
 
+app.post('/register', (req, res) => {
+    console.log(req.body.email)
+    res.send({
+        message: 'Hello ur user was registered'
+    })
+})
 
-
-app.listen(process.env.PORT || 8081)
+app.listen(process.env.PORT || 8080)
