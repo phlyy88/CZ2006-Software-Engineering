@@ -10,9 +10,9 @@ Vue.use(VueRouter)
     component: () => import('../components/Login.vue')
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('../components/Signup.vue')
+    path: '/register',
+    name: 'register',
+    component: () => import('../components/Register.vue')
   },
   {
     path: '/forgot-password',

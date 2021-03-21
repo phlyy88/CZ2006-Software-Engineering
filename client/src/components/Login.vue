@@ -7,15 +7,27 @@
 
                     <div class="form-group">
                         <label>Email address</label>
-                        <input type="email" class="form-control form-control-lg" />
+                        <input
+                            type="email"
+                            class="form-control form-control-lg" 
+                            v-model="email"
+                        />
                     </div>
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control form-control-lg" />
+                        <input
+                            type="password"
+                            class="form-control form-control-lg"
+                            v-model="password"
+                        />
                     </div>
 
-                    <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+                    <button
+                        type="submit"
+                        class="btn btn-dark btn-lg btn-block"
+                        @click="login">Sign In
+                    </button> <!-- on click, call method "login" -->
 
                     <p class="forgot-password text-right mt-2 mb-4">
                         <router-link to="/forgot-password">Forgot password ?</router-link>
@@ -39,7 +51,23 @@
 <script>
     export default {
         data() {
-            return {}
+            return {
+                email: '',
+                password: ''
+            }
+        },
+        watch: { //watch for changes in email and password value, not necessary for now
+            email (value) {
+                console.log('Email changed value', value)
+            },
+            password (value) {
+                console.log('Password changed value', value)
+            }
+        },
+        methods: {
+            login () {
+                console.log('sign in button was clicked')
+            }
         }
     }
 </script>
