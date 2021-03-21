@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Register from '@/components/Register'
-import DisplayVehicle from '@/components/DisplayVehicle'
+import DisplayVehicle from '@/components/VehicleListing'
 
 Vue.use(VueRouter)
 

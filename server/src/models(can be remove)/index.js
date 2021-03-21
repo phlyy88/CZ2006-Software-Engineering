@@ -1,6 +1,9 @@
 const fs = require('fs')
-const path = require('path')
-const Mongodb = require('mongodb')
+const express = require('express')
 const MongoClient = require('mongodb').MongoClient
+const assert = require('assert')
 const config = require('./config/config')
 
+
+
+module.exports = db

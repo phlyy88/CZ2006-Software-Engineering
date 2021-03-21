@@ -33,7 +33,7 @@ import AuthenticationServices from '@/services/AuthenticationServices'
         //How two way binding works to update datamodels when value in input box chnages
         watch: {
             email(value){
-                console.log('email has changed', valu )
+                console.log('email has changed', value )
             }
         },
         methods:{
