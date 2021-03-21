@@ -4,7 +4,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-const MongoClient = require('mongodb').MongoClient
 const config = require('./config/config')
 
 const app = express()
@@ -17,7 +16,8 @@ app.use(cors())
         message: 'Hello ${req.body.email}, your user was registered.'
     })
 }) */
-require('./routes')(app)
+const vehicleListing =  require('routes')
+app.use('/', vehicleListing)
 
 /* MongoClient.connect('mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test', { useUnifiedTopology: true })
 .then(client => {

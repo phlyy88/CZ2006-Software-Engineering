@@ -1,11 +1,25 @@
+const express = require('express')
 const VehicleController = require('./controllers/VehicleController')
+const VehicleTaxController = require("./controllers/VehicleTaxController")
 
-module.exports = (app) =>{
-    app.post('/register', (req, res) => {
-        res.send({
-            message: 'Hello ${req.body.email}, your user was registered.'
-        })
-    })
+const router = express.Router()
 
-    app.post('/vehicleListing', VehicleController.displayVehicleListing)
-}
+//Get vehicle data
+router.get("/vehicleListing", async(req, res) => {
+    const vehicle = await VehicleController.loadVehicleCollection()
+    res.send(vehicle.find({}).toArray())
+})
+
+//Filter Data
+router.get("/filterVehicle", async(req, res) => {
+    const filterResult = await VehicleController.filterVehicle()
+    res.send(filterResult)
+})
+
+//Get Tax Data
+router.get("/", async(req, res) => {
+    const vehicleTax = VehicleTaxController.loadVehicleTaxCollection()
+    res.send(vehicleTax.find({}).toArray())
+} )
+
+module.exports = routers
