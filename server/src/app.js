@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
+const config = require('./config/db')
 
 const app = express()
 app.use(morgan('combined'))
@@ -33,7 +34,7 @@ app.use('/user', userRoutes)
 const mongoose = require("mongoose");
 mongoose.set("useCreateIndex", true);
 mongoose
-  .connect('mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/users', { useUnifiedTopology: true })
+  .connect(config.database, { useUnifiedTopology: true })
   .then(() => {
     console.log("Database is connected");
   })
