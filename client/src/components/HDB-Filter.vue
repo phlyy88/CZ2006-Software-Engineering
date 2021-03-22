@@ -1,69 +1,72 @@
 <template>
- <div class="vue-template" >
-        <div class="row"> </div>
-            <!-- <div class="col-lg-3 mb-4">
-                <h1 class="mt-4">Filters</h1>
-
-                <h3 class="mt-2">Price</h3> -->
-                <!-- <div class="form-check" v-for="(price, index) in prices">
-                    <input class="form-check-input" type="checkbox" :value="index" :id="'price'+index" v-model="selected.prices">
-                    <label class="form-check-label" :for="'price' + index">
-                        {{ price.name }} ({{ price.products_count }})
-                    </label>
-                </div> -->
-
+  <div id="app">
+    <ejs-grid ref="grid" :dataSource="data" :allowFiltering="true" :filterSettings="filterOptions">
+      <e-columns>
+        <e-column field="OrderID" headerText="Order ID" textAlign="Right"></e-column>
+        <e-column field="CustomerID" headerText="Customer ID" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column>
+        <e-column field="ShipCity" headerText="ShipCity"></e-column>
+        <e-column field="ShipCountry" headerText="ShipCountry"></e-column>
+      </e-columns>
+    </ejs-grid>
+  </div>
 </template>
 
 <script>
-    export default {
-        data: function() {
-            return {
-                price: [],
-                // flat_type: [],
-                // town: [],
-                // remaining_lease: [],
-                // floor_area: [],
-                // storey_range: [],
-                loading: true,
-                selected: {
-                    price: [],
-                    // flat_type: [],
-                    // town: [],
-                    // remaining_lease: [],
-                    // floor_area: [],
-                    // storey_range: [],
-                }
+import Vue from "vue";
+import { GridPlugin, Filter } from "@syncfusion/ej2-vue-grids";
+import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns';
+import { DataUtil } from '@syncfusion/ej2-data';
+import { data } from "./dataSource";
+Vue.use(GridPlugin);
+Vue.use(DropDownListPlugin);
+Vue.prototype.$eventHub = new Vue();
+export default {
+  data() {
+    return {
+      data: data,
+      filterOptions: { 
+        ignoreAccent: true, // Uncomment this code to filter diacritic values
+        // columns: [{ field: 'CustomerID', operator: 'startswith', value: 'v' }], //Uncomment the code to apply initial filter
+        type: 'Excel' // Uncomment to change the filter type
+      },
+      columnFilterOptions: { // Uncomment while applying the fiter type to specific column
+        type: 'CheckBox'
+      }  
+    };
+  },
+  methods: {
+    customTemplate: function(){
+      this.$eventHub.$on("CustomerID", this.filterCustomerID);
+      return{
+        template: Vue.component("Template",{
+          template: `<ejs-dropdownlist
+                       :dataSource="customerDistinctData"
+                       :fields="{text: 'CustomerID', value: 'CustomerID' }"
+                       :change= "getData"  >
+                     </ejs-dropdownlist>`,
+          computed: {
+            customerDistinctData: function(){
+              return DataUtil.distinct(data, 'CustomerID', true);
             }
-        },
-
-        mounted() {
-            this.loadPrices();
-        },
-
-        watch: {
-            selected: {
-                handler: function() {
-                    this.loadPrices();
-
-                },
-                deep: true
+          },
+          methods: {
+            getData(args){
+              this.$eventHub.$emit("CustomerID", args.itemData.CustomerID) // emitted the event from child component
             }
-        },
-        methods: {
-            loadPrices: function() {
-               axios.get('/api/products', {
-                        params: this.selected
-                    })
-                    .then((response) => {
-                        this.products = response.data.data;
-                        this.loading = false;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            }
-        }
+          }
+        })
+      };
+    },
+    filterCustomerID: function(e){
+      this.$refs.grid.ej2Instances.filterByColumn("CustomerID","equal",e);
     }
+  },
+  provide: {
+    grid: [Filter]
+  },
+};
 </script>
 
-
+<style>
+@import url("https://cdn.syncfusion.com/ej2/material.css");
+</style>
