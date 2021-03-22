@@ -24,6 +24,17 @@ Vue.use(VueRouter)
     name: 'mainpage',
     component: () => import('../components/MainPage.vue')
   },
+  {
+    path: '/favourite',
+    name: 'favourite',
+    component: () => import('../components/Favourite.vue')
+  },
+  {
+    path: '/planning-page',
+    name: 'planning-page',
+    component: () => import('../components/PlanningPage.vue')
+  }
+  
 ]
 
 const router = new VueRouter({

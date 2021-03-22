@@ -17,3 +17,16 @@ app.post('/login', (req, res) => {
 })
 
 app.listen(process.env.PORT || 8080)
+app.get('/planner', (req,res) => {
+    res.send({
+        message: "Overall planning page"
+    })
+})
+
+app.post('/favourite', (req, res) => {
+    res.send({
+        message: `Hello ${req.body.email}! Your items have been saved!`
+    })
+})
+
+//app.listen(process.env.PORT || 8081)
