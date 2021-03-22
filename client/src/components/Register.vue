@@ -56,7 +56,6 @@
 </template>
 
 <script>
-    import swal from 'vue-sweetalert2'
     export default {
         data() {
             return {
@@ -92,16 +91,16 @@
                     if (token) {
                         localStorage.setItem("jwt", token)
                         this.$router.push("/mainpage")
-                        swal("Success", "Registration Was successful", "success")
+                        this.$swal("Success", "Registration Was successful", "success")
                     } else {
-                        swal("Error", "Something Went Wrong", "error")
+                        this.$swal("Error", "Something Went Wrong", "error")
                     }
                 } catch (err) {
                     let error = err.response
                     if (error.status == 409) {
-                        swal("Error", error.data.message, "error")
+                        this.$swal("Error", error.data.message, "error")
                     } else {
-                        swal("Error", error.data.err.message, "error")
+                        this.$swal("Error", error.data.err.message, "error")
                     }
                 }
             }

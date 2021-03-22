@@ -2,7 +2,7 @@
     <div class="vue-template">
         <div class="vertical-center">
             <div class="inner-block">
-                <form>
+                <form @submit.prevent="loginUser">
                     <h3>Sign In</h3>
 
                     <div class="form-group">
@@ -26,7 +26,7 @@
                     <button
                         type="submit"
                         class="btn btn-dark btn-lg btn-block"
-                        @click="loginUser">Sign In
+                    >Sign In
                     </button> <!-- on click, call method "login" -->
 
                     <p class="forgot-password text-right mt-2 mb-4">

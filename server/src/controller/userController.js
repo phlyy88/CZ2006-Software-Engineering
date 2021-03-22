@@ -21,8 +21,8 @@ exports.registerNewUser = async (req, res) => {
             email
         })
         if (user) {
-            return res.status(400).json({
-                message: "User already exists"
+            return res.status(409).json({
+                message: "User is already registered."
             })
         }
         user = new User({
@@ -34,7 +34,6 @@ exports.registerNewUser = async (req, res) => {
             dob,
             income
         })
-        console.log("hello")
         let data = await user.save()
         const token = await user.generateAuthToken() // here it is calling the method that we created in the model
         res.status(201).json({ data, token })
