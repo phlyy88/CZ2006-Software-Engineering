@@ -1,7 +1,7 @@
 <template>
     <div class="vue-template">
         <div class="vertical-center">
-            <div class="inner-block" >
+            <div class="inner-block">
 
                 <form>
                     <h1>HDB overview</h1>
@@ -16,7 +16,7 @@
                     </div>
                     </div>
 
-                    <button type="submit" class="btn btn-dark btn-lg btn-block">Find your ideal HDB</button>
+                    <router-link to="/hdb-filter"> <button type="submit" class="btn btn-dark btn-lg btn-block">Find your ideal HDB</button></router-link>
 
                 </form>
             </div>
