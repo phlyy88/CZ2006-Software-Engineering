@@ -1,79 +1,104 @@
-const express = require('express')
-const MongoClient = require('mongodb').MongoClient
+const { Double } = require("bson");
+const mongoose = require("mongoose")
+//const COE = require('./models(can be removed)/Coe')
+//const bcrypt = require("bcryptjs");
+//const jwt = require("jsonwebtoken");
 
-const router = express.Router()
+const Schema = mongoose.Schema;
 
-//Get data
-router.get("/", async(req, res) => {
-    const vehicle = await loadVehicleCollection()
-    res.send(vehicle.find({}).toArray())
+const vehicleSchema = new Schema({
+    category: {
+        type: String, 
+        enum: ['A', 'B', 'D', 'E']
+    },
+    category_description: {
+        type: String
+    },
+    brand: {
+        type: String
+    },
+    name: {
+        type: String
+    },
+    product_description: {
+        type: String
+    },
+    omv: {
+        type: String
+    },
+    passenger_capacity: {
+        type: Number
+    },
+    engine_capacity:{ 
+        type: String,
+        required: true
+    },
+    // insurance_cost: {
+    //     type: Number
+    // },
+    ves_cost:{
+        type: String,
+        enum: ['A1', 'A2', 'B', 'C1', 'C2']
+    },
+    maintainence_cost:{
+        type: Double
+    },
+    length_mm:{
+        type: Number
+    },
+    height_mm: {
+        type: Number
+    }, 
+    width_mm: {
+        type: Number
+    },
+    top_speed: {
+        type: Number
+    },
+    kerb_weight_kg:{
+        type: Number
+    },
+    fuel_consumption_km_per_litre:{
+        type:Double
+    }
 })
 
-//Filter Data
-router.get("/", async(req, res) => {
-    const filterResult = await filterVehicle()
-    res.send(filterResult)
-})
-
-//Function to get the vehicle collection to run methods on it
-async function loadVehicleCollection(){
-    const url = 'mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test'
-    const client = await MongoClient.connect(url , { useUnifiedTopology: true })
-
-    return client.db('vehicles').collection('vehicles')
-}
-
-async function filterVehicle(category, passenger_capacity, min_engine_capacity, 
-    max_enginer_capacity, min_omv, max_omv){
-        const vehicle = await loadVehicleCollection()
-        const result = vehicle.find(
-            {
-                "category": {$eq: category},
-                "passenger_capacity": {$eq: passenger_capacity},
-                "engine_capacity": {$lte: max_enginer_capacity, $gte: min_engine_capacity},
-                "omv": {$lte: max_omv, $gte: max_omv}
-            }).toArray()
-            return result
-    }
-
-module.exports = router;
+// Define Vehicle Entity Methods
 
 
 
+// //this method will hash the password before saving the user model
+// userSchema.pre("save", async function(next) {
+//     const user = this
+//     if (user.isModified("password")) {
+//       user.password = await bcrypt.hash(user.password, 8)
+//     }
+//     next()
+// })
+  
+// //this method generates an auth token for the user
+// userSchema.methods.generateAuthToken = async function() {
+//     const user = this
+//     const token = jwt.sign({ _id: user._id, name: user.name, email: user.email },
+//     "secret")
+//     user.tokens = user.tokens.concat({ token })
+//     await user.save()
+//     return token
+// }
+  
+// //this method search for a user by email and password.
+// userSchema.statics.findByCredentials = async (email, password) => {
+//     const user = await User.findOne({ email })
+//     if (!user) {
+//         throw new Error({ error: "Invalid login details" })
+//     }
+//     const isPasswordMatch = await bcrypt.compare(password, user.password)
+//     if (!isPasswordMatch) {
+//         throw new Error({ error: "Invalid login details" })
+//     }
+//     return user
+// }
 
+const User = mongoose.model("Vehicle", VehicleSchema) //create model
 
-
-
-
-
-
-
-
-/* const MongoClient = require('mongodb').MongoClient
-
-const url = 'mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test'
-const client = new MongoClient(url , { useUnifiedTopology: true })
-
-client.connect( 
-    function filter(category, passenger_capacity, min_engine_capacity, 
-        max_enginer_capacity, min_omv, max_omv) {
-            const vehicle_db = client.db('vehicles')
-            const vehicle_coll = vehicle_db.collection('vehicles')
-            vehicle_coll.find(
-            {
-                "category": {$eq: category},
-                "passenger_capacity": {$eq: passenger_capacity},
-                "engine_capacity": {$lte: max_enginer_capacity, $gte: min_engine_capacity},
-                "omv": {$lte: max_omv, $gte: max_omv}
-            }
-    )
-
-},
-    function display(){
-        const vehicle_db = client.db('vehicles')
-            const vehicle_coll = vehicle_db.collection('vehicles')
-            vehicle_coll.find().toArray().then(
-                result => console.log(result)
-                )
-    }
-) */
+module.exports = Vehicle

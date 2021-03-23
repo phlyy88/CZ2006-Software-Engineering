@@ -1,4 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
+//const VechicleTax = require('./models(can be remove)/Tax')
+//const COE = require('./models(can be remove)/Coe')
 
 const url = 'mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test'
 const client = await MongoClient.connect(url , { useUnifiedTopology: true })

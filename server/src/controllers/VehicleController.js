@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
+const Vechicle = require('./models(can be remove)/Vehicle')
 
 const url = 'mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test'
 const client = await MongoClient.connect(url , { useUnifiedTopology: true })
@@ -17,7 +18,7 @@ module.exports = {
                     "category": {$eq: category},
                     "passenger_capacity": {$eq: passenger_capacity},
                     "engine_capacity": {$lte: max_enginer_capacity, $gte: min_engine_capacity},
-                    "omv": {$lte: max_omv, $gte: max_omv}
+                    "omv": {$lte: max_omv, $gte: min_omv}
                 }).toArray()
                 return result
         }

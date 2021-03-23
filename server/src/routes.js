@@ -22,4 +22,4 @@ router.get("/", async(req, res) => {
     res.send(vehicleTax.find({}).toArray())
 } )
 
-module.exports = routers
+module.exports = router

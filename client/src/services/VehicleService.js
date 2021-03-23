@@ -1,11 +1,11 @@
-import Api from '@/services/Api'
+import Api from '../services/Api'
 
 class VehicleService {
     //Get Vehicles
     static getVehicleListing(){
-        return new Promise(async(resolve, reject) => {
+        return new Promise((resolve, reject) => {
             try {
-                const res = await Api().get('vehicleListing');
+                const res = Api().get('vehicleListing');
                 const data = res.data
                 resolve(
                     //Loop through data to return another array
@@ -21,15 +21,15 @@ class VehicleService {
     }
 
     //Adding Admin to edit data?
-    static addVehicle(data){
-        return Api().post('addVehicle',{
-            //data
-        })
-    }
+    // static addVehicle(data){
+    //     return Api().post('addVehicle',{
+    //         //data
+    //     })
+    // }
 
-    static removeVehicle(id){
-        return Api().delete(`${url}${id}`)
-    }
+    // // static removeVehicle(id){
+    // //     return Api().delete(`${url}${id}`)
+    // // }
 }
 
 export default VehicleService;
