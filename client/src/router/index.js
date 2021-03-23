@@ -49,6 +49,11 @@ Vue.use(VueRouter)
     component: () => import('../components/PlanningPage.vue')
   }
   
+  {
+    path:'/childcareListing',
+    name:'/childcareListing',
+    component: import('../components/ChildcareListing.vue')
+  }
 ]
 
 const router = new VueRouter({
