@@ -91,9 +91,9 @@
                     if (token) {
                         localStorage.setItem("jwt", token)
                         this.$router.push("/mainpage")
-                        this.$swal("Success", "Registration Was successful", "success")
+                        this.$swal("Success", "Registration was successful", "success")
                     } else {
-                        this.$swal("Error", "Something Went Wrong", "error")
+                        this.$swal("Error", "Something went wrong", "error")
                     }
                 } catch (err) {
                     let error = err.response

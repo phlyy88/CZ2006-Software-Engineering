@@ -1,5 +1,5 @@
 <template>
-  <div style="padding-top:300px;" class="vertical-center">
+  <div class="vertical-center">
     <div class="inner-block">
       <h2>Email : {{ user.email }}</h2>
       <button @click="logUserOut" class="btn btn-dark btn-lg btn-block">Log out</button>

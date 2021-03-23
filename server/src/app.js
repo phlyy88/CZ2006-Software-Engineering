@@ -42,7 +42,7 @@ mongoose
     console.log({ database_error: err });
   });
 
-app.listen(process.env.PORT || 8080)
+app.listen(process.env.PORT || 8081)
 
 // GET /api/customers       get all customers
 // GET /api/customers/1     get a specific customer of id 1
