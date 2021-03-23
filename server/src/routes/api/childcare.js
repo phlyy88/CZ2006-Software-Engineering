@@ -19,7 +19,7 @@ async function loadChildcareCollection () {
         useNewUrlParser: true
     });
 
-    return client.db('vue_express').collection('childcare');
+    return client.db('childcareDB').collection('childcare');
 }
 
 
