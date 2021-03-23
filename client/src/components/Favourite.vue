@@ -1,24 +1,26 @@
 <template>
-    <div id="wrapper">
-        <h1 style="text-align:center;">Your plans</h1>
-        <div id="first" class='container'>
-            <Header title="Plan 1"/>
-            <button id="button1" type="button">
-                Edit Plan 1
-            </button>
-            <Plans @delete-plan="deletePlan" :plans="plans"/>
-        </div>
-        <div id="second" class='container'>
-            <Header title="Plan 2"/>
-            <button id="button2" type="button">
-                Edit Plan 2
-            </button>
-        </div>
-        <div id="third" class='container'>
-            <Header title="Plan 3"/>
-            <button id="button3" type="button">
-                Edit Plan 3
-            </button>
+    <div>
+    <h1 style="text-align:center;">Your plans</h1>
+        <div id="wrapper">
+            <div id="first" class='container'>
+                <Header title="Plan 1"/>
+                <button id="button1" type="button">
+                    Edit Plan 1
+                </button>
+                <Plans @delete-plan="deletePlan" :plans="plans"/>
+            </div>
+            <div id="second" class='container'>
+                <Header title="Plan 2"/>
+                <button id="button2" type="button">
+                    Edit Plan 2
+                </button>
+            </div>
+            <div id="third" class='container'>
+                <Header title="Plan 3"/>
+                <button id="button3" type="button">
+                    Edit Plan 3
+                </button>
+            </div>
         </div>
     </div>
     
@@ -46,11 +48,41 @@ export default {
           if(confirm("Are you sure?")){
           this.plans = this.plans.filter((plan)=> {
             return plan.id!==id
+          })}
+      },
+      async addPlan(plan) {
+          const res = await fetch('',{
+            method: 'POST',
+            headers: {
+                'Content-type' : 'application/json',
+            },
+            body: JSON.stringify(plan)
+
           })
-          }
+
+          const data = await res.json()
+
+          this.plans = [...this.plans, data]
+      },
+
+      async fetchPlans() {
+          const res = await fetch() //fetch from mongodb
+
+          const data = await res.json()
+
+          return data
+      },
+      async fetchPlan() {
+          const res = await fetch() 
+          //fetch from mongodb, add /${id}
+
+          const data = await res.json()
+
+          return data
       }
   },
-  created() {
+async created() {
+      //this.plans = await this.fetchPlans()
       this.plans = [
         {
             id:1,
@@ -72,17 +104,16 @@ export default {
 <style>
 #wrapper {
     clear:both;
-    display: flex;
     align-items: center;
     justify-content: center;
-    
+    height: 600px;
 }
 #first {
     background-image: url("https://i0.wp.com/lifefinance.com.sg/wp-content/uploads/2020/01/nguyen-thu-hoai-a15b7LYrfbk-unsplash-scaled.jpg?resize=1024%2C629&ssl=1");
     background-repeat: no-repeat;
-    background-size:350px 500px;
+    background-size:500px 600px;
     width:30%;
-    height:500px;
+    height:600px;
     float:left;  
     margin: 25px;
     text-align: center;
@@ -90,9 +121,9 @@ export default {
 #second {
     background-image: url("https://static.carthrottle.com/workspace/uploads/posts/2016/01/e5da17a44b55754be3429d1d5296702c.jpg");
     background-repeat: no-repeat;
-    background-size:350px 500px;
+    background-size:500px 600px;
     width:30%;
-    height: 500px;    
+    height: 600px;    
     float:left;
     margin: 25px;
     text-align: center;
@@ -101,9 +132,9 @@ export default {
 #third {
     background-image: url("https://www.nup.com.sg/PublishingImages/Children%27s%20Health/iStock-871046604_resized.jpg");
     background-repeat: no-repeat;
-    background-size:350px 500px;
+    background-size:500px 600px;
     width:30%;
-    height: 500px;
+    height: 600px;
     float:left;
     margin: 25px;
     text-align: center;
@@ -111,6 +142,7 @@ export default {
 #button1,#button2,#button3 {
     background-color: rgb(73, 156, 73);
     display: flex;
-    margin: 15px 32px;
+    margin: 15px 15px;
+    align: center;
     }
 </style>

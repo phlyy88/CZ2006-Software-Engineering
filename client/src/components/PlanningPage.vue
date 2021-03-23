@@ -47,25 +47,35 @@ export default {
     justify-content: center;
 }
 #first {
-    background-color:white;
+    background-image: url("https://i0.wp.com/lifefinance.com.sg/wp-content/uploads/2020/01/nguyen-thu-hoai-a15b7LYrfbk-unsplash-scaled.jpg?resize=1024%2C629&ssl=1");
+    background-repeat: no-repeat;
+    background-size:500px 600px;
     width:30%;
-    height:500px;
+    height:600px;
     float:left;  
     margin: 25px;
-
+    text-align: center;
 }
 #second {
-    background-color: white;
+    background-image: url("https://static.carthrottle.com/workspace/uploads/posts/2016/01/e5da17a44b55754be3429d1d5296702c.jpg");
+    background-repeat: no-repeat;
+    background-size:500px 600px;
     width:30%;
-    height: 500px;    
+    height: 600px;    
     float:left;
     margin: 25px;
+    text-align: center;
+
 }
 #third {
-    background-color:white;
+    background-image: url("https://www.nup.com.sg/PublishingImages/Children%27s%20Health/iStock-871046604_resized.jpg");
+    background-repeat: no-repeat;
+    background-size:500px 600px;
     width:30%;
-    height: 500px;
+    height: 600px;
     float:left;
     margin: 25px;
+    text-align: center;
 }
+
 </style>
