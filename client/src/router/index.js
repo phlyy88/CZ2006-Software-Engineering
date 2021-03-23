@@ -38,6 +38,17 @@ Vue.use(VueRouter)
     name: 'hdb-filter',
     component: () => import('../components/HDB-Filter.vue')
   },
+  {
+    path: '/favourite',
+    name: 'favourite',
+    component: () => import('../components/Favourite.vue')
+  },
+  {
+    path: '/planning-page',
+    name: 'planning-page',
+    component: () => import('../components/PlanningPage.vue')
+  }
+  
 ]
 
 const router = new VueRouter({
