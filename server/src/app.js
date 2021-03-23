@@ -4,7 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-const config = require('./config/config')
+const config = require('config/config')
 
 const app = express()
 app.use(morgan('combined'))
@@ -16,6 +16,7 @@ app.use(cors())
         message: 'Hello ${req.body.email}, your user was registered.'
     })
 }) */
+
 const vehicleListing =  require('routes')
 app.use('/', vehicleListing)
 
@@ -31,5 +32,16 @@ app.use('/', vehicleListing)
             })
         }) */
 
+const mongoose = require("mongoose");
+mongoose.set("useCreateIndex", true);
+mongoose
+    .connect(config.database, { useUnifiedTopology: true })
+    .then(() => {
+    console.log("Database is connected");
+    })
+    .catch(err => {
+    console.log({ database_error: err });
+    });
+        
 
 app.listen(config.port)
