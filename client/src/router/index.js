@@ -24,6 +24,11 @@ Vue.use(VueRouter)
     name: 'mainpage',
     component: () => import('../components/MainPage.vue')
   },
+  {
+    path:'/childcareListing',
+    name:'/childcareListing',
+    component: import('../components/ChildcareListing.vue')
+  }
 ]
 
 const router = new VueRouter({
