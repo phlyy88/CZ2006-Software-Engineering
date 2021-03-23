@@ -47,6 +47,11 @@ Vue.use(VueRouter)
     path: '/planning-page',
     name: 'planning-page',
     component: () => import('../components/PlanningPage.vue')
+  },
+  {
+    path: '/vehicle-listing',
+    name: 'vehicle-listing',
+    component: () => import('../components/VehicleListing.vue')
   }
   
 ]
