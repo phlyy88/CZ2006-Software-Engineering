@@ -17,8 +17,8 @@ app.use(cors())
     })
 }) */
 
-const vehicleListing =  require('routes')
-app.use('/', vehicleListing)
+// const vehicleListing =  require('routes')
+// app.use('/', vehicleListing)
 
 /* MongoClient.connect('mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test', { useUnifiedTopology: true })
 .then(client => {
@@ -32,16 +32,16 @@ app.use('/', vehicleListing)
             })
         }) */
 
-const mongoose = require("mongoose");
-mongoose.set("useCreateIndex", true);
-mongoose
-    .connect(config.database, { useUnifiedTopology: true })
-    .then(() => {
-    console.log("Database is connected");
-    })
-    .catch(err => {
-    console.log({ database_error: err });
-    });
+// const mongoose = require("mongoose");
+// mongoose.set("useCreateIndex", true);
+// mongoose
+//     .connect(config.database, { useUnifiedTopology: true })
+//     .then(() => {
+//     console.log("Database is connected");
+//     })
+//     .catch(err => {
+//     console.log({ database_error: err });
+//     });
         
 
 app.listen(config.port)

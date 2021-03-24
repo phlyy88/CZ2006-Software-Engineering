@@ -1,9 +1,10 @@
 <template>
-    <div id = "VehicleLisitingPage" class = "container">
+    <div id = "VehiclePage" style="width:100%">
+        {{$route.params.id}}
         <h1>Vehicle Listing</h1>
         <hr>
         <p class = "error" v-if="error">{{error}}</p>
-        <div id = "main" class = "vehicle-containers">
+        <div id = "main" class = "vehicle-containers" style="width: 65%;float:left">
             <!-- <div class = "vehicle"
                v-for = "(vehicle, index) in vehicles" 
                v-bind:item ="vehicles"
@@ -13,30 +14,50 @@
                 {{`${vehicle.createdAt.getDate()}/${vehicle.createdAt.getMonth()}/
                 ${vehicle.createdAt.getFullYear()}`}}
 
-                <p class = "vehicle_name">{{ vehicle.name }}</p> -->
+                <p class = "vehicle_name">{{ vehicle.name }}</p> </divS> -->
 
                 <div id = 'vehicle_1' class='containers'>
-                    <h3>Vehicle 1</h3>
-                    <div class = 'container'>
+                    <h3 style="text-align: left" >Vehicle 1</h3>
+                    <div>
                         Insert Details
                     </div>
-                    <button>
-                        Go to vehicle
+                    <a href="http://localhost:8080/vehicleListing/vehiclePage" style="align: right">
+                        <span class="icon arrow">
+                            <strong>View &raquo;</strong>
+                        </span>
+                    </a>
+                    <button style="text-align: left">
+                        <router-link to="/vehicleListing/vehiclePage">Go to vehicle</router-link> 
                     </button>
 
                 </div>
                 <div id = 'vehicle_2' class = 'containers'>
-                    <h3>Vehicle 2</h3>
-                    <div class = 'container'>
-                        Install Details
+                    <h3 style="text-align: left">Vehicle 2</h3>
+                    <div>
+                        Insert Details
                     </div>
-                    <button>
-                        Go to vehicle
+                    <button style="text-align: left">
+                        <router-link to="/vehicleListing/vehiclePage">Go to vehicle</router-link> 
                     </button>
                 </div>
-            
-            <div>
 
+                <div>
+                    <h3 style="text-align: left">Vehicle 3</h3>
+                    <div>
+                        Insert Details
+                    </div>
+                    <a href="http://localhost:8080/vehicleListing/vehiclePage" style="display: inline-block">
+                        <span class="icon arrow">
+                            <strong>View &raquo;</strong>
+                        </span>
+                    </a>
+
+                </div>
+        </div>
+        <div id="tax" style="margin-left:65%;">
+            <h3>Tax Details</h3>
+            <div>
+                Insert Tax calculation details
             </div>
         </div>
     </div>
@@ -83,11 +104,17 @@ export default {
 </script>
 
 <style>
+#tax{
+    background-color: white;
+    overflow-y: scroll;
+}
+
 #main{
     background-color: white;
 }
 
 #vehicle_1 {
  background-color: antiquewhite;
+ overflow-y: scroll;
 }
 </style>
