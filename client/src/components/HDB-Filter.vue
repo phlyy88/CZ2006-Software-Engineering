@@ -1,6 +1,7 @@
 <template>
     <div id="app">
     <ejs-grid ref="grid" :dataSource="data" :allowFiltering="true" :filterSettings="filterOptions" :allowPaging="true" :pageSettings="pageSettings">
+      <!-- Filter box with the HDB characteristics for users to narrow down their search. Need to update the column values using the HDB data. -->
       <e-columns>
         <e-column field="OrderID" headerText="Order ID" textAlign="Right"></e-column>
         <e-column field="CustomerID" headerText="Customer ID" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column>
@@ -8,14 +9,14 @@
         <e-column field="ShipCountry" headerText="ShipCountry"></e-column>
       </e-columns>
     </ejs-grid> 
-
                <form>
+               <!-- Input box to return the specific HDB listing -->
                     <h2>View Listing</h2>
                     <div class="form-group">
                         <label>Listing ID</label>
-                        <input type="email" class="form-control form-control-lg" />      
+                        <input type="hdb" class="form-control form-control-lg" />      
                     </div>
-
+                  <!-- Button for users to submit the data from the input box into the database. -->
                     <button type="submit" class="btn btn-dark btn-lg btn-block">Enter</button>
 
                 </form>
@@ -23,14 +24,21 @@
 </template>
 
 <script>
+/** Control class that allows the user to filter the database and display only relevant HDB listings.
+    
+    @author Joshua 
+    @param {object} HDB
+    @todo update the data with the HDB database  */
+
 import Vue from "vue";
 import { GridPlugin, Filter } from "@syncfusion/ej2-vue-grids";
 import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns';
-import { DataUtil } from '@syncfusion/ej2-data';
+// import { DataUtil } from '@syncfusion/ej2-data';
 import { data } from "./dataSource";
 Vue.use(GridPlugin);
 Vue.use(DropDownListPlugin);
 Vue.prototype.$eventHub = new Vue();
+/** Displays the filter results */
 export default {
   data() {
     return {
@@ -46,33 +54,34 @@ export default {
       // pageSettings: { pageSize: 10}
     };
   },
-  methods: {
-    customTemplate: function(){
-      this.$eventHub.$on("CustomerID", this.filterCustomerID);
-      return{
-        template: Vue.component("Template",{
-          template: `<ejs-dropdownlist
-                       :dataSource="customerDistinctData"
-                       :fields="{text: 'CustomerID', value: 'CustomerID' }"
-                       :change= "getData"  >
-                     </ejs-dropdownlist>`,
-          computed: {
-            customerDistinctData: function(){
-              return DataUtil.distinct(data, 'CustomerID', true);
-            }
-          },
-          methods: {
-            getData(args){
-              this.$eventHub.$emit("CustomerID", args.itemData.CustomerID) // emitted the event from child component
-            }
-          }
-        })
-      };
-    },
-    filterCustomerID: function(e){
-      this.$refs.grid.ej2Instances.filterByColumn("CustomerID","equal",e);
-    }
-  },
+  // methods: {
+  //   /** Format the filter using the ejs template. */
+  //   customTemplate: function(){
+  //     this.$eventHub.$on("CustomerID", this.filterCustomerID);
+  //     return{
+  //       template: Vue.component("Template",{
+  //         template: `<ejs-dropdownlist
+  //                      :dataSource="customerDistinctData"
+  //                      :fields="{text: 'CustomerID', value: 'CustomerID' }"
+  //                      :change= "getData"  >
+  //                    </ejs-dropdownlist>`,
+  //         computed: {
+  //           customerDistinctData: function(){
+  //             return DataUtil.distinct(data, 'CustomerID', true);
+  //           }
+  //         },
+  //         methods: {
+  //           getData(args){
+  //             this.$eventHub.$emit("CustomerID", args.itemData.CustomerID) // emitted the event from child component
+  //           }
+  //         }
+  //       })
+  //     };
+  //   },
+  //   filterCustomerID: function(e){
+  //     this.$refs.grid.ej2Instances.filterByColumn("CustomerID","equal",e);
+  //   }
+  // },
   provide: {
     grid: [Filter]
   },

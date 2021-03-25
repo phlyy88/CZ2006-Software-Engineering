@@ -2,7 +2,7 @@
     <div class="vue-template">
         <div class="vertical-center">
             <div class="block1">
-
+                <!-- Shows the map of Singapore. To add: heatmap that indicates the average price of HDB in the districts -->
                 <form>
                     <h1>HDB overview</h1>
 
@@ -25,6 +25,10 @@
 </template>
 
 <script>
+/** Control class to export the user-entered data into the database
+    @author Joshua
+    @todo link to HDB database
+    */
     export default {
         data() {
             return {}
