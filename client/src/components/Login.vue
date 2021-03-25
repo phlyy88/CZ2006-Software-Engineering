@@ -23,11 +23,12 @@
                         />
                     </div>
 
+                    <!-- on click, call method loginUser -->
                     <button
                         type="submit"
                         class="btn btn-dark btn-lg btn-block"
                     >Sign In
-                    </button> <!-- on click, call method "login" -->
+                    </button> 
 
                     <p class="forgot-password text-right mt-2 mb-4">
                         <router-link to="/forgot-password">Forgot password ?</router-link>
@@ -50,6 +51,9 @@
     export default {
         data() {
             return {
+                /**
+                 * Identical as User data
+                 */
                 login: {
                     email: '',
                     password: ''
@@ -57,6 +61,9 @@
             }
         },
         methods: {
+            /** 
+             * Awaits a response from userController.loginUser before flashing message with appropriate message
+             */
             async loginUser() {
                 try {
                     let response = await this.$http.post("/user/login", this.login);

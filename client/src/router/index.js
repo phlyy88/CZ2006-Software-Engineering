@@ -15,6 +15,14 @@ Vue.use(VueRouter)
     component: () => import('../components/Register.vue')
   },
   {
+    path: '/edit-profile',
+    name: 'edit-profile',
+    component: () => import('../components/Edit-Profile.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/forgot-password',
     name: 'forgot-password',
     component: () => import('../components/ForgotPassword.vue')
@@ -27,7 +35,6 @@ Vue.use(VueRouter)
       requiresAuth: true
     }
   },
-
   {
     path: '/hdb-overview',
     name: 'hdb-overview',
@@ -62,6 +69,7 @@ const router = new VueRouter({
   routes
 })
 
+// Authenticate user before allowing access to route
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (localStorage.getItem("jwt") == null) {

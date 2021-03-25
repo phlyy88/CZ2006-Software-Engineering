@@ -1,5 +1,12 @@
 const User = require("../models/User")
 
+/**
+ * Creates an instance of registerNewUser
+ * @author GQ
+ * @param {object} req 
+ * @param {object} res 
+ * @returns {object} Status of authentication error
+ */
 exports.registerNewUser = async (req, res) => {
     const {
         email,
@@ -42,6 +49,12 @@ exports.registerNewUser = async (req, res) => {
     }
 }
 
+/**
+ * Creates an instance of loginUser
+ * @param {object} req 
+ * @param {object} res 
+ * @returns {object} Status of authentication error
+ */
 exports.loginUser = async (req, res) => {
     try {
         const email = req.body.email
@@ -57,6 +70,15 @@ exports.loginUser = async (req, res) => {
     }
 }
 
+// exports.editUser = async(req, res) => {
+    
+// }
+
+/**
+ * Creates an instance of getUserDetails
+ * @param {object} req 
+ * @param {object} res 
+ */
 exports.getUserDetails = async (req, res) => {
     await res.json(req.userData)
 }

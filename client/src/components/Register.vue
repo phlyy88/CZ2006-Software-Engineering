@@ -43,6 +43,7 @@
                         <p>Value: '{{ register.income }}'</p>
                     </div>
 
+                    <!-- on click call registerUser method -->
                     <button class="btn btn-dark btn-lg btn-block" type="submit">Sign Up</button>
 
                     <p class="forgot-password text-right">
@@ -59,6 +60,9 @@
     export default {
         data() {
             return {
+                /**
+                 * Identical as User data
+                 */
                 register: {
                     email: '',
                     password: '',
@@ -83,6 +87,9 @@
             }
         },
         methods: {
+            /** 
+             * Awaits a response from userController.registerUser before flashing message with appropriate message
+             */
             async registerUser() {
                 try {
                     let response = await this.$http.post("/user/register", this.register)

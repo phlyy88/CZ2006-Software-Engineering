@@ -1,6 +1,6 @@
 <template>
   <div class="vue-template">
-    <!-- Navigation -->
+    <!-- Navigation bar -->
     <nav class="navbar shadow bg-white rounded justify-content-end fixed-top">
       <div class="container">
         <a class="navbar-brand float-left">
@@ -16,7 +16,7 @@
         </ul>
       </div>
     </nav>
-./components/dataSource
+
     <!-- Main -->
     <div class="App">
       <div class="vertical-center">
