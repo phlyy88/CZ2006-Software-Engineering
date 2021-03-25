@@ -14,9 +14,28 @@ id- mongodb generated id field-->
                 v-bind:index="index"
                 v-bind:key="childcare._id"
             >
+    <div class="vue-template">
+        <div style="padding-top:300px;" class="vertical-center">
+            <div class="inner-block">
+                <h1> List of childcares </h1>
+                <h1> List of childcares </h1>
+                <h1> List of childcares </h1>
+                <h1> List of childcares </h1>
+                <h1> List of childcares </h1>
+                <hr>
+                <p class = "error" v-if="error">{{ error }}></p>
+                <div class="childcares-container">
+                    <div class="childcare"
+                        v-for = "(childcare, index) in childcare"
+                        v-bind:item="childcare"
+                        v-bind:index="index"
+                        v-bind:key="childcare._id"
+                    >
 
-            {{ `${post.createdAt.getDate()}/${post.createdAt.getDate()}`}}
-            <p class = "text">{{ post.text}} </p>
+                    {{ `${post.createdAt.getDate()}/${post.createdAt.getDate()}`}}
+                    <p class = "text">{{ post.text}} </p>
+                    </div>
+                </div>
             </div>
             <div id = "checkboxes">
                 <label>childcare_organization</label>
@@ -35,6 +54,8 @@ id- mongodb generated id field-->
             </div>
         </div>
     </div>
+
+    
 </template>
 /**img_src = image */
 <script>

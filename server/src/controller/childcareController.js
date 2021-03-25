@@ -1,7 +1,7 @@
-const MongoClient = require('mongodb').MongoClient
+// const MongoClient = require('mongodb').MongoClient
 
-//const url = 'mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test'
-//const client = await MongoClient.connect(url , { useUnifiedTopology: true })
+// //const url = 'mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test'
+// //const client = await MongoClient.connect(url , { useUnifiedTopology: true })
 
 module.exports = {
     //Function to get the vehicle collection to run methods on it
