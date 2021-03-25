@@ -39,6 +39,9 @@ const userSchema = new Schema({
 })
 
 //this method will hash the password before saving the user model
+/**
+ * Middleware function that calls next after setting new user passowrd
+*/
 userSchema.pre("save", async function(next) {
     const user = this
     if (user.isModified("password")) {
@@ -48,6 +51,10 @@ userSchema.pre("save", async function(next) {
 })
   
 //this method generates an auth token for the user
+/**
+ * Middleware function that generates authentication token
+ * @returns {object} Authentication token
+ */
 userSchema.methods.generateAuthToken = async function() {
     const user = this
     const token = jwt.sign({ _id: user._id, name: user.name, email: user.email },
@@ -58,6 +65,12 @@ userSchema.methods.generateAuthToken = async function() {
 }
   
 //this method search for a user by email and password.
+/**
+ * 
+ * @param {string} email 
+ * @param {string} password 
+ * @returns {object} User object
+ */
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
     if (!user) {

@@ -5,6 +5,7 @@ const auth = require("../config/auth")
 
 router.post("/register", userController.registerNewUser)
 router.post("/login", userController.loginUser)
+router.post("/edit-profile", userController.editUser)
 router.get("/me", auth, userController.getUserDetails)
 
 module.exports = router

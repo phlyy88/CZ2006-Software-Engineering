@@ -1,4 +1,12 @@
 const jwt = require("jsonwebtoken");
+/**
+ * Creates an authenticator auth
+ * @author GQ
+ * @param {object} req 
+ * @param {object} res 
+ * @param {object} next 
+ * @returns {object} Status of authentication error
+ */
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.replace("Bearer ", "");
