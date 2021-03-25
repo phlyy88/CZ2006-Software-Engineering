@@ -12,6 +12,7 @@
             
                 {{`${vehicle.createdAt.getDate()}/${vehicle.createdAt.getMonth()}/
                 ${vehicle.createdAt.getFullYear()}`}}
+
                 <p class = "vehicle_name">{{ vehicle.name }}</p> -->
 
                 <div id = 'vehicle_1' class='containers'>
@@ -47,6 +48,10 @@ export default{
     props: ['vehicle_name']
 }
 /* import VehicleService from '../services/VehicleService'
+
+}
+/* import VehicleService from '../services/VehicleService'
+
 export default {
     name: 'VehicleListingPage',
     data() {
@@ -64,6 +69,7 @@ export default {
             this.error = error.message
         }
     },
+
     watch: {
         // Show change when section is clicked
     },
@@ -82,6 +88,7 @@ export default {
 #main{
     background-color: white;
 }
+
 #vehicle_1 {
  background-color: antiquewhite;
 }

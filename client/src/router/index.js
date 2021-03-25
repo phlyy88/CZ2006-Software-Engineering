@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Register from '@/components/Register'
 
 Vue.use(VueRouter)
 
@@ -61,8 +62,14 @@ Vue.use(VueRouter)
     component: () => import('../components/ChildcareListing.vue')
   },
   {
-    path: '/vehicle-listing',
-    name: 'vehicle-listing',
+    //Create path for register
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
+    path: '/vehicleListing',
+    name: 'vehicleListing',
     component: () => import('../components/VehicleListing.vue')
   }
 ]
