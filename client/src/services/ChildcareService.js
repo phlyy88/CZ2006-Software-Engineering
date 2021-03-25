@@ -1,3 +1,7 @@
+/**
+ * @class ChildcareService to process requests from ChildcareService.vue 
+ * and send to backend
+ */
 //handle all requests
 
 import api from './Api'
@@ -5,8 +9,13 @@ import api from './Api'
 const url ='http://localhost:8080/childcareListings';
 
 class ChildcareService{
-    //Get childcares
-    //static -- even with class in method, dn to substantiate childcare object to use
+    /**Get childcares
+    static -- even with class in method, dn to substantiate childcare object to use
+    */
+   /**
+    * 
+    * @returns success of action
+    */
     static getChildcare(){
         return new Promise((resolve, reject) => {
             try {
@@ -24,10 +33,6 @@ class ChildcareService{
             }
         })
     }
-
-    // static getFilter(){
-    //     return
-    // }
 }
 
 export default ChildcareService;

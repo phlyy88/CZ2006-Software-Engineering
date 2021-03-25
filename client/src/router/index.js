@@ -47,12 +47,11 @@ Vue.use(VueRouter)
     path: '/planning-page',
     name: 'planning-page',
     component: () => import('../components/PlanningPage.vue')
-  }
-  
+  },  
   {
     path:'/childcareListing',
     name:'/childcareListing',
-    component: import('../components/ChildcareListing.vue')
+    component: () => import('../components/ChildcareListing.vue')
   }
 ]
 

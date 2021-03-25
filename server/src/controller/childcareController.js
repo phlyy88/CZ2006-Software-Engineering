@@ -5,10 +5,25 @@ const MongoClient = require('mongodb').MongoClient
 
 module.exports = {
     //Function to get the vehicle collection to run methods on it
+    /**
+     * 
+     * @returns database collection of childcares
+     */
     async loadChildcareFeesCollection(){
         return client.db('childcareDB').collection('childcare')
     },
 
+    /** 
+     * Function that filters childcare based on criteria selected by user
+     * @param {*} childcare_organization Name of childcare centre
+     * @param {*} type Whether childcare is private/government
+     * @param {*} level Whether child is in nursery/pre-nursery
+     * @param {*} day Whether parent is looking for full-time/half-day nurseries
+     * @param {*} less_than Cost of childcare less than value
+     * @param {*} more_than Cost of childcare more than value
+     * @param {*} child_age Age of child
+     * @returns {result} List of filtered listings
+     */
     async filterChildcare(childcare_organization, type, level, day, 
         less_than, more_than, child_age){
             const childcare = await loadchildcareCollection()

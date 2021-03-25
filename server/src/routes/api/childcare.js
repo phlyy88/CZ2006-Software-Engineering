@@ -14,6 +14,9 @@ router.get('/', async (req, res) => {
 
 
 async function loadChildcareCollection () {
+    /**
+     * 
+     */
     const client = await mongodb.MongoClient.connect
     ('mongodb://localhost:27017', {
         useNewUrlParser: true
