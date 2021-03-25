@@ -1,11 +1,15 @@
 const MongoClient = require('mongodb').MongoClient
-//const VechicleTax = require('./models(can be remove)/Tax')
-//const COE = require('./models(can be remove)/Coe')
+//const VechicleTax = require('./models/Tax')
+//const COE = require('./models/Coe')
 
 const url = 'mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test'
-const client = await MongoClient.connect(url , { useUnifiedTopology: true })
+const client = MongoClient.connect(url , { useUnifiedTopology: true })
 
 module.exports = {
+    /**
+     * 
+     * @returns vehicleTax
+     */
     async loadVehicleTaxCollection(){
         const tax = client.db('Tax').collection('Tax')
         const vehicleTax = tax.find(
@@ -17,6 +21,10 @@ module.exports = {
         return vehicleTax
     },
     
+    /**
+     * 
+     * @returns coe
+     */
     async loadCOECollection(){
         const coe = client.db('tax').collection('coe')
 

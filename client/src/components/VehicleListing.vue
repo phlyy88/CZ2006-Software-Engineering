@@ -21,14 +21,14 @@
                     <div>
                         Insert Details
                     </div>
-                    <a href="http://localhost:8080/vehicleListing/vehiclePage" style="align: right">
+                    <!-- 
+                        @href route to "/vehicle page"
+                    -->
+                    <a href="/vehicleListing/vehiclePage" style="align: right">
                         <span class="icon arrow">
                             <strong>View &raquo;</strong>
                         </span>
                     </a>
-                    <button style="text-align: left">
-                        <router-link to="/vehicleListing/vehiclePage">Go to vehicle</router-link> 
-                    </button>
 
                 </div>
                 <div id = 'vehicle_2' class = 'containers'>
@@ -36,9 +36,14 @@
                     <div>
                         Insert Details
                     </div>
-                    <button style="text-align: left">
-                        <router-link to="/vehicleListing/vehiclePage">Go to vehicle</router-link> 
-                    </button>
+                    <!-- 
+                        @href route to "/vehicle page"
+                    -->
+                    <a href="/vehicleListing/vehiclePage" style="display: inline-block">
+                        <span class="icon arrow">
+                            <strong>View &raquo;</strong>
+                        </span>
+                    </a>
                 </div>
 
                 <div>
@@ -46,7 +51,10 @@
                     <div>
                         Insert Details
                     </div>
-                    <a href="http://localhost:8080/vehicleListing/vehiclePage" style="display: inline-block">
+                    <!-- 
+                        @href route to "/vehicle page"
+                    -->
+                    <a href="/vehicleListing/vehiclePage" style="display: inline-block">
                         <span class="icon arrow">
                             <strong>View &raquo;</strong>
                         </span>

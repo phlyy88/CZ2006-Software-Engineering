@@ -4,7 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-const config = require('config/config')
+const config = require('./config/config')
 
 const app = express()
 app.use(morgan('combined'))
@@ -17,8 +17,8 @@ app.use(cors())
     })
 }) */
 
-// const vehicleListing =  require('routes')
-// app.use('/', vehicleListing)
+const vehicleListing =  require('./routes')
+app.use('/', vehicleListing)
 
 /* MongoClient.connect('mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test', { useUnifiedTopology: true })
 .then(client => {
