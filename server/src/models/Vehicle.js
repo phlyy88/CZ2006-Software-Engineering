@@ -6,7 +6,7 @@ const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema;
 
-const vehicleSchema = new Schema({
+const VehicleSchema = new Schema({
     category: {
         type: String, 
         enum: ['A', 'B', 'D', 'E']
@@ -99,6 +99,6 @@ const vehicleSchema = new Schema({
 //     return user
 // }
 
-const User = mongoose.model("Vehicle", VehicleSchema) //create model
+const Vehicle = mongoose.model("Vehicle", VehicleSchema) //create model
 
 module.exports = Vehicle

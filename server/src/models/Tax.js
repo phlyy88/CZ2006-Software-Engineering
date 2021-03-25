@@ -1,7 +1,7 @@
 const { Double } = require("bson");
 const mongoose = require("mongoose")
-const Vehicle = require('./models(can be removed)/Vehicle')
-const COE = require('./models(can be remove)/Coe')
+//const Vehicle = require('./models(can be removed)/Vehicle')
+//const COE = require('./models(can be remove)/Coe')
 //const bcrypt = require("bcryptjs");
 //const jwt = require("jsonwebtoken");
 
@@ -27,25 +27,7 @@ const taxSchema = new Schema({
 })
 
 // Define entity Methods
-VehicleSchema.methods.getTaxName = async function(){
-    return this.tax_name
-}
 
-VehicleSchema.methods.getTaxCost = async function(){
-    return this.tax_cost
-}
-
-VehicleSchema.methods.getTaxCost = async function(){
-    return this.tax_cost
-}
-
-VehicleSchema.methods.getTaxPercentage = async function(){
-    return this.tax_percentage
-}
-
-VehicleSchema.methods.getTaxDescription = async function(){
-    return this.tax_description
-}
 
 
 const Tax = mongoose.model("Tax", taxSchema) //create model
