@@ -1,3 +1,7 @@
+/**
+ * Creates configuration settings
+ * @author GQ
+ */
 module.exports = {
     port: process.env.PORT || 8080,
     db: {
