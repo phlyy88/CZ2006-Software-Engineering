@@ -2,6 +2,10 @@ import Api from '../services/Api'
 
 class VehicleService {
     //Get Vehicles
+    /**
+     * 
+     * @returns data
+     */
     static getVehicleListing(){
         return new Promise((resolve, reject) => {
             try {
