@@ -1,26 +1,25 @@
 <template>
     <header>
-        <h1>{{ title }}</h1>
+        <h1 id="h1" >{{ title }}</h1>
     </header>
 </template>
 
 <script>
-//import Button from './Button'
-
 export default {
     name: 'Header',
     props: ['title']
 }
 </script>
 
-<style scoped>
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+<style>
+#h1{
     margin: 10px;
-    border-width: thin;
-    border-color: pink;
+    background-color: rgb(122, 153, 163);
+    border-radius: 8px;
+    border: 4px solid darkblue;
+    width: 30%;
+    margin-left: 35%;
+    font-size: 2vw;
 }
 
 </style>

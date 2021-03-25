@@ -1,6 +1,14 @@
+/** This boundary @class implements the 
+delete button to remove items from a plan
+@author hao zhi  */
+
+<style lang="scss" scoped>
+
+</style>
+
 <template>
     <div>
-        <div :key="plan.id" v-for="plan in plans">
+        <div id="planItems" :key="plan.id" v-for="plan in plans">
             <Plan @delete-plan="$emit('delete-plan', plan.id)" :plan="plan"/> 
         </div>
     </div>
@@ -19,3 +27,7 @@ export default {
     }
 }
 </script>
+
+<style>
+
+</style>

@@ -47,6 +47,11 @@ Vue.use(VueRouter)
     path: '/planning-page',
     name: 'planning-page',
     component: () => import('../components/PlanningPage.vue')
+  },
+  {
+    path: '/total-cost',
+    name: 'total-cost',
+    component: () => import('../components/TotalCost.vue')
   }
   
 ]

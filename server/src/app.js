@@ -15,6 +15,9 @@ app.use(cors())
 const userRoutes = require('./routes/user')
 app.use('/user', userRoutes)
 
+const planRoutes = require('./routes/plans')
+app.use('/plans', planRoutes)
+
 // const User = require('./models/User') //import declared user schema
 // const mongoose = require("mongoose")
 // mongoose.Promise = global.Promise;
@@ -42,6 +45,7 @@ mongoose
     console.log({ database_error: err });
   });
 
+express.listen(8082)
 app.listen(process.env.PORT || 8081)
 
 // GET /api/customers       get all customers

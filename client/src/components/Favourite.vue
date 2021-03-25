@@ -1,12 +1,16 @@
 <template>
     <div>
-    <h1 style="text-align:center;">Your plans</h1>
+        <h1 id="h1" style="text-align:center;">Your plans</h1>
         <div id="wrapper">
+            <!-- @slot "Access Total Planning Cost" button -->
             <div id="first" class='container'>
-                <Header title="Plan 1"/>
+                <router-link to="/total-cost">
+                    <Header title="Plan 1"/>
+                </router-link>
                 <button id="button1" type="button">
                     Edit Plan 1
                 </button>
+                <!-- @slot "Remove item from plan button -->
                 <Plans @delete-plan="deletePlan" :plans="plans"/>
             </div>
             <div id="second" class='container'>
@@ -44,33 +48,19 @@ export default {
       }
   },
   methods: {
+      
       deletePlan(id) {
           if(confirm("Are you sure?")){
           this.plans = this.plans.filter((plan)=> {
             return plan.id!==id
           })}
       },
-      async addPlan(plan) {
-          const res = await fetch('',{
-            method: 'POST',
-            headers: {
-                'Content-type' : 'application/json',
-            },
-            body: JSON.stringify(plan)
-
-          })
-
-          const data = await res.json()
-
-          this.plans = [...this.plans, data]
-      },
-
       async fetchPlans() {
-          const res = await fetch() //fetch from mongodb
-
-          const data = await res.json()
-
-          return data
+         try {
+             this.$router.push
+         } catch (error) {
+             console.log(error.response);
+         }
       },
       async fetchPlan() {
           const res = await fetch() 
@@ -102,11 +92,12 @@ async created() {
 </script>
 
 <style>
+
 #wrapper {
-    clear:both;
-    align-items: center;
-    justify-content: center;
-    height: 600px;
+    display: flex;
+    justify-content: space-around;
+    align-content: stretch;
+    box-sizing: content-box;
 }
 #first {
     background-image: url("https://i0.wp.com/lifefinance.com.sg/wp-content/uploads/2020/01/nguyen-thu-hoai-a15b7LYrfbk-unsplash-scaled.jpg?resize=1024%2C629&ssl=1");
@@ -117,6 +108,8 @@ async created() {
     float:left;  
     margin: 25px;
     text-align: center;
+    border-radius: 8px;
+    border: 4px solid lightblue;
 }
 #second {
     background-image: url("https://static.carthrottle.com/workspace/uploads/posts/2016/01/e5da17a44b55754be3429d1d5296702c.jpg");
@@ -127,22 +120,34 @@ async created() {
     float:left;
     margin: 25px;
     text-align: center;
+    border-radius: 8px;
+    border: 4px solid lightblue;
 
 }
 #third {
-    background-image: url("https://www.nup.com.sg/PublishingImages/Children%27s%20Health/iStock-871046604_resized.jpg");
-    background-repeat: no-repeat;
+    background-image: url("https://images.unsplash.com/photo-1502781252888-9143ba7f074e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1951&q=80");
     background-size:500px 600px;
+    background-position: -275px; 
+    background-size: cover;
     width:30%;
     height: 600px;
     float:left;
     margin: 25px;
     text-align: center;
+    border-radius: 8px;
+    border: 4px solid lightblue;
 }
 #button1,#button2,#button3 {
-    background-color: rgb(73, 156, 73);
     display: flex;
-    margin: 15px 15px;
-    align: center;
-    }
+    background-color: #46d639; /* Green */
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 4px solid rgb(17, 97, 17);
+}
 </style>
