@@ -85,7 +85,7 @@
         methods: {
             async registerUser() {
                 try {
-                    let response = await this.$http.post("/user/register", this.register)
+                    let response = await this.$http.post('user/register', this.register)
                     console.log(response)
                     let token = response.data.token
                     if (token) {
