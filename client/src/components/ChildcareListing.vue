@@ -12,9 +12,21 @@ id- mongodb generated id field-->
                 v-bind:index="index"
                 v-bind:key="childcare._id"
             >
-
-            {{ `${post.createdAt.getDate()}/${post.createdAt.getDate()}`}}
-            <p class = "text">{{ post.text}} </p>
+            </div>
+            <div id = "checkboxes">
+                <label>childcare_organization</label>
+                <d-checkbox inline checked = "childcare_organization" value="" v-model="childcare.categories"/>
+                <label>Ninjas</label>
+                <input type="checkbox" value="" v-model="childcare.categories"/>
+                <label>Ninjas</label>
+                <input type="checkbox" value="" v-model="childcare.categories"/>
+                <label>Ninjas</label>
+                <input type="checkbox" value="" v-model="childcare.categories"/>
+                <label>Ninjas</label>
+                <input type="checkbox" value="" v-model="childcare.categories"/>
+                <label>Ninjas</label>
+            </div>
+            <div :style="{backgroundImage:'url(https://api.time.com/wp-content/uploads/2020/03/child-care-coronavirus.jpg)'}">
             </div>
         </div>
     </div>
@@ -22,7 +34,6 @@ id- mongodb generated id field-->
 
 <script>
 import ChildcareService from '../services/ChildcareService'
-
 export default({
     name:'ChildcareListing',
     data(){
