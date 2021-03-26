@@ -56,7 +56,6 @@
 </template>
 
 <script>
-    import http from "../http-common"
     export default {
         data() {
             return {
@@ -86,7 +85,7 @@
         methods: {
             async registerUser() {
                 try {
-                    let response = await http.post("/user/register", this.register)
+                    let response = await this.$http.post("/user/register", this.register)
                     console.log(response)
                     let token = response.data.token
                     if (token) {
