@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const morgan = require('morgan')
 const cors = require("cors");
 
 const app = express();
@@ -11,7 +12,7 @@ const app = express();
 // app.use(cors(corsOptions));
 
 app.use(cors())
-
+app.use(morgan('combined'))
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
@@ -34,8 +35,8 @@ db.mongoose
     process.exit();
   });
 
-const users = require('./routes/user')
-app.use('/api/user', users)
+const userRoutes = require('./routes/user')
+app.use('/api/user', userRoutes)
 
 // require('./routes/user')(app)
 
