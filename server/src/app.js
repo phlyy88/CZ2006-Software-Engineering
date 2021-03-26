@@ -1,51 +1,41 @@
-console.log('Starting backend...')
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const morgan = require('morgan')
-const config = require('./config/db')
+const app = express();
 
-const app = express()
-app.use(morgan('combined'))
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
-app.use(cors())
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
 
-const userRoutes = require('./routes/user')
-app.use('/user', userRoutes)
+app.use(cors(corsOptions));
 
-// const User = require('./models/User') //import declared user schema
-// const mongoose = require("mongoose")
-// mongoose.Promise = global.Promise;
-// const MongoClient = require('mongodb').MongoClient
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
 
-// MongoClient.connect('mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test', { useUnifiedTopology: true })
-// .then(client => {
-//     console.log('Connected to Database')
-//     const users_db = client.db('users')
-//     const users_coll = users_db.collection('users')
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
-//     users_coll.find().toArray()
-//             .then(results => {
-//                 console.log(results)
-//             })
-// })
-const mongoose = require("mongoose");
-mongoose.set("useCreateIndex", true);
-mongoose
-  .connect(config.database, { useUnifiedTopology: true })
+
+const db = require("./models");
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => {
-    console.log("Database is connected");
+    console.log("Connected to the database!");
   })
   .catch(err => {
-    console.log({ database_error: err });
+    console.log("Cannot connect to the database!", err);
+    process.exit();
   });
 
-app.listen(process.env.PORT || 8081)
+const users = require('./routes/user')
+app.use('/api/user', users)
 
-// GET /api/customers       get all customers
-// GET /api/customers/1     get a specific customer of id 1
-// PUT /api/customers/1     edit customer of id 1
-// DELETE /api/customers/1  delete customer of id 1
-// POST /api/customers      create all customers
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
