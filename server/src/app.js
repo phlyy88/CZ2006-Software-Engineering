@@ -18,8 +18,7 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const users = require('./routes/user')
-app.use('api/user', users)
+
 
 const db = require("./models");
 db.mongoose
@@ -34,6 +33,9 @@ db.mongoose
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
+
+const users = require('./routes/user')
+app.use('/api/user', users)
 
 // require('./routes/user')(app)
 
