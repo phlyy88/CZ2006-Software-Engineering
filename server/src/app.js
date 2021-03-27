@@ -49,6 +49,8 @@ mongoose
 
 const userRoutes = require('./routes/user')
 app.use('/api/user', userRoutes)
+const childcareRoutes = require('./routes/childcare')
+app.use('/api/childcare', childcareRoutes)
 
 // require('./routes/user')(app)
 

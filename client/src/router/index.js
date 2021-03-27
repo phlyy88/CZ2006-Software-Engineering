@@ -26,7 +26,12 @@ Vue.use(VueRouter)
     meta: {
       requiresAuth: true
     }
-  }
+  },
+  {
+    path: '/childcare',
+    name: 'childcare',
+    component: () => import('../components/Childcare.vue')
+  },
 ]
 
 const router = new VueRouter({
