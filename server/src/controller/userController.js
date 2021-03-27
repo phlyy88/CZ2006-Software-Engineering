@@ -1,5 +1,5 @@
-const db = require('../models')
-const User = db.users
+// const db = require('../models')
+const User = require('../models/User')
 
 exports.registerNewUser = async (req, res) => {
     const {

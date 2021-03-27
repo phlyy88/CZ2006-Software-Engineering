@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require('morgan')
 const cors = require("cors");
+const config = require("./config/db.config")
 
 const app = express();
 
@@ -21,30 +22,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-const db = require("./models");
-db.mongoose
-  .connect(db.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log("Connected to the database!");
-  })
-  .catch(err => {
-    console.log("Cannot connect to the database!", err);
-    process.exit();
-  });
-
-// const mongoose = require("mongoose");
-// mongoose.set("useCreateIndex", true);
-// mongoose
-//   .connect(config.database, { useUnifiedTopology: true })
+// const db = require("./models");
+// db.mongoose
+//   .connect(db.url, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+//   })
 //   .then(() => {
-//     console.log("Database is connected");
+//     console.log("Connected to the database!");
 //   })
 //   .catch(err => {
-//     console.log({ database_error: err });
+//     console.log("Cannot connect to the database!", err);
+//     process.exit();
 //   });
+
+const mongoose = require("mongoose");
+mongoose.set("useCreateIndex", true);
+mongoose
+  .connect(config.url, { useUnifiedTopology: true })
+  .then(() => {
+    console.log("Database is connected");
+  })
+  .catch(err => {
+    console.log({ database_error: err });
+  });
 
 const userRoutes = require('./routes/user')
 app.use('/api/user', userRoutes)
