@@ -32,16 +32,6 @@ Vue.use(VueRouter)
     name: 'childcare',
     component: () => import('../components/Childcare.vue')
   },
-  {
-    path: '/hdb-overview',
-    name: 'hdb-overview',
-    component: () => import('../components/HDB-Overview.vue')
-  }, 
-   {
-    path: '/hdb-filter',
-    name: 'hdb-filter',
-    component: () => import('../components/HDB-Filter.vue')
-  }
 ]
 
 const router = new VueRouter({
