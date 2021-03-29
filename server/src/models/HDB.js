@@ -1,4 +1,3 @@
-const { Int32 } = require("bson");
 const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema;
@@ -24,13 +23,13 @@ const HDBSchema = new Schema({
         type: String,
     },
     floor_area_sqm: {
-        type: Int32
+        type: Number
     },
     flat_model: {
         type: String,
     },
     lease_commence_date: {
-        type: Int32
+        type: Number
     },
     remaining_lease: {
         type: String,
