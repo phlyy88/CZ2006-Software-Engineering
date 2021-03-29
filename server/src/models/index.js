@@ -7,5 +7,6 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.users = require("./User")(mongoose);
-db.hdb = require("./HDB")(mongoose);
+db.childcare = require("./Childcare")(mongoose);
+
 module.exports = db;
