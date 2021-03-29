@@ -4,6 +4,9 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
 const HDBSchema = new Schema({
+    _id: {
+        type: objectid
+    },
     month: {
         type: String,
     },
