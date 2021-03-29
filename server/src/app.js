@@ -51,7 +51,8 @@ const userRoutes = require('./routes/user')
 app.use('/api/user', userRoutes)
 const childcareRoutes = require('./routes/childcare')
 app.use('/api/childcare', childcareRoutes)
-
+const HDBRoutes = require('./routes/HDB')
+app.use('/api/HDB', HDBRoutes)
 // require('./routes/user')(app)
 
 // set port, listen for requests
