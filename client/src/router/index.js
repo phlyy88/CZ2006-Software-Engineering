@@ -10,9 +10,9 @@ Vue.use(VueRouter)
     component: () => import('../components/Login.vue')
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('../components/Signup.vue')
+    path: '/register',
+    name: 'register',
+    component: () => import('../components/Register.vue')
   },
   {
     path: '/forgot-password',
@@ -22,7 +22,15 @@ Vue.use(VueRouter)
   {
     path: '/mainpage',
     name: 'mainpage',
-    component: () => import('../components/MainPage.vue')
+    component: () => import('../components/MainPage.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/childcare',
+    name: 'childcare',
+    component: () => import('../components/Childcare.vue')
   },
 ]
 
@@ -31,5 +39,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") == null) {
+      next({
+        path: "/"
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 
 export default router
