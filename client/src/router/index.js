@@ -32,6 +32,16 @@ Vue.use(VueRouter)
     name: 'childcare',
     component: () => import('../components/Childcare.vue')
   },
+  {
+    path: '/vehicle',
+    name: 'vehicle',
+    component: () => import('../components/Vehicle.vue')
+  },
+  {
+    path: '/housing',
+    name: 'housing',
+    component: () => import('../components/Housing.vue')
+  },
 ]
 
 const router = new VueRouter({

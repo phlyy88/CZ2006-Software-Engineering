@@ -8,7 +8,6 @@
                 :filterSettings='filterOptions' 
                 :selectionSettings='selectionOptions'
                 :rowSelecting='rowSelecting'>
-            <!-- Filter box with the HDB characteristics for users to narrow down their search. Need to update the column values using the HDB data. -->
                 <e-columns>
                     <e-column field="childcare_organization" headerText="Organization" textAlign="Right" filter="columnFilterOptions"></e-column>
                     <!-- <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
