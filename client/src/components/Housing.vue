@@ -9,12 +9,12 @@
                 :selectionSettings='selectionOptions'
                 :rowSelecting='rowSelecting'>
                 <e-columns>
-                    <!-- <e-column field="category" headerText="Category" textAlign="Right" filter="columnFilterOptions"></e-column>
-                    <e-column headerText="Image" textAlign='Center' :template='cTemplate'></e-column>
-                    <e-column field="brand" headerText="Brand" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column>
-                    <e-column field="name" headerText="Model" filter="columnFilterOptions"></e-column>
-                    <e-column field="passenger_capacity" headerText="Capacity" filter="columnFilterOptions"></e-column>
-                    <e-column field="omv" headerText="Price (SGD)" filter="columnFilterOptions"></e-column> -->
+                    <e-column field="location" headerText="Location" textAlign="Right" filter="columnFilterOptions"></e-column>
+                    <!-- <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
+                    <e-column field="district" headerText="District" filter="columnFilterOptions"></e-column>
+                    <e-column field="flat_name" headerText="Flat name" filter="columnFilterOptions"></e-column>
+                    <e-column field="expected_year_of_completion" headerText="Expected completion" filter="columnFilterOptions"></e-column>
+                    <e-column field="type" headerText="Type" filter="columnFilterOptions"></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
