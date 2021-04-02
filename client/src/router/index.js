@@ -32,7 +32,14 @@ Vue.use(VueRouter)
     name: 'childcare',
     component: () => import('../components/Childcare.vue')
   },
+  {
+    path: '/child', component: Child
+  }
 ]
+
+const Child = {
+  template: '<div>Childcare component!</div>'
+};
 
 const router = new VueRouter({
   mode: 'history',
