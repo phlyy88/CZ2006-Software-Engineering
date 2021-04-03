@@ -5,6 +5,7 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
+import BootstrapVue from "bootstrap-vue"
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 //import '@/assets/css/main.css'
@@ -12,6 +13,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'vue-mdi/dist/mdi.css';
+
+Vue.use(BootstrapVue)
 
 import { GridPlugin } from "@syncfusion/ej2-vue-grids"
 import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns'
