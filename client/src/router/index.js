@@ -44,6 +44,11 @@ Vue.use(VueRouter)
     path: '/housing',
     name: 'housing',
     component: () => import('../components/Housing.vue')
+  },
+  {
+    path:'/childcarev2',
+    name:'childcarev2',
+    component: () => import('../components/Childcarev2.vue')
   }
 ]
 
