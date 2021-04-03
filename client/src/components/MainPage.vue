@@ -1,4 +1,8 @@
 <template>
+
+
+
+
   <div class="vertical-center">
     <div class="inner-block">
       <h2>Email : {{ user.email }}</h2>

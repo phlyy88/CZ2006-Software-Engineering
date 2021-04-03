@@ -23,9 +23,9 @@ Vue.use(VueRouter)
     path: '/mainpage',
     name: 'mainpage',
     component: () => import('../components/MainPage.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    // meta: {
+    //   requiresAuth: true
+    // }
   },
   {
     path: '/childcare',
