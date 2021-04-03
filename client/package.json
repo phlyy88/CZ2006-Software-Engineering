@@ -12,6 +12,7 @@
     "@syncfusion/ej2-data": "^18.4.46",
     "@syncfusion/ej2-vue-dropdowns": "^18.4.49",
     "@syncfusion/ej2-vue-grids": "^18.4.49",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.17.3",
     "core-js": "^3.6.4",
