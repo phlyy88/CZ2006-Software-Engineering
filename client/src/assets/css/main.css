@@ -19,30 +19,30 @@ html,
   height: 100%;
 }
 
-/* .App {
-  padding-top: 300px;
-} */
-
-.navbar-light {
-  background-color: #ffffff;
-  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+.App {
+  padding-top: 75px;
 }
 
 .vertical-center {
   display: flex;
   text-align: left;
-  justify-content: center;
-  flex-direction: column; 
+  justify-content: flex-start;
+  flex-direction: row;
+  /* flex-wrap: wrap; */
 }
 
-/* .horizontal-center {
+.filter {
+  height: 100%;
+  flex: 1 0 70%;
+}
+
+.info-side {
+  flex: 0 0 30%;
   display: flex;
-  text-align: left;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;  
-  align-content: stretch;
-} */
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
 
 .inner-block {
   width: 600px;

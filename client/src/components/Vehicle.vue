@@ -1,16 +1,18 @@
 <template>
     <div class="vertical-center">
-        <div id="filter-container" class="e-resizable">
+        <div class="filter">
             <ejs-grid 
                 ref="grid"
+                height='100%'
+                width='100%'
                 :dataSource="vehicleArray.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
                 :selectionSettings='selectionOptions'
-                :rowSelecting='rowSelecting'>
+                :rowSelecting='rowSelecting'
+                :rowSelected='onRowSelected'>
                 <e-columns>
                     <e-column field="category" headerText="Category" textAlign="Right" filter="columnFilterOptions"></e-column>
-                    <e-column headerText="Image" textAlign='Center' :template='cTemplate'></e-column>
                     <e-column field="brand" headerText="Brand" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column>
                     <e-column field="name" headerText="Model" filter="columnFilterOptions"></e-column>
                     <e-column field="passenger_capacity" headerText="Capacity" filter="columnFilterOptions"></e-column>
@@ -18,17 +20,45 @@
                 </e-columns>
             </ejs-grid>
         </div>
+        <div class="info-side">
+            <h3>Selected:</h3>
+            <b-card
+                title="Vehicle"
+                tag="vehicle"
+                style="max-width: 20rem; width: 100%"
+                class="mb-2"
+            >
+                <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
+                <b-card-text>
+                    Model: {{ selectedOption.name }}
+                    <br>
+                    Brand: {{ selectedOption.brand }}
+                    <br>
+                    Price: {{ selectedOption.omv }}
+                </b-card-text>
+                <b-button
+                    v-if="picURL!=='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                    variant="primary">
+                    Confirm Selection
+                </b-button>
+                <b-card-text v-if="cost!==null">
+                    Cost: {{ cost }}
+                </b-card-text>
+            </b-card>
+        </div>
     </div>
 </template>
 
 <script>
-import Vue from "vue"
 import { Filter } from '@syncfusion/ej2-vue-grids'
-  export default {
+export default {
+    props: ['this.selectedOption'],
     data() {
       return {
+        picURL: "https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png",
         vehicleArray: {},
         selectedOption: {},
+        cost: null,
         filterOptions: {
             type: 'Excel'
         },
@@ -37,23 +67,7 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
         },
         selectionOptions: {
             type: 'Single'
-        },
-        cTemplate: function() {
-            return { template: Vue.component('vehicleTemplate', {
-                template: '<div class="image"><img src="image"/></div>',
-                data: function() {
-                    return {
-                        data: {}
-                    }
-                },
-                computed: {
-                    image: function() {
-                        return this.data.image_url //change filepaths to relative file path within folder
-                    }
-                }
-            })}
-        },
-        pageSettings: { pageSize: 10 }
+        }
       }
     },
     methods: {
@@ -68,6 +82,10 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
                     this.$swal("Error", error.data.err.message, "error")
                 }
             }
+        },
+        onRowSelected(args) {
+            this.selectedOption = args.data
+            this.picURL = args.data.image_url
         }
     },
     provide: {
@@ -76,7 +94,7 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
     mounted() {
         this.getVehicleDetails();
     }
-  }
+}
 </script>
 
 <style>
