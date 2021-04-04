@@ -33,9 +33,14 @@ Vue.use(VueRouter)
     component: () => import('../components/Childcare.vue')
   },
   {
-    path: '/vehicle',
+    path: '/vehicle/',
     name: 'vehicle',
     component: () => import('../components/Vehicle.vue')
+  },
+  {
+    path: '/vehicle/:id',
+    name: 'vehicle_index',
+    component: () => import('../components/VehiclePage.vue')
   },
   {
     path: '/housing',
@@ -43,10 +48,6 @@ Vue.use(VueRouter)
     component: () => import('../components/Housing.vue')
   },
 ]
-
-const Child = {
-  template: '<div>Childcare component!</div>'
-};
 
 const router = new VueRouter({
   mode: 'history',
