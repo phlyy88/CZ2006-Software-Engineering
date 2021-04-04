@@ -33,8 +33,15 @@ Vue.use(VueRouter)
     component: () => import('../components/Childcare.vue')
   },
   {
-    path: '/child', component: Child
-  }
+    path: '/vehicle',
+    name: 'vehicle',
+    component: () => import('../components/Vehicle.vue')
+  },
+  {
+    path: '/housing',
+    name: 'housing',
+    component: () => import('../components/Housing.vue')
+  },
 ]
 
 const Child = {

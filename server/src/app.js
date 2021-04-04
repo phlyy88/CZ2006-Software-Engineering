@@ -51,6 +51,10 @@ const userRoutes = require('./routes/user')
 app.use('/api/user', userRoutes)
 const childcareRoutes = require('./routes/childcare')
 app.use('/api/childcare', childcareRoutes)
+const vehicleRoutes = require('./routes/vehicle')
+app.use('/api/vehicle', vehicleRoutes)
+const housingRoutes = require('./routes/housing')
+app.use('/api/housing', housingRoutes)
 
 // require('./routes/user')(app)
 
