@@ -11,14 +11,26 @@ the same plan
         <div id="plans" class='container'>
             <div id="first" class='container'>
                 <div class='text'>HDB</div>
+                <table>{housingArray}</table>
             </div>
             <div id="second" class='container'>
                 <div class='text'>Vehicle</div>
+                <table>{vehicleArray}</table>
             </div>
             <div id="third" class='container'>
                 <div class='text'>Children</div>
+                <table>{childcareArray}</table>
             </div>
             <div id="costCalculator" class="container">
+                <div class="select-plan">
+                    Select Plan Number:
+                    <select id="planSelect">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </div>
+                <br>
                 <h1 id="showCost">Show total cost here</h1>
                 <!-- @slot select number of years of saving button -->
                 <div class="custom-select">
@@ -38,7 +50,13 @@ the same plan
                         <option value="11">11</option>
                         <option value="12">12</option>
                     </select>
-                </div>  
+                </div> 
+                <br>
+                <br>
+                <br>
+                <router-link to="/favourite">
+                    <h4>Back to Favourite page</h4>
+                </router-link> 
             </div>                                                                        
         </div>
     </div>
@@ -47,7 +65,93 @@ the same plan
 
 
 <script>
+//import PlansVue from './Plans.vue'
+    export default {
+        data() {
+            return {
+                scrollSelect: 'int',
+                housingArray: {},
+                vehicleArray: {},
+                childcareArray: {},
+                DisplayVehicleTax: 'int',
+                DisplayHousingGrant: 'int',
+                DisplayChildcareGrant: 'int',
+            }
+        },
+        methods: {
+            //get housing/vehicle/childcare info from user data
+            //according to plan number (planSelect)
+            getPlanHousing(planSelect) {
+                try {
+                    //check if the plan is the selected one
+                    if (this.$http.get('housing') == planSelect) {
+                        this.housingArray = this.$http.get('housing')
+                    }                
+                } catch (err) {
+                    let error = err.response
+                    if (error.status == 409) {
+                        this.$swal("Error", error.data.message, "error")
+                    } else {
+                        this.$swal("Error", error.data.err.message, "error")
+                    }
+                }
+            },
+            getPlanVehicle() {
+                try {
+                    this.vehicleArray = this.$http.get('vehicle')
+                } catch (err) {
+                    let error = err.response
+                    if (error.status == 409) {
+                        this.$swal("Error", error.data.message, "error")
+                    } else {
+                        this.$swal("Error", error.data.err.message, "error")
+                    }
+                }
+            },
+            getPlanChildcare() {
+                try {
+                    this.childcareArray = this.$http.get('childcare')
+                } catch (err) {
+                    let error = err.response
+                    if (error.status == 409) {
+                        this.$swal("Error", error.data.message, "error")
+                    } else {
+                        this.$swal("Error", error.data.err.message, "error")
+                    }
+                }
+            },
+            getVehicleTax() {
 
+            },
+            getHousingGrant() {
+
+            },
+            getChildcareGrant() {
+
+            },
+            getTotalCost() {
+                this.getPlanHousing()
+                this.getPlanVehicle()
+                this.getPlanChildcare()
+                this.getVehicleTax()
+                this.getHousingGrant()
+                this.getChildcareGrant()
+            },
+            getMonthlySavings() {
+                return this.getTotalCost() / (this.scrollSelect*12)
+            }
+        },
+        mounted() {
+            this.getPlanHousing();
+            this.getPlanVehicle();
+            this.getPlanChildcare();
+            this.getVehicleTax();
+            this.getHousingGrant();
+            this.getChildcareGrant();
+            this.getTotalCost();
+            this.getMonthlySavings();
+        }
+    }
 </script>
 
 <style>

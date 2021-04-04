@@ -55,8 +55,8 @@ vehicle and child pages
     box-sizing: content-box;
 }
 #first, #second, #third {
-    background-repeat: no-repeat;
     background-size:500px 600px;
+    width: 25%;
     height:600px;
     float:left;  
     margin: 25px;

@@ -20,6 +20,7 @@ export default {
     width: 30%;
     margin-left: 35%;
     font-size: 2vw;
+    color: rgb(0, 0, 100);
 }
 
 </style>
