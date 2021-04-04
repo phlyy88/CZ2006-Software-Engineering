@@ -1,42 +1,26 @@
 <template>
-<b-container>
-  <div>
-      <div class = "filter">
-    <v-card flat>
-    <v-card-text>
-        <h1>Filter</h1>
-        <v-container fluid>
-        <v-row>
-          <v-col
-            cols="12"
-            sm="4"
-            md="4"
+<v-card>
+  <v-container fluid>
+      <v-row
+        align="center"
+      >
+        <v-col cols="12">
+          <v-autocomplete
+			v-model="selectedOption"
+            items="childcareArray.data"
+            outlined
+            dense
+            chips
+            small-chips
+            label="Organization"
+            allow-overflow=true
+            multiple
           >
-          <h2></h2>
-            <v-select
-                v-bind:items="childcare_organization in childcareArray.data"
-                v-model="selectedOption"
-                label="Childcare organization"
-                <template v-slot:item="props">
-                <tr>
-                    <td>{{ props.item.childcare_organization }}</td>
-                    <td>{{ props.item.level }}</td>
-                    <td>{{ props.item.child_age }}</td>
-                    <td>{{ props.item.full_half_day }}</td>
-                    <td>{{ props.item.type }}</td>
-                </tr>
-            </template>
-            ></v-select>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-  </v-card>
-      </div>
-  </div>
-</b-container>
+          </v-autocomplete>
+        </v-col>
+      </v-row>
 
-    <b-container>
+<!-- <b-container fluid> -->
     <v-card>
         <v-card-title>
             List of childcares
@@ -68,10 +52,14 @@
                 </tr>
             </template>
         </v-data-table>
-    </v-flex>
+        </v-flex>
     </v-layout>
-    </b-container>
-  </div>
+<!-- </b-container> -->
+      <!-- </v-container>
+    </v-card-text>
+  </v-card> -->
+  </v-container>
+  </v-card>
 </template>
 
 <script>
@@ -80,8 +68,11 @@ export default {
     computed:{},
     data() {
         return {
+            organizations_filter: ['foo', 'bar', 'fizz', 'buzz'],
+            values: ['foo', 'bar'],
+            value: null,
             childcareArray: {},
-            selectedOption: {}, //store as array later, change, need specify
+            selectedOption: null, //store as array later, change, need specify
             headers:[
                 {
                     text:"Organization",
@@ -108,7 +99,14 @@ export default {
                     align:'start',
                     sortable: false,
                 }
-            ]
+            ],
+            // filterFields:[
+            //     {text:"Organization", value:'childcare_organization', type:'text'},
+            //     {text:"Level", value:'level', type:'text'},
+            //     {text:"Age of child", value:'child_age', type:'text'},
+            //     {text:"Full or Half Day", value:'full_half_day', type:'text'},
+            //     {text:"Type", value:'type', type:'text'},
+            // ],
         }
     },
         methods: {
@@ -136,6 +134,11 @@ export default {
         mounted() {
         this.getChildcareDetails();
         },
-        
+        // watch(){
+        //     immediate:true;
+        //     handler() {
+        //         this.childcare_organization = this.childcareArray.childcare_organization;
+        //     }
+        // }
 }
 </script>
