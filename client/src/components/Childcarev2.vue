@@ -1,23 +1,21 @@
 <template>
+<v-app>
 <v-card>
   <v-container fluid>
       <v-row
         align="center"
       >
         <v-col cols="12">
-          <v-autocomplete
-			v-model="selectedOption"
-            items="childcareArray.data"
-            outlined
-            dense
-            chips
-            small-chips
-            label="Organization"
-            allow-overflow=true
-            multiple
-          >
-          </v-autocomplete>
-        </v-col>
+        <v-combobox
+          v-model="select"
+          :items = "items"
+          label="Combobox"
+          multiple
+          outlined
+          dense
+          overflow = true
+        ></v-combobox>
+      </v-col>
       </v-row>
 
 <!-- <b-container fluid> -->
@@ -60,6 +58,7 @@
   </v-card> -->
   </v-container>
   </v-card>
+</v-app>
 </template>
 
 <script>
@@ -68,11 +67,15 @@ export default {
     computed:{},
     data() {
         return {
-            organizations_filter: ['foo', 'bar', 'fizz', 'buzz'],
-            values: ['foo', 'bar'],
-            value: null,
+        select: ['EtonHouse Schools'],
+        items: [
+            'EtonHouse Schools', 'Lorna Whiston', 'MindChamps', 'Skool4kidz',
+          'My First Skool', 'Brighton Montessori', "Pat's Schoolhouse", 
+          'Between Two Trees', 'My Little Skool', 'Greentree Montessori',
+          'Superland', 'Cherie Hearts', 'PCF Sparkletots Pre-school', 'MY World Preschool',
+          'E-Bridge Pre-school',
+        ],
             childcareArray: {},
-            selectedOption: null, //store as array later, change, need specify
             headers:[
                 {
                     text:"Organization",

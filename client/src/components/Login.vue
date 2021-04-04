@@ -39,14 +39,6 @@
                         New User? 
                         <router-link to="/register">Register an Account</router-link>
                     </p>
-
-                    <div class="social-icons">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-google"></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        </ul>
-                    </div>
                 </form>
             </div>    
         </div>
