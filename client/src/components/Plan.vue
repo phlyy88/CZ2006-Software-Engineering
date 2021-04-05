@@ -7,6 +7,7 @@
             <b-col md="6">
               <b-card-img
                 v-bind:src="HousingPicURL"
+                alt="Image"
                 class="rounded-0"
               ></b-card-img>
             </b-col>
@@ -25,6 +26,7 @@
             <b-col md="6">
               <b-card-img
                 v-bind:src="VehiclePicURL"
+                alt="Image"
                 class="rounded-0"
               ></b-card-img>
             </b-col>
@@ -43,6 +45,7 @@
             <b-col md="6">
               <b-card-img
                 v-bind:src="ChildcarePicURL"
+                alt="Image"
                 class="rounded-0"
               ></b-card-img>
             </b-col>
@@ -59,7 +62,7 @@
         <b-card-group deck>
           <b-card
             header="Calculating cost for your plan"
-            header-tag="Calculating cost for your plan"
+            header-tag="header"
             title="Total Cost"
           >
             <b-card-text>{{ totalCosts }}</b-card-text>
