@@ -7,7 +7,7 @@ const vehicleSchema = new Schema({
         type: String
     },
     category_description: {
-        type: Number
+        type: String
     },
     brand: {
         type: String
@@ -19,7 +19,7 @@ const vehicleSchema = new Schema({
         type: String
     },
     product_description: {
-        type: Number
+        type: String
     },
     omv: {
         type: Number
@@ -34,10 +34,10 @@ const vehicleSchema = new Schema({
         type: Number
     },
     ves_cost: {
-        type: Number,
+        type: String,
     },
     maintainence_cost: {
-        type: Number
+        type: String
     },
     length_mm: {
         type: Number
