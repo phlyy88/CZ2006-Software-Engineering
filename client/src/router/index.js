@@ -23,9 +23,9 @@ Vue.use(VueRouter)
     path: '/mainpage',
     name: 'mainpage',
     component: () => import('../components/MainPage.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    // meta: {
+    //   requiresAuth: true
+    // }
   },
   {
     path: '/childcare',
@@ -37,8 +37,14 @@ Vue.use(VueRouter)
   },
   {
     path: '/vehicle',
+    path: '/vehicle/',
     name: 'vehicle',
     component: () => import('../components/Vehicle.vue')
+  },
+  {
+    path: '/vehicle/:id',
+    name: 'vehicle_index',
+    component: () => import('../components/VehiclePage.vue')
   },
   {
     path: '/housing',
@@ -51,10 +57,6 @@ Vue.use(VueRouter)
     component: () => import('../components/Childcarev2.vue')
   }
 ]
-
-const Child = {
-  template: '<div>Childcare component!</div>'
-};
 
 const router = new VueRouter({
   mode: 'history',
