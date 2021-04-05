@@ -48,7 +48,12 @@ Vue.use(VueRouter)
     component: () => import('../components/Housing.vue')
   },
   {
-    path: '/plan1',
+    path: '/plan',
+    name: 'plan',
+    component: () => import('../components/PlanPage.vue')
+  },
+  {
+    path: '/plan/1',
     name: 'plan1',
     component: () => import('../components/Plan.vue')
   },

@@ -5,26 +5,22 @@
         Family Planning
       </h1>
       <v-spacer></v-spacer>
-      <v-btn depressed small class="pink white--text">
-      <span>email me</span>
-      </v-btn>
+      
     </v-card-title>
 
-    <v-tabs
-      v-model="tab"
-      background-color="transparent"
-      grow
-    >
-    <v-tab to = "/childcare">Childcare</v-tab>
-    </v-tabs>
+    <div>
+  <b-nav tabs justified>
+    <b-nav-item href= "/housing">Housing</b-nav-item>
+    <b-nav-item href= "/vehicle">Vehicle</b-nav-item>
+    <b-nav-item href= "/childcare">Childcare</b-nav-item>
+  </b-nav>
+</div>
     <router-view></router-view>
 
   </v-card>
 </template>
 
 <script>
-//import Navbar from '@/components/NavBar'
-//import mdiVue from 'mdi-vue'
 export default {
   name: 'App',
   data () {

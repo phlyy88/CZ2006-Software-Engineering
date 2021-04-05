@@ -3,7 +3,7 @@
     <h1>View your plans</h1>
     <div id="plans">
       <div>
-        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2">
+        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
           <b-dropdown-item href="/plan1">Plan 1</b-dropdown-item>
           <b-dropdown-item href="/plan2">Plan 2</b-dropdown-item>
           <b-dropdown-item href="/plan3">Plan 2</b-dropdown-item>
