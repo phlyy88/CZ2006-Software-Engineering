@@ -7,16 +7,47 @@
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
                 :selectionSettings='selectionOptions'
-                :rowSelecting='rowSelecting'>
+                :rowSelecting='rowSelecting'
+                :rowSelected='onRowSelected'>
                 <e-columns>
                     <e-column field="location" headerText="Location" textAlign="Right" filter="columnFilterOptions"></e-column>
                     <!-- <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
                     <e-column field="district" headerText="District" filter="columnFilterOptions"></e-column>
                     <e-column field="flat_name" headerText="Flat name" filter="columnFilterOptions"></e-column>
                     <e-column field="expected_year_of_completion" headerText="Expected completion" filter="columnFilterOptions"></e-column>
-                    <e-column field="type" headerText="Type" filter="columnFilterOptions"></e-column>
+                    <e-column field="room_types" headerText="Room type" filter="columnFilterOptions"></e-column>
+                    <e-column field="2 room price" headerText="2-Room price" filter="columnFilterOptions"></e-column>
+                    <e-column field="4 room price" headerText="4-Room price" filter="columnFilterOptions"></e-column>
+                    <e-column field="room_types" headerText="Room type" filter="columnFilterOptions"></e-column>
+
                 </e-columns>
             </ejs-grid>
+        </div>
+                <div class="info-side">
+            <h3>Selected:</h3>
+            <b-card
+                title="Housing"
+                tag="Housing"
+                style="max-width: 20rem; width: 100%"
+                class="mb-2"
+            >
+                <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
+                <b-card-text>
+                    Name: {{ selectedOption.flat_name }}
+                    <br>
+                    2-Room Price: {{ selectedOption.two_room_flexi_39_to_40sqm_price_before_grants }}
+                    <br>
+                    4-Room Price: {{ selectedOption.four_room_price_before_grants }}                    
+                </b-card-text>
+                <b-button
+                    v-if="picURL!=='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                    variant="primary">
+                    Confirm Selection
+                </b-button>
+                <b-card-text v-if="cost!==null">
+                    Cost: {{ cost }}
+                </b-card-text>
+            </b-card>
         </div>
     </div>
 </template>
@@ -25,6 +56,7 @@
 import Vue from "vue"
 import { Filter } from '@syncfusion/ej2-vue-grids'
   export default {
+      props: ['this.selectedOption'],
     data() {
       return {
         housingArray: {},
@@ -38,7 +70,7 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
         selectionOptions: {
             type: 'Single'
         },
-        cTemplate: function() {
+        Template: function() {
             return { template: Vue.component('housingTemplate', {
                 template: '<div class="image"><img src="image"/></div>',
                 data: function() {
@@ -68,7 +100,10 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
                     this.$swal("Error", error.data.err.message, "error")
                 }
             }
-        }
+        },
+                onRowSelected(args) {
+            this.selectedOption = args.data
+            this.picURL = args.data.image_url}
     },
     provide: {
         grid: [Filter]

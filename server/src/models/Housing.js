@@ -42,11 +42,17 @@ const housingSchema = new Schema({
     two_room_flexi_47_to_48sqm_price_before_grants: {
         type: String
     },
+    "2 room price": {
+        type: Number
+    },
     no_of_3_room_units: {
         type: Number
     },
     three_room_price_before_grants: {
         type: String
+    },
+    "3 room price": {
+        type: Number
     },
     no_of_4_room_units: {
         type: Number
@@ -54,7 +60,13 @@ const housingSchema = new Schema({
     four_room_price_before_grants: {
         type: String
     },
+    "4 room price": {
+        type: Number
+    },
     no_of_5_room_units: {
+        type: Number
+    },
+    "5 room price": {
         type: Number
     },
     five_room_price_before_grants: {
@@ -65,9 +77,12 @@ const housingSchema = new Schema({
     },
     third_gen_price_before_grants: {
         type: String
+    },
+    "3 gen price": {
+        type: Number
     }
 })
 
-const Housing = mongoose.model("Housing", housingSchema, "housing") //create model
+const Housing = mongoose.model("Housing", housingSchema, "housing_bto") //create model
 
 module.exports = Housing
