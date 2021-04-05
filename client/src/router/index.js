@@ -47,6 +47,35 @@ Vue.use(VueRouter)
     name: 'housing',
     component: () => import('../components/Housing.vue')
   },
+    meta: {
+      requiresAuth: true
+    },
+  {
+    path: '/hdb-overview',
+    name: 'hdb-overview',
+    component: () => import('../components/HDB-Overview.vue')
+  }, 
+   {
+    path: '/hdb-filter',
+    name: 'hdb-filter',
+    component: () => import('../components/HDB-Filter.vue')
+  },
+  {
+    path: '/favourite',
+    name: 'favourite',
+    component: () => import('../components/Favourite.vue')
+  },
+  {
+    path: '/planning-page',
+    name: 'planning-page',
+    component: () => import('../components/PlanningPage.vue')
+  },
+  {
+    path: '/total-cost',
+    name: 'total-cost',
+    component: () => import('../components/TotalCost.vue')
+  }
+  
 ]
 
 const router = new VueRouter({
