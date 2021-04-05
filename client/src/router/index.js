@@ -33,7 +33,7 @@ Vue.use(VueRouter)
     component: () => import('../components/Childcare.vue'),
   },
   {
-    path: '/vehicle/',
+    path: '/vehicle',
     name: 'vehicle',
     component: () => import('../components/Vehicle.vue')
   },
@@ -46,6 +46,11 @@ Vue.use(VueRouter)
     path: '/housing',
     name: 'housing',
     component: () => import('../components/Housing.vue')
+  },
+  {
+    path: '/plan1',
+    name: 'plan1',
+    component: () => import('../components/Plan.vue')
   },
 ]
 

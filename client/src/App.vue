@@ -6,7 +6,6 @@
       </h1>
       <v-spacer></v-spacer>
       <v-btn depressed small class="pink white--text">
-      <!-- <v-icon left small>mdi-home</v-icon> -->
       <span>email me</span>
       </v-btn>
     </v-card-title>
@@ -14,7 +13,6 @@
     <v-tabs
       v-model="tab"
       background-color="transparent"
-      color="basil"
       grow
     >
     <v-tab to = "/childcare">Childcare</v-tab>
@@ -42,11 +40,5 @@ export default {
 </script>
 
 <style>
-/* Helper classes */
-.basil {
-  background-color: #FFFBE6 !important;
-}
-.basil--text {
-  color: #356859 !important;
-}
+
 </style>
