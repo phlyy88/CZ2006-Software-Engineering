@@ -126,6 +126,7 @@ export default {
                     }
                 }
             },
+        
         onCheckboxClicked: function(e) {
             console.log(e);
         },

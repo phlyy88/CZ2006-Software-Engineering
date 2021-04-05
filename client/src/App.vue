@@ -1,28 +1,4 @@
-<template>
-  <v-card color="basil">
-    <v-card-title class="vertical center py-6">
-      <h1 class="font-weight-bold display-3 basil--text">
-        Family Planning
-      </h1>
-      <v-spacer></v-spacer>
-      <v-btn depressed small class="pink white--text">
-      <!-- <v-icon left small>mdi-home</v-icon> -->
-      <span>email me</span>
-      </v-btn>
-    </v-card-title>
 
-    <v-tabs
-      v-model="tab"
-      background-color="transparent"
-      color="basil"
-      grow
-    >
-    <v-tab to = "/childcare">Childcare</v-tab>
-    </v-tabs>
-    <router-view></router-view>
-
-  </v-card>
-</template>
 
 <script>
 //import Navbar from '@/components/NavBar'
