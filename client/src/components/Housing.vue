@@ -18,8 +18,6 @@
                     <e-column field="room_types" headerText="Room type" filter="columnFilterOptions"></e-column>
                     <e-column field="2 room price" headerText="2-Room price" filter="columnFilterOptions"></e-column>
                     <e-column field="4 room price" headerText="4-Room price" filter="columnFilterOptions"></e-column>
-                    <e-column field="room_types" headerText="Room type" filter="columnFilterOptions"></e-column>
-
                 </e-columns>
             </ejs-grid>
         </div>
