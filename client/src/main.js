@@ -17,13 +17,13 @@ import 'vue-mdi/dist/mdi.css';
 
 import { GridPlugin } from "@syncfusion/ej2-vue-grids"
 import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns'
-import vuetify from './plugins/vuetify';
-import { VueMdi, library } from 'vue-mdi'
-import { mdiAccount } from '@mdi/js'
+// import vuetify from './plugins/vuetify';
+// import { VueMdi, library } from 'vue-mdi'
+// import { mdiAccount } from '@mdi/js'
 
-library.add({ mdiAccount })
+// library.add({ mdiAccount })
  
-Vue.component('vue-mdi', VueMdi)
+// Vue.component('vue-mdi', VueMdi)
  
 Vue.config.productionTip = false
 
@@ -44,6 +44,5 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  vuetify,
   render: h => h(App)
 }).$mount('#app')

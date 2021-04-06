@@ -71,7 +71,7 @@
                         this.$router.push("/mainpage")
                     }
                 } catch (err) {
-                    this.$swal("Error", "Something Went Wrong", "error")
+                    this.$swal("Error", "Invalid login credentials", "error")
                     console.log(err.response)
                 }
             }

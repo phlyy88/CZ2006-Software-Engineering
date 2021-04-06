@@ -15,6 +15,14 @@ Vue.use(VueRouter)
     component: () => import('../components/Register.vue')
   },
   {
+    path: '/edit-profile',
+    name: 'edit-profile',
+    component: () => import('../components/EditProfile.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/forgot-password',
     name: 'forgot-password',
     component: () => import('../components/ForgotPassword.vue')
@@ -36,11 +44,6 @@ Vue.use(VueRouter)
     path: '/vehicle',
     name: 'vehicle',
     component: () => import('../components/Vehicle.vue')
-  },
-  {
-    path: '/vehicle/:id',
-    name: 'vehicle_index',
-    component: () => import('../components/VehiclePage.vue')
   },
   {
     path: '/housing',

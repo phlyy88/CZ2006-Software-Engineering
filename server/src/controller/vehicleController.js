@@ -23,7 +23,7 @@ exports.calculateCost = async (req, res) => {
         const category = selectedVehicle.category
         console.log(category)
         const ves_cost = selectedVehicle.ves_cost
-        console.log(ves_cost)
+        
         const engine_capacity = selectedVehicle.engine_capacity
 
         const registration_fee = await Tax.registration_fee()
@@ -37,19 +37,35 @@ exports.calculateCost = async (req, res) => {
             excise_duty = omv * await Tax.excise_duty()
         }
         console.log("excise duty passed")
-
+        console.log(ves_cost)
         var ves
         if (ves_cost=="A1") {
             ves = await Tax.ves_a1()
-        } else if (ves_cost=="A2") {
-            ves = await Tax.ves_a2()
-        } else if (ves_cost=="B") {
-            ves = await Tax.ves_b()
-        } else if (ves_cost=="C1") {
-            ves = await Tax.ves_c1()
-        } else if (ves_cost=="C2") {
-            ves = await Tax.ves_C2()
         }
+        if (ves_cost=="A2") {
+            ves = await Tax.ves_a2()
+        }
+        if (ves_cost=="B") {
+            ves = await Tax.ves_b()
+        }
+        if (ves_cost=="C1") {
+            ves = await Tax.ves_c1()
+        }
+        if (ves_cost=="C2") {
+            ves = await Tax.ves_c2()
+        }
+            
+        // if (ves_cost=="A1") {
+        //     ves = await Tax.ves_a1()
+        // } else if (ves_cost=="A2") {
+        //     ves = await Tax.ves_a2()
+        // } else if (ves_cost=="B") {
+        //     ves = await Tax.ves_b()
+        // } else if (ves_cost=="C1") {
+        //     ves = await Tax.ves_c1()
+        // } else if (ves_cost=="C2") {
+        //     ves = await Tax.ves_C2()
+        // }
         console.log("ves passed")
 
         var arf
