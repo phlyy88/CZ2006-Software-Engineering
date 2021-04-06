@@ -103,9 +103,6 @@ export default {
       this.$router.push("/");
     },
   },
-  created() {
-    this.getUserDetails();
-  },
 };
 </script>
 
