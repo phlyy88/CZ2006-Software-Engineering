@@ -1,5 +1,6 @@
 <template>
     <div class="vertical-center">
+        <NavBar/>
         <div class="filter">
             <ejs-grid 
                 ref="grid"
@@ -12,11 +13,11 @@
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="category" headerText="Category" textAlign="Right" filter="columnFilterOptions"></e-column>
-                    <e-column field="brand" headerText="Brand" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column>
-                    <e-column field="name" headerText="Model" filter="columnFilterOptions"></e-column>
-                    <e-column field="passenger_capacity" headerText="Capacity" filter="columnFilterOptions"></e-column>
-                    <e-column field="omv" headerText="Price (SGD)" filter="columnFilterOptions"></e-column>
+                    <e-column field="category" headerText="Category" textAlign="Right" ></e-column>
+                    <e-column field="brand" headerText="Brand" filterTemplate="customTemplate" ></e-column>
+                    <e-column field="name" headerText="Model" :filter="columnFilterOptions"></e-column>
+                    <e-column field="passenger_capacity" headerText="Capacity" ></e-column>
+                    <e-column field="omv" headerText="Price (SGD)" :filter="columnFilterOptions"></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
@@ -93,14 +94,14 @@
 </template>
 
 <script>
-import { Filter } from '@syncfusion/ej2-vue-grids'
 import favBtn from './FavBtn'
+import { Filter } from "@syncfusion/ej2-vue-grids";
+import NavBar from "./NavBar.vue"
 export default {
-    name: 'Vehicle',
+    data() {
     components: {
         favBtn
     },
-    data() {
       return {
         text: "hello",
         picURL: "https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png",
@@ -110,15 +111,19 @@ export default {
         showPreviousCost: true,
         costBreakdown: {},
         filterOptions: {
-            type: 'Excel'
+            type: 'CheckBox'
         },
         columnFilterOptions: {
-            type: 'Checkbox'
+            type: 'Menu'
         },
         selectionOptions: {
-            type: 'Single'
+            type: 'Single',
+            enableToggle: true
         }
       }
+    },
+    components:{
+        NavBar
     },
     watch: {
         selectedOption: function (newSelectedOption) {
@@ -163,10 +168,10 @@ export default {
     provide: {
         grid: [Filter]
     },
-    mounted() {
-        this.getVehicleDetails();
-    }
-}
+  mounted() {
+    this.getVehicleDetails();
+  },
+};
 </script>
 
 <style>

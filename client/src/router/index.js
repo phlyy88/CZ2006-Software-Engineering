@@ -73,9 +73,10 @@ Vue.use(VueRouter)
     component: () => import('../components/PlanPage.vue')
   },
   {
-    path: '/plan/1',
-    name: 'plan1',
-    component: () => import('../components/Plan.vue')
+    path: '/plan/:index',
+    name: 'plan_index',
+    component: () => import('../components/Plan.vue'),
+    props: true
   },
 ]
 

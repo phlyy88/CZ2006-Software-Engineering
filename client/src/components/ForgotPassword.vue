@@ -2,6 +2,7 @@
     <div class="vue-template">
         <div class="vertical-center">
             <div class="inner-block">
+                <b-container>
                 <form>
                     <h3>Forgot Password</h3>
 
@@ -13,6 +14,7 @@
                     <button type="submit" class="btn btn-dark btn-lg btn-block">Reset password</button>
 
                 </form>
+                </b-container>
             </div>
         </div>
     </div>

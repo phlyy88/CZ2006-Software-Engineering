@@ -1,20 +1,12 @@
 <template>
-  <v-card color="basil">
+  <v-card>
     <v-card-title class="vertical center py-6">
       <h1 class="font-weight-bold display-3 basil--text">
         Family Planning
       </h1>
       <v-spacer></v-spacer>
-      
     </v-card-title>
 
-    <div>
-  <b-nav tabs justified>
-    <b-nav-item href= "/housing">Housing</b-nav-item>
-    <b-nav-item href= "/vehicle">Vehicle</b-nav-item>
-    <b-nav-item href= "/childcare">Childcare</b-nav-item>
-  </b-nav>
-</div>
     <router-view></router-view>
 
   </v-card>
