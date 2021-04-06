@@ -5,7 +5,6 @@
         Family Planning
       </h1>
       <v-spacer></v-spacer>
-      <b-button href = "/mainpage" variant = "outline-dark" style ="float:right;">Back to Mainpage</b-button>
     </v-card-title>
 
     <router-view></router-view>

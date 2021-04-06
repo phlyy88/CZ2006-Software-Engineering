@@ -38,11 +38,6 @@ Vue.use(VueRouter)
     component: () => import('../components/Vehicle.vue')
   },
   {
-    path: '/vehicle/:id',
-    name: 'vehicle_index',
-    component: () => import('../components/VehiclePage.vue')
-  },
-  {
     path: '/housing',
     name: 'housing',
     component: () => import('../components/Housing.vue')
@@ -53,19 +48,10 @@ Vue.use(VueRouter)
     component: () => import('../components/PlanPage.vue')
   },
   {
-    path: '/plan/1',
-    name: 'plan1',
-    component: () => import('../components/Plan1.vue')
-  },
-  {
-    path: '/plan/2',
-    name: 'plan2',
-    component: () => import('../components/Plan2.vue')
-  },
-  {
-    path: '/plan/3',
-    name: 'plan3',
-    component: () => import('../components/Plan3.vue')
+    path: '/plan/:index',
+    name: 'plan_index',
+    component: () => import('../components/Plan.vue'),
+    props: true
   },
 ]
 

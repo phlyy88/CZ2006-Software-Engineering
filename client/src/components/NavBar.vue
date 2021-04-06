@@ -2,11 +2,10 @@
     <div>
   <b-navbar toggleable="lg" type="light" variant="light">
       <b-navbar-brand href="/mainpage">
-          <strong>
+          <strong style="text-decoration: underline;">
               Plan for Your Future
             </strong>
           </b-navbar-brand>
-
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>

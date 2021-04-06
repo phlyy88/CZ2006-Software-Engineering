@@ -1,5 +1,6 @@
 <template>
     <div class="vertical-center">
+        <NavBar/>
         <div class="filter">
             <ejs-grid 
                 ref="grid"
@@ -91,6 +92,7 @@
 
 <script>
 import { Filter } from "@syncfusion/ej2-vue-grids";
+import NavBar from "./NavBar.vue"
 export default {
     data() {
       return {
@@ -112,6 +114,9 @@ export default {
             enableToggle: true
         }
       }
+    },
+    components:{
+        NavBar
     },
     watch: {
         selectedOption: function (newSelectedOption) {
