@@ -1,43 +1,101 @@
-/** This boundary @class implements the 
-showing of the different items for each 
-of the three plans.
-
-@author hao zhi  */
 <template>
-    <div class="plan">
-        <h3>{{ plan.item }}
-            <!-- @slot "Click to delete" button -->
-            <button @click="onDelete(plan.id)" style="background:transparent; border:transparent;">
-                <i class="fas fa-times"></i>
-            </button>
-        </h3>
-    </div>            
+  <div>
+    <b-container>
+      <div>
+        <b-card no-body class="overflow-hidden">
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-card-img
+                v-bind:src="HousingPicURL"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+            </b-col>
+            <b-col md="6">
+              <b-card-body title="Housing">
+                <b-card-text> Include Housing calculation </b-card-text>
+              </b-card-body>
+            </b-col>
+          </b-row>
+        </b-card>
+      </div>
+
+      <div style="margin-top: 20px">
+        <b-card no-body class="overflow-hidden">
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-card-img
+                v-bind:src="VehiclePicURL"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+            </b-col>
+            <b-col md="6">
+              <b-card-body title="Vehicle">
+                <b-card-text> Include Vehicle calculation </b-card-text>
+              </b-card-body>
+            </b-col>
+          </b-row>
+        </b-card>
+      </div>
+
+      <div style="margin-top: 20px">
+        <b-card no-body class="overflow-hidden">
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-card-img
+                v-bind:src="ChildcarePicURL"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+            </b-col>
+            <b-col md="6">
+              <b-card-body title="Childcare">
+                <b-card-text> Include Childcare calculation </b-card-text>
+              </b-card-body>
+            </b-col>
+          </b-row>
+        </b-card>
+      </div>
+
+      <div style="margin-top: 20px">
+        <b-card-group deck>
+          <b-card
+            header="Calculating cost for your plan"
+            header-tag="header"
+            title="Total Cost"
+          >
+            <b-card-text>{{ totalCosts }}</b-card-text>
+            <b-button @click="sumCosts" variant="primary">Calculate</b-button>
+          </b-card>
+        </b-card-group>
+      </div>
+    </b-container>
+  </div>
 </template>
 
 <script>
+import VueJwtDecode from "vue-jwt-decode";
 export default {
-    name: 'Plan',
-    props : {
-        plan: Object
+  data() {
+    return {
+      user: {},
+      totalCosts: null,
+      HousePicURL: null,
+      VehiclePicURL: null,
+      ChildcarePicURL:
+        "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
+    };
+  },
+  methods: {
+    getPlanDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
     },
-    methods: {
-        onDelete(id) {
-            this.$emit('delete-plan', id)
-        }
-    }
-}
+    sumCosts() {
+      this.totalCosts = 1000;
+    },
+  },
+};
 </script>
-
-<style>
-.fas {
-    color: red;
-    font-size: 70%;
-}
-.plan {
-    background: rgb(63, 207, 255);
-    margin:5px;
-    padding: 10px;
-    border: 4px solid darkblue;
-    border-radius: 25px;
-}
-</style>

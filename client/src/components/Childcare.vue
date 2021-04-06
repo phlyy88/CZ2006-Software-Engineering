@@ -36,7 +36,7 @@
             <h3>This is your selected option</h3>
             <b-card
                 title="Card Title"
-                img-src="https://picsum.photos/600/300/?image=25"
+                img-src="https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg"
                 img-alt="Image"
                 img-top
                 tag="article"

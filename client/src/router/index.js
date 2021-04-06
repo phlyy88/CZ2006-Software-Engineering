@@ -33,7 +33,7 @@ Vue.use(VueRouter)
     component: () => import('../components/Childcare.vue'),
   },
   {
-    path: '/vehicle/',
+    path: '/vehicle',
     name: 'vehicle',
     component: () => import('../components/Vehicle.vue')
   },
@@ -71,8 +71,17 @@ Vue.use(VueRouter)
     path: '/total-cost',
     name: 'total-cost',
     component: () => import('../components/TotalCost.vue')
-  }
-  
+  },
+  {
+    path: '/plan',
+    name: 'plan',
+    component: () => import('../components/PlanPage.vue')
+  },
+  {
+    path: '/plan/1',
+    name: 'plan1',
+    component: () => import('../components/Plan.vue')
+  },
 ]
 
 const router = new VueRouter({
