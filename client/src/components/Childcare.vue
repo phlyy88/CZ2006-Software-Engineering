@@ -1,4 +1,15 @@
 <template>
+<v-app dark>
+<!-- <div class="home">
+    <h1>This is the homepage</h1>
+    <p class="red white--text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ipsam cupiditate in et libero blanditiis nam fuga beatae eum impedit officia temporibus voluptate error at aliquam, nobis architecto sunt atque?</p>
+    <p class="pink red--text lighten-3 text--darken-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam fugit rerum, magni beatae sapiente dolores consectetur ea laboriosam totam, nulla nemo atque veritatis quibusdam esse aliquid quaerat laborum id nihil!</p>
+    <h1 class="display-4">Massive display text</h1> 
+    <h4 class="display-1">Smaller display text</h4>
+    <p class="headline">this is a headline</p>
+    <p class="subheading">this is a sub-heading</p>
+    <p class="caption">this is a caption</p>
+  </div> -->
     <div class="vertical-center">
         <div class="filter">
             <ejs-grid 
@@ -12,8 +23,8 @@
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" filter="columnFilterOptions"></e-column>
-                    <!-- <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
+                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" filter="columnFilterOptions"></e-column>-->
+                    <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
                     <e-column field="level" headerText="Level" filter="columnFilterOptions"></e-column>
                     <e-column field="child_age" headerText="Age of Child" filter="columnFilterOptions"></e-column>
                     <e-column field="full_half_day" headerText="Full or Half Day" filter="columnFilterOptions"></e-column>
@@ -25,7 +36,7 @@
             <h3>This is your selected option</h3>
             <b-card
                 title="Card Title"
-                img-src="https://picsum.photos/600/300/?image=25"
+                img-src="https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg"
                 img-alt="Image"
                 img-top
                 tag="article"
@@ -39,6 +50,8 @@
             </b-card>
         </div>
     </div>
+<router-view></router-view>
+</v-app>
 </template>
 
 <script>
@@ -63,6 +76,7 @@
         async getChildcareDetails() {
             try {
                 this.childcareArray = await this.$http.get('childcare')
+                //await this.$http.get('childcare) means call the childcare.js in backend
             } catch (err) {
                 let error = err.response
                 if (error.status == 409) {
@@ -81,8 +95,53 @@
     },
     mounted() {
         this.getChildcareDetails();
-    }
+    },
+    UiCard(){
+
+    },
+    name: 'NavFilter',
+    props: {
+    filters: {
+      default: () => [],
+      type: Array,
+    },
+    },
+    //components:{VueSplitPane}
   }
+  export const UiCard = {
+      props: {
+          tag:{
+              default:'div',
+              type: String,
+          },
+      },
+      render(){
+          const Tag = this.tag;
+          return (
+            <Tag class="UiCard">
+                {this.$slots.default}
+            </Tag>
+          );
+      },
+  };
+
+  export const UiCardBody = {
+      props: {
+        tag: {
+            default: 'div',
+            type: String,
+        },
+      },
+      render() {
+        const Tag = this.tag;
+        return (
+            <Tag class="UiCard__body">
+                {this.$slots.default}
+            </Tag>
+        );
+      },
+  };
+
 </script>
 
 <style>
@@ -93,4 +152,5 @@
     padding: 10px;
     height: 500px;
 }
+
 </style>

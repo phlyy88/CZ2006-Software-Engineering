@@ -12,11 +12,11 @@
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="category" headerText="Category" textAlign="Right" filter="columnFilterOptions"></e-column>
-                    <e-column field="brand" headerText="Brand" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column>
-                    <e-column field="name" headerText="Model" filter="columnFilterOptions"></e-column>
-                    <e-column field="passenger_capacity" headerText="Capacity" filter="columnFilterOptions"></e-column>
-                    <e-column field="omv" headerText="Price (SGD)" filter="columnFilterOptions"></e-column>
+                    <e-column field="category" headerText="Category" textAlign="Right" ></e-column>
+                    <e-column field="brand" headerText="Brand" filterTemplate="customTemplate" ></e-column>
+                    <e-column field="name" headerText="Model" :filter="columnFilterOptions"></e-column>
+                    <e-column field="passenger_capacity" headerText="Capacity" ></e-column>
+                    <e-column field="omv" headerText="Price (SGD)" :filter="columnFilterOptions"></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { Filter } from '@syncfusion/ej2-vue-grids'
+import { Filter } from "@syncfusion/ej2-vue-grids";
 export default {
     data() {
       return {
@@ -102,13 +102,14 @@ export default {
         showPreviousCost: true,
         costBreakdown: {},
         filterOptions: {
-            type: 'Excel'
+            type: 'CheckBox'
         },
         columnFilterOptions: {
-            type: 'Checkbox'
+            type: 'Menu'
         },
         selectionOptions: {
-            type: 'Single'
+            type: 'Single',
+            enableToggle: true
         }
       }
     },
@@ -155,18 +156,31 @@ export default {
     provide: {
         grid: [Filter]
     },
-    mounted() {
-        this.getVehicleDetails();
-    }
-}
+  mounted() {
+    this.getVehicleDetails();
+  },
+};
 </script>
 
 <style>
 @import url("https://cdn.syncfusion.com/ej2/material.css");
 .e-resizable {
-    resize: both;
-    overflow: auto;
-    padding: 10px;
-    height: 500px;
+  resize: both;
+  overflow: auto;
+  padding: 10px;
+  height: 500px;
+}
+
+.filter {
+  height: 100%;
+  flex: 1 0 70%;
+}
+
+.info-side {
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 </style>

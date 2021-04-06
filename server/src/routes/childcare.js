@@ -3,5 +3,5 @@ const router = express.Router()
 const childcareController = require("../controller/childcareController")
 
 router.get("/", childcareController.getChildcareDetails)
-
-module.exports = router
+//localhost8080/api/childcare = use function getChildcareDetails
+module.exports = router;
