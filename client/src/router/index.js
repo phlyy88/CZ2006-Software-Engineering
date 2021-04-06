@@ -38,11 +38,6 @@ Vue.use(VueRouter)
     component: () => import('../components/Vehicle.vue')
   },
   {
-    path: '/vehicle/:id',
-    name: 'vehicle_index',
-    component: () => import('../components/VehiclePage.vue')
-  },
-  {
     path: '/housing',
     name: 'housing',
     component: () => import('../components/Housing.vue')

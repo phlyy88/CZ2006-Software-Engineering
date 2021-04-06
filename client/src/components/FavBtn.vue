@@ -14,9 +14,7 @@ import Housing from '../../../server/src/models/Housing.js'
 import User from '../../../server/src/models/User.js'
 
 import getUserDetails from './MainPage'
-import getChildcareDetails from './Childcare'
-import getHousingDetails from './Housing'
-import getVehicleDetails from './Vehicle'
+import onRowSelected from './Vehicle'
 export default {
     name: 'favBtn',
     props: {
@@ -36,15 +34,12 @@ export default {
         onClick() {
             try {
 				getUserDetails();
-			if (this.type=="housing") {
-				getHousingDetails;
-			}
-			if (this.type=="vehicle") {
-				getVehicleDetails;
-			}
-			if (this.type=="childcare") {
-				getChildcareDetails;
-			}
+                onRowSelected();
+			// if (this.object== user.plan) {
+			// 	getHousingDetails;
+			// }
+
+            
 			} catch (err) {
 				let error = err.response
 				if (error.status == 409) {
@@ -53,6 +48,9 @@ export default {
                     this.$swal("Error", error.data.err.message, "error")
                 }
 			}
+        },
+        colorChange() {
+            
         }
     }
 }
@@ -68,10 +66,10 @@ body {
     margin: 0
 }
 
-.button-div {
+/* .button-div {
     padding: 60px;
     position: relative
-}
+} */
 
 .fav-button {
     border: none;
@@ -88,8 +86,8 @@ body {
 }
 
 .fav-button i {
-    position: absolute;
-    left: 70px
+    /* position: relative;
+    left: 0px */
 }
 
 .fav-button:active i {

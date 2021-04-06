@@ -35,11 +35,14 @@
                     <br>
                     Price: {{ selectedOption.omv }}
                 </b-card-text>
-                <b-button
-                    variant="primary"
-                    v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
-                    v-b-toggle.sidebar-backdrop
-                    @click="calculateCost">Cost Breakdown</b-button>
+                <div class="wrapper">
+                    <b-button
+                        variant="primary"
+                        v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                        v-b-toggle.sidebar-backdrop
+                        @click="calculateCost">Cost Breakdown</b-button>
+                    <favBtn/>
+                </div>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -91,7 +94,12 @@
 
 <script>
 import { Filter } from '@syncfusion/ej2-vue-grids'
+import favBtn from './FavBtn'
 export default {
+    name: 'Vehicle',
+    components: {
+        favBtn
+    },
     data() {
       return {
         text: "hello",
@@ -168,5 +176,9 @@ export default {
     overflow: auto;
     padding: 10px;
     height: 500px;
+}
+.wrapper {
+    display: flex;
+    justify-content: space-around;
 }
 </style>

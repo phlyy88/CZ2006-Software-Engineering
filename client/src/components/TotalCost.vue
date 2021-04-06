@@ -66,7 +66,7 @@ the same plan
 
 <script>
 import getUserDetails from './MainPage'
-import User from '../../../server/src/models/User.js'
+import User from '../../../server/src/models/User'
 
     export default {
         name: 'TotalCost',
