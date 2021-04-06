@@ -28,7 +28,14 @@
         caption="Plan for your dream home"
         text="From resales to HDB. Get more information now :)"
         img-src="http://m1.sdimgs.com/sd_static/u/201312/52ac736ba8caa.jpg"
-      ></b-carousel-slide>
+      >
+      <button type = "button" class = "btn btn-primary btn-md" data-toggle="modal" data-target="#registerModal">
+        <h1>Create Account</h1>
+        <p1><i>Not registered yet?</i></p1>
+        </button>
+      <button type="button" class="btn btn-secondary -lg">Secondary</button>
+      
+      </b-carousel-slide>
 
       <b-carousel-slide
         caption="Plan for your dream vehicle"
@@ -49,61 +56,70 @@
 
   <!-- Footer Links -->
   <div class="container-fluid text-center text-md-left">
-
-    <!-- Grid row -->
     <div class="row">
-
-      <!-- Grid column -->
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <!-- Content -->
-        <h5 class="text-uppercase">Footer Content</h5>
-        <p>Here you can use rows and columns to organize your footer content.</p>
-
-      </div>
-      <!-- Grid column -->
-
       <hr class="clearfix w-100 d-md-none pb-3">
-
-      <!-- Grid column -->
       <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
+        <h5 class="text-uppercase">Housing</h5>
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Link 1</a>
+            <a href="https://www.hdb.gov.sg/residential/buying-a-flat/new/sales-launches/bto-sbf-open-booking">HDB BTO Government Site</a>
           </li>
         </ul>
-
       </div>
-      <!-- Grid column -->
-
-      <!-- Grid column -->
       <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
+        <h5 class="text-uppercase">Childcare</h5>
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Link 1</a>
+            <a href="https://www.ecda.gov.sg/pages/default.aspx">Early Childhood Development Agency</a>
           </li>
         </ul>
-
       </div>
-      <!-- Grid column -->
-
+      <div class="col-md-3 mb-md-0 mb-3">
+        <h5 class="text-uppercase">Childcare</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.ecda.gov.sg/pages/default.aspx">Early Childhood Development Agency</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!-- Grid row -->
-
   </div>
-  <!-- Footer Links -->
+
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Footer text</h5>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
+          aliquam voluptatem veniam, est atque cumque eum delectus sint!
+        </p>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Footer text</h5>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
+          aliquam voluptatem veniam, est atque cumque eum delectus sint!
+        </p>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+    <a> 10 Degrees</a>
   </div>
   <!-- Copyright -->
 
