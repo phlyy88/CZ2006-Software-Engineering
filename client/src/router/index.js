@@ -62,6 +62,11 @@ Vue.use(VueRouter)
     name: 'plan2',
     component: () => import('../components/Plan2.vue')
   },
+  {
+    path: '/plan/3',
+    name: 'plan3',
+    component: () => import('../components/Plan3.vue')
+  },
 ]
 
 const router = new VueRouter({

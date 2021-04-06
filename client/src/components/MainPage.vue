@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar />
     <h1>View your plans</h1>
     <div id="plans">
       <div>
@@ -80,6 +81,7 @@
 
 <script>
 import VueJwtDecode from "vue-jwt-decode";
+import NavBar from "./NavBar.vue"
 export default {
   data() {
     return {
@@ -91,6 +93,9 @@ export default {
       ChildcarePicURL:
         "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
     };
+  },
+  components:{
+    NavBar
   },
   methods: {
     getUserDetails() {
@@ -105,6 +110,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

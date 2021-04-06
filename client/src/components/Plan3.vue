@@ -1,7 +1,6 @@
 <template>
   <div>
-    <NavBar />
-    <h1 style = "text-align:center;">Plan 2</h1>
+      <h1 style = "text-align:center;">Plan 3</h1>
     <b-container>
       <div>
         <b-card no-body class="overflow-hidden">
@@ -78,7 +77,6 @@
 
 <script>
 import VueJwtDecode from "vue-jwt-decode";
-import NavBar from "./NavBar.vue"
 export default {
   data() {
     return {
@@ -89,9 +87,6 @@ export default {
       ChildcarePicURL:
         "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
     };
-  },
-  components:{
-    NavBar
   },
   methods: {
     getPlanDetails() {
