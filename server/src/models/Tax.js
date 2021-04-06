@@ -221,7 +221,7 @@ taxSchema.statics.application_submission = async function() {
     return application_submission.tax_amount
     }
 
-taxSchema.statics.downpayment = async function() {
+taxSchema.statics.downpayment= async function() {
     const downpayment = await Tax.findOne(
         { tax_name: "HDB Downpayment" },
         { tax_percentage: 1 }
@@ -229,9 +229,10 @@ taxSchema.statics.downpayment = async function() {
     return downpayment.tax_percentage
     }
 
+
 taxSchema.statics.option_fee_2room = async function() {
     const option_fee_2room = await Tax.findOne(
-        { tax_name: "Option Fee 2-room" },
+        { tax_name: "Option Fee 2Rm" },
         { tax_cost: 1 }
     )
     return option_fee_2room.tax_cost
@@ -239,7 +240,7 @@ taxSchema.statics.option_fee_2room = async function() {
 
 taxSchema.statics.option_fee_3room = async function() {
     const option_fee_3room = await Tax.findOne(
-        { tax_name: "Option Fee 3-room" },
+        { tax_name: "Option Fee 3Rm" },
         { tax_cost: 1 }
     )
     return option_fee_3room.tax_cost
@@ -247,11 +248,11 @@ taxSchema.statics.option_fee_3room = async function() {
 
 taxSchema.statics.option_fee_4room = async function() {
     const option_fee_4room = await Tax.findOne(
-        { tax_name: "Option Fee 4-room/5-room/executive" },
+        { tax_name: "Option Fee 4Rm" },
         { tax_cost: 1 }
     )
     return option_fee_4room.tax_cost
-    }    
+    }
 
 taxSchema.statics.stamp_duty_f180000 = async function() {
     const stamp_duty_180000 = await Tax.findOne(
@@ -269,7 +270,7 @@ taxSchema.statics.stamp_duty_n180000 = async function() {
     return stamp_duty_n180000.tax_percentage
     }    
     
-taxSchema.statics.stamp_duty_640000 = async function() {
+taxSchema.statics.stamp_duty_n640000 = async function() {
     const stamp_duty_640000 = await Tax.findOne(
         { tax_name: "Stamp duty next 640,000" },
         { tax_percentage: 1 }
@@ -311,7 +312,7 @@ taxSchema.statics.conveyance_fee_remain = async function() {
 
 taxSchema.statics.caveat_registration = async function() {
     const caveat_registration = await Tax.findOne(
-        { tax_name: "Conveyance fee" },
+        { tax_name: "Caveat registration fee" },
         { tax_amount: 1 }
     )
     return caveat_registration.tax_amount
@@ -324,6 +325,7 @@ taxSchema.statics.home_insurance = async function() {
     )
     return home_insurance.tax_amount
     }  
+
 
 const Tax = mongoose.model("Tax", taxSchema, "tax") //create model
 

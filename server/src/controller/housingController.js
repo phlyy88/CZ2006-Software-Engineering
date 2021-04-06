@@ -17,85 +17,56 @@ exports.getHousingDetails = async (req, res) => {
 
 exports.calculateCosthdb = async (req, res) => {
     try {
-        const selectedVehicle = req.body
+        const selectedhdb = req.body
         console.log(req.body)
-        const omv = selectedVehicle.omv
-        console.log(omv)
-        const category = selectedVehicle.category
-        console.log(category)
-        const ves_cost = selectedVehicle.ves_cost
-        console.log(ves_cost)
-        const engine_capacity = selectedVehicle.engine_capacity
+        const price = selectedhdb.price
+        console.log(price)
+        const flat_room = selectedhdb.flat_room
+        console.log(flat_room)
 
-        const registration_fee = await Tax.registration_fee()
-        const gst = omv * await Tax.gst()
-
-        var excise_duty
-        if (category=='D') {
-            excise_duty = omv * await Tax.excise_duty_D()
-        } else {
-            excise_duty = omv * await Tax.excise_duty()
+        const application_submission = await Tax.application_submission()
+        const downpayment = await Tax.downpayment()
+        const home_insurance_premium = await Tax.home_insurance_premium()
+        const caveat_registration = await Tax.caveat_registration()
+        
+        var option_fee
+        if (flat_room=="2 ROOM") {
+            option_fee = await Tax.option_fee_2room()
+        } else if (flat_room=="3 ROOM") {
+            option_fee = await Tax.option_fee_3room()
+        } else if (flat_room=='4 ROOM' || flat_room=="5 ROOM" || flat_room == "MULTI-GENERATION") {
+            option_fee = await Tax.option_fee_4room()
         }
 
-        var ves
-        if (ves_cost=="A1") {
-            ves = await Tax.ves_a1()
-        } else if (ves_cost=="A2") {
-            ves = await Tax.ves_a2()
-        } else if (ves_cost=='B') {
-            ves = await Tax.ves_b()
-        } else if (ves_cost=="C1") {
-            ves = await Tax.ves_c1()
-        } else if (ves_cost=="C2") {
-            ves = await Tax.ves_C2()
+        var stamp_duty
+        if (price <= 180000) {
+            stamp_duty = await Tax.stamp_duty_f180000() * price
+        } else if (price>180000 && price<=360000) {
+            stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + await Tax.stamp_duty_n180000() * (price-180000)
+        } else if (price>360000 && price<=1000000) {
+            stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + await Tax.stamp_duty_n640000() *(price-360000)
+        } else if (price>1000000) {
+            stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + (await Tax.stamp_duty_n640000() *640000) + (await Tax.stamp_duty_n640000() *(price-1000000))
+        }  
+
+        var conveyancefee
+        if (price <= 30000) {
+            conveyancefee = await Tax.conveyance_fee_f30000() * price/1000
+        } else if (price>30000 && price<=60000) {
+            conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * (price-30000)/1000)
+        } else if (price>60000) {
+            conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * 30) + (await Tax.conveyance_fee_remain() * (price-60000)/1000)
         }
 
-        var arf
-        if (omv <= 20000) {
-            arf = omv
-        } else if (omv>20000 && omv<=50000) {
-            arf = await Tax.by_OMV_ARF_2() * (omv-20000)
-            arf = arf + await Tax.by_OMV_ARF_1() * 20000
-        } else if (omv>50000) {
-            arf = await Tax.by_OMV_ARF_3() * (omv-50000)
-            arf = arf + await Tax.by_OMV_ARF_2() * (omv-20000 - (omv-50000))
-            arf = arf + await Tax.by_OMV_ARF_1() * 20000
-        }
-
-        var road_tax_percent, road_tax_flat
-        if (category=='D') {
-            if (engine_capacity<=200) {
-                road_tax_percent = await Tax.motor_percent_200()
-                road_tax_flat = await Tax.motor_flat_200()
-            } else {
-                road_tax_percent = await Tax.motor_percent_1000()
-                road_tax_flat = await Tax.motor_flat_1000()
-            }
-        } else {
-            if (engine_capacity<=600) {
-                road_tax_percent = await Tax.car_percent_600()
-                road_tax_flat = await Tax.car_flat_600()
-            } else if (engine_capacity>600 && engine_capacity<=1000) {
-                road_tax_percent = await Tax.car_percent_1000()
-                road_tax_flat = await Tax.car_flat_1000()
-            } else if (engine_capacity>1000 && engine_capacity<=1600) {
-                road_tax_percent = await Tax.car_percent_1600()
-                road_tax_flat = await Tax.car_flat_1600()
-            } else {
-                road_tax_percent = await Tax.car_percent_3000()
-                road_tax_flat = await Tax.car_flat_3000()
-            }
-        }
-
-        const road_tax = omv * road_tax_percent + road_tax_flat
 
         var cost_object = {
-            registration_fee: registration_fee, 
-            gst: gst,
-            excise_duty: excise_duty,
-            ves: ves,
-            arf: arf,
-            road_tax: road_tax
+            application_submission: application_submission, 
+            downpayment: downpayment,
+            option_fee: option_fee,
+            caveat_registration: caveat_registration,
+            home_insurance_premium: home_insurance_premium,
+            stamp_duty: stamp_duty,
+            conveyancefee: conveyancefee
         }
 
         res.status(201).json({ cost_object })

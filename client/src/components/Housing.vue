@@ -10,14 +10,12 @@
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="location" headerText="Location" textAlign="Right" filter="columnFilterOptions"></e-column>
-                    <!-- <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
-                    <e-column field="district" headerText="District" filter="columnFilterOptions"></e-column>
-                    <e-column field="flat_name" headerText="Flat name" filter="columnFilterOptions"></e-column>
-                    <e-column field="expected_year_of_completion" headerText="Expected completion" filter="columnFilterOptions"></e-column>
-                    <e-column field="room_types" headerText="Room type" filter="columnFilterOptions"></e-column>
-                    <e-column field="2 room price" headerText="2-Room price" filter="columnFilterOptions"></e-column>
-                    <e-column field="4 room price" headerText="4-Room price" filter="columnFilterOptions"></e-column>
+                    <e-column field="town" headerText="Town" textAlign="Right" filter="columnFilterOptions"></e-column>
+                    <e-column field="flat_type" headerText="Flat type" filter="columnFilterOptions"></e-column>
+                    <e-column field="flat_room" headerText="Number of rooms" filter="columnFilterOptions"></e-column>                    
+                    <e-column field="block" headerText="Flat name" filter="columnFilterOptions"></e-column>
+                    <e-column field="remaining_lease" headerText="Remaining lease" filter="columnFilterOptions"></e-column>
+                    <e-column field="price" headerText="Price" filter="columnFilterOptions"></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
@@ -31,17 +29,77 @@
             >
                 <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
                 <b-card-text>
-                    Name: {{ selectedOption.flat_name }}
+                    block: {{ selectedOption.flat_name }}
                     <br>
-                    2-Room Price: {{ selectedOption.two_room_flexi_39_to_40sqm_price_before_grants }}
+                    Price: {{ selectedOption.price }}
                     <br>
-                    4-Room Price: {{ selectedOption.four_room_price_before_grants }}                    
+                    Floor area (sqm): {{ selectedOption.floor_area_sqm }}
+                    <br>                    
+                    Flat type: {{ selectedOption.flat_type }}                    
+                    <br> 
+                    Remaining lease: {{ selectedOption.remaining_lease }}
+                    <br>
                 </b-card-text>
                 <b-button
                     v-if="picURL!=='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
-                    variant="primary">
-                    Confirm Selection
-                </b-button>
+                    v-b-toggle.sidebar-backdrop
+                    @click ="calculateCosthdb">Cost Breakdown</b-button>
+                <b-sidebar
+                    id="sidebar-backdrop"
+                    title="Cost Breakdown"
+                    :backdrop-variant="dark"
+                    backdrop
+                    right
+                    shadow>
+                    <div class="accordion" role="tablist">
+                        <b-card no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                            <b-button block v-b-toggle.accordion-1 variant="info">Fixed cost</b-button>
+                        </b-card-header>
+                        <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+                            <b-card-body>
+                            <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
+                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-text v-if="showPreviousCost">{{ hdbcostBreakdown.data }}</b-card-text>
+                            </b-card-body>
+                        </b-collapse>
+                        </b-card>
+
+                        <b-card no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                            <b-button block v-b-toggle.accordion-2 variant="info">3-room</b-button>
+                        </b-card-header>
+                        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+                            <b-card-body>
+                            <b-card-text>{{ text }}</b-card-text>
+                            </b-card-body>
+                        </b-collapse>
+                        </b-card>
+
+                        <b-card no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                            <b-button block v-b-toggle.accordion-2 variant="info">4-room</b-button>
+                        </b-card-header>
+                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+                            <b-card-body>
+                            <b-card-text>{{ text }}</b-card-text>
+                            </b-card-body>
+                        </b-collapse>
+                        </b-card>
+
+                        <b-card no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                            <b-button block v-b-toggle.accordion-3 variant="info">5-room</b-button>
+                        </b-card-header>
+                        <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
+                            <b-card-body>
+                            <b-card-text>{{ text }}</b-card-text>
+                            </b-card-body>
+                        </b-collapse>
+                        </b-card>
+                    </div>
+                </b-sidebar>
+
                 <b-card-text v-if="cost!==null">
                     Cost: {{ cost }}
                 </b-card-text>
@@ -59,6 +117,9 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
       return {
         housingArray: {},
         selectedOption: {},
+        isCalculating: false,
+        showPreviousCost: true,
+        hdbcostBreakdown: {},
         filterOptions: {
             type: 'Excel'
         },
@@ -86,6 +147,11 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
         pageSettings: { pageSize: 10 }
       }
     },
+    watch: {
+        selectedOption: function (newSelectedOption) {
+            this.selectedOption = newSelectedOption
+        }
+    },    
     methods: {
        async getHousingDetails() {
             try {
@@ -99,10 +165,27 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
                 }
             }
         },
-                onRowSelected(args) {
+        onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url}
     },
+        async calculateCosthdb() {
+            try {
+                this.isCalculating = true
+                this.showPreviousCost = false
+                this.hdbcostBreakdown= await this.$http.post('housing/hdbcostBreakdown', this.selectedOption)
+                this.showPreviousCost = true
+                this.isCalculating = false
+                console.log(this.hdbcostBreakdown)
+            } catch (err) {
+                let error = err.response
+                if (error.status == 409) {
+                    this.$swal("Error", error.data.message, "error")
+                } else {
+                    this.$swal("Error", error.data.err.message, "error")
+                }
+            }
+        },
     provide: {
         grid: [Filter]
     },
