@@ -10,5 +10,6 @@ db.users = require("./User")(mongoose)
 db.childcare = require("./Childcare")(mongoose)
 db.vehicle = require("./Vehicle")(mongoose)
 db.housing = require("./Housing")(mongoose)
+db.tax = require("./Tax")(mongoose)
 
 module.exports = db

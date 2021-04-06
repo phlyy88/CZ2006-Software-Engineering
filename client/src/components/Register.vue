@@ -1,6 +1,6 @@
 <template>
     <div class="vue-template">
-        <div style="padding-top:300px;" class="vertical-center"> <!-- padding for navbar -->
+        <div class="vertical-center"> <!-- padding for navbar -->
             <div class="inner-block">
                 <form @submit.prevent="registerUser">
                     <h3>Sign Up</h3>

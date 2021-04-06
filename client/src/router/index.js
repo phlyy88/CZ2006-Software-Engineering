@@ -30,7 +30,7 @@ Vue.use(VueRouter)
   {
     path: '/childcare',
     name: 'childcare',
-    component: () => import('../components/Childcare.vue')
+    component: () => import('../components/Childcare.vue'),
   },
   {
     path: '/vehicle/',
