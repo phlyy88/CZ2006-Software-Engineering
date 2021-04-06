@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 style = "text-align:center;">Plan 2</h1>
     <b-container>
       <div>
         <b-card no-body class="overflow-hidden">
@@ -92,7 +93,11 @@ export default {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
+      //Get user Plan1 
     },
+    getHousingCost(){},
+    getVehicleCost(){},
+    getChilcareCost(){},
     sumCosts() {
       this.totalCosts = 1000;
     },

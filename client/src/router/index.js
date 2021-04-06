@@ -55,7 +55,12 @@ Vue.use(VueRouter)
   {
     path: '/plan/1',
     name: 'plan1',
-    component: () => import('../components/Plan.vue')
+    component: () => import('../components/Plan1.vue')
+  },
+  {
+    path: '/plan/2',
+    name: 'plan2',
+    component: () => import('../components/Plan2.vue')
   },
 ]
 

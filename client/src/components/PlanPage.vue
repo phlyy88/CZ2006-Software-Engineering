@@ -13,12 +13,25 @@
               image-top
             >
               <b-list-group flush>
-                <b-list-group-item>Housing Choice</b-list-group-item>
-                <b-list-group-item>VehicleChoice</b-list-group-item>
-                <b-list-group-item>ChildcareChoice</b-list-group-item>
+                <b-list-group-item v-if="housing">Housing Choice</b-list-group-item>
+                <b-list-group style="margin-top: 20px" v-else >
+                <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
+                </b-list-group>
+                <b-list-group-item v-if="vehicle">VehicleChoice</b-list-group-item>
+                <b-list-group style="margin-top: 20px" v-else >
+                <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
+                </b-list-group>
+                <b-list-group-item v-if="childcare">ChildcareChoice</b-list-group-item>
+                <b-list-group style="margin-top: 20px" v-else >
+                <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
+                </b-list-group>
               </b-list-group>
 
-              <b-button href="/plan/1" variant="outline-primary"
+              <b-button 
+              style="margin-top: 20px" 
+              href="/plan/1" 
+              variant="outline-primary"
+              v-if="housing || vehicle|| childcare"
                 >View Plan</b-button
               >
             </b-card>
@@ -38,6 +51,7 @@
                     <br>
                     Display info
                 </b-list-group-item>
+                <b-list-group-item>Housing Choice</b-list-group-item>
                 <b-list-group-item>VehicleChoice</b-list-group-item>
                 <b-list-group-item>ChildcareChoice</b-list-group-item>
               </b-list-group>
@@ -73,7 +87,7 @@ export default {
     data(){
         return{
             user: null,
-            housing:null,
+            housing: null,
             vehicle: null,
             childcare: null
         }
