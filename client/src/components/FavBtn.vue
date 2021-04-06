@@ -1,136 +1,122 @@
 <template>
-    <div class = "wrapper">
-        <h4>Add to favourites</h4>
-        <!-- @slot "Add to favourites" button -->
-        <div class="click">
-            <span class="fa fa-star-o"></span>
-            <div class="ring"></div>
-            <div class="ring2"></div>
-            <p class="info">Added to favourites!</p>
-        </div>
-    </div>
+	<div class="button-div"> 
+		<button class="fav-button"> 
+			<i class="fa fa-star"></i> 
+			<span>Favorites</span> 
+		</button> 
+	</div>
 </template>
 
 <script>
+import Childcare from '../../../server/src/models/Childcare.js'
+import Vehicle from '../../../server/src/models/Vehicle.js'
+import Housing from '../../../server/src/models/Housing.js'
+import User from '../../../server/src/models/User.js'
+
+import getUserDetails from './MainPage'
+import getChildcareDetails from './Childcare'
+import getHousingDetails from './Housing'
+import getVehicleDetails from './Vehicle'
 export default {
-    name: 'Button',
+    name: 'favBtn',
     props: {
         text: String,
         color: String,
+		type: String
     },
+	data() {
+		return {
+			user: User,
+			childcare: Childcare,
+			vehicle: Vehicle,
+			housing: Housing
+		}
+	},
     methods: {
         onClick() {
-            console.log('clicking')
+            try {
+				getUserDetails();
+			if (this.type=="housing") {
+				getHousingDetails;
+			}
+			if (this.type=="vehicle") {
+				getVehicleDetails;
+			}
+			if (this.type=="childcare") {
+				getChildcareDetails;
+			}
+			} catch (err) {
+				let error = err.response
+				if (error.status == 409) {
+                    this.$swal("Error", error.data.message, "error")
+                } else {
+                    this.$swal("Error", error.data.err.message, "error")
+                }
+			}
         }
     }
 }
 </script>
 
 <style>
-@import url(//fonts.googleapis.com/css?family=Open+Sans:600,400&subset=latin,cyrillic);
-h4 {
-	text-align: center;
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 400;
-	opacity: 0.7;
-}
-
-.click {
-	font-size: 33px;
-	color: rgba(0,0,0,.5);
-	width: 38px;
-	height: 38px;
-	margin: 0 auto;
-	margin-top: 20px;
-	position: relative;
-	cursor: pointer;
-}
-
 body {
-	padding-top: 20px;
-}
-
-.click span {
-	margin-left: 4px;
-	margin-top: 3px;
-	z-index: 999;
-	position: absolute;
-}
-
-span:hover {
-	opacity: 0.8;
-}
-
-span:active {
-	transform: scale(0.93,0.93) translateY(2px)
-}
-
-.ring, .ring2 {
-	opacity: 0;
-	background: grey;
-	width: 1px;
-	height: 1px;
-	position: absolute;
-	top: 19px;
-	left: 18px;
-	border-radius: 50%;
-	cursor: pointer;
-}
-
-.active span, .active-2 span {
-	color: #F5CC27 !important;
-}
-
-.active-2 .ring {
-	width: 58px !important;
-	height: 58px !important;
-	top: -10px !important;
-	left: -10px !important;
-	position: absolute;
-	border-radius: 50%;
-	opacity: 1 !important;
-}
-
-.active-2 .ring {
-	background: #F5CC27 !important;
-}
-
-.active-2 .ring2 {
-	background: #fff !important;
-}
-
-.active-3 .ring2 {
-	width: 60px !important;
-	height: 60px !important;
-	top: -11px !important;
-	left: -11px !important;
-	position: absolute;
-	border-radius: 50%;
-	opacity: 1 !important;
-}
-
-.info {
-	font-family: 'Open Sans', sans-serif;
-	font-size: 12px;
-	font-weight: 600;
-	text-transform: uppercase;
-	white-space: nowrap;
-	color: grey;
-	position: relative;
-	top: 30px;
-	left: -46px;
-	opacity: 0;
-	transition: all 0.3s ease;
-}
-
-.info-tog {
-	color: #F5CC27;
-	position: relative;
-	top: 45px;
-	opacity: 1;
+    background-color: #eee
 }
 
 * {
-	transition: all .32s ease;
+    padding: 0;
+    margin: 0
+}
+
+.button-div {
+    padding: 60px;
+    position: relative
+}
+
+.fav-button {
+    border: none;
+    height: 40px;
+    width: 120px; 
+    font-size: 15px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.fav-button i {
+    position: absolute;
+    left: 70px
+}
+
+.fav-button:active i {
+    animation: item 1s ease-in forwards
+}
+
+@keyframes item {
+    0% {
+        top: 20%;
+        color: #000
+    }
+
+    25% {
+        top: 60%;
+        color: #000
+    }
+
+    50% {
+        top: 100%
+    }
+
+    75% {
+        top: 60%
+    }
+
+    0% {
+        top: 0%
+    }
 }
 </style>

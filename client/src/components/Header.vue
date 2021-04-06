@@ -17,8 +17,8 @@ export default {
     background-color: rgb(122, 153, 163);
     border-radius: 8px;
     border: 4px solid darkblue;
-    width: 30%;
-    margin-left: 35%;
+    width: 70%;
+    margin-left: 15%;
     font-size: 2vw;
     color: rgb(0, 0, 100);
 }

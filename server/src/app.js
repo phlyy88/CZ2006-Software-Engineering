@@ -36,6 +36,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //     process.exit();
 //   });
 
+const userRoutes = require('./routes/user')
+app.use('/user', userRoutes)
+
+const planRoutes = require('./routes/plans')
+app.use('/plans', planRoutes)
+
+// const User = require('./models/User') //import declared user schema
+// const mongoose = require("mongoose")
+// mongoose.Promise = global.Promise;
+// const MongoClient = require('mongodb').MongoClient
+
+// MongoClient.connect('mongodb+srv://GQ:cz2006trial@cluster0.pbint.mongodb.net/test', { useUnifiedTopology: true })
+// .then(client => {
+//     console.log('Connected to Database')
+//     const users_db = client.db('users')
+//     const users_coll = users_db.collection('users')
+
+//     users_coll.find().toArray()
+//             .then(results => {
+//                 console.log(results)
+//             })
+// })
 const mongoose = require("mongoose");
 mongoose.set("useCreateIndex", true);
 mongoose
@@ -47,8 +69,6 @@ mongoose
     console.log({ database_error: err });
   });
 
-const userRoutes = require('./routes/user')
-app.use('/api/user', userRoutes)
 const childcareRoutes = require('./routes/childcare')
 app.use('/api/childcare', childcareRoutes)
 const vehicleRoutes = require('./routes/vehicle')

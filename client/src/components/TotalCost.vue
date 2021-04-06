@@ -65,61 +65,27 @@ the same plan
 
 
 <script>
-//import PlansVue from './Plans.vue'
+import getUserDetails from './MainPage'
+import User from '../../../server/src/models/User.js'
+
     export default {
+        name: 'TotalCost',
+        components: {
+            // User,
+        },
         data() {
             return {
+                user: User,
                 scrollSelect: 'int',
-                housingArray: {},
-                vehicleArray: {},
-                childcareArray: {},
-                DisplayVehicleTax: 'int',
-                DisplayHousingGrant: 'int',
-                DisplayChildcareGrant: 'int',
+                // housingArray: {},
+                // vehicleArray: {},
+                // childcareArray: {},
+                // DisplayVehicleTax: 'int',
+                // DisplayHousingGrant: 'int',
+                // DisplayChildcareGrant: 'int',
             }
         },
         methods: {
-            //get housing/vehicle/childcare info from user data
-            //according to plan number (planSelect)
-            getPlanHousing(planSelect) {
-                try {
-                    //check if the plan is the selected one
-                    if (this.$http.get('housing') == planSelect) {
-                        this.housingArray = this.$http.get('housing')
-                    }                
-                } catch (err) {
-                    let error = err.response
-                    if (error.status == 409) {
-                        this.$swal("Error", error.data.message, "error")
-                    } else {
-                        this.$swal("Error", error.data.err.message, "error")
-                    }
-                }
-            },
-            getPlanVehicle() {
-                try {
-                    this.vehicleArray = this.$http.get('vehicle')
-                } catch (err) {
-                    let error = err.response
-                    if (error.status == 409) {
-                        this.$swal("Error", error.data.message, "error")
-                    } else {
-                        this.$swal("Error", error.data.err.message, "error")
-                    }
-                }
-            },
-            getPlanChildcare() {
-                try {
-                    this.childcareArray = this.$http.get('childcare')
-                } catch (err) {
-                    let error = err.response
-                    if (error.status == 409) {
-                        this.$swal("Error", error.data.message, "error")
-                    } else {
-                        this.$swal("Error", error.data.err.message, "error")
-                    }
-                }
-            },
             getVehicleTax() {
 
             },
@@ -130,9 +96,6 @@ the same plan
 
             },
             getTotalCost() {
-                this.getPlanHousing()
-                this.getPlanVehicle()
-                this.getPlanChildcare()
                 this.getVehicleTax()
                 this.getHousingGrant()
                 this.getChildcareGrant()
@@ -142,9 +105,7 @@ the same plan
             }
         },
         mounted() {
-            this.getPlanHousing();
-            this.getPlanVehicle();
-            this.getPlanChildcare();
+            getUserDetails();
             this.getVehicleTax();
             this.getHousingGrant();
             this.getChildcareGrant();

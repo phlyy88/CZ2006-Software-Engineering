@@ -47,9 +47,6 @@ Vue.use(VueRouter)
     name: 'housing',
     component: () => import('../components/Housing.vue')
   },
-    meta: {
-      requiresAuth: true
-    },
   {
     path: '/hdb-overview',
     name: 'hdb-overview',
