@@ -168,9 +168,9 @@ export default {
     provide: {
         grid: [Filter]
     },
-  mounted() {
-    this.getVehicleDetails();
-  },
+    mounted() {
+        this.getVehicleDetails();
+    },
 };
 </script>
 

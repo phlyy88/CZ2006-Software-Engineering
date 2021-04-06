@@ -14,7 +14,7 @@ const userSchema = new Schema({
     firstName: {
         type: String
     },
-    lasttName: {
+    lastName: {
         type: String
     },
     gender: {
@@ -59,6 +59,7 @@ userSchema.methods.generateAuthToken = async function() {
 //this method search for a user by email and password.
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
+    
     if (!user) {
         throw new Error({ error: "Invalid login details" })
     }
@@ -66,7 +67,24 @@ userSchema.statics.findByCredentials = async (email, password) => {
     if (!isPasswordMatch) {
         throw new Error({ error: "Invalid login details" })
     }
+    
     return user
+}
+
+userSchema.statics.findByEmail = async (email) => {
+    const user = await User.findOne({ email })
+    return user
+}
+
+userSchema.statics.editProfile = async (req) => {
+    const filter = { email: req.email }
+    await User.updateOne(filter,
+        {
+            firstName: req.firstName,
+            lastName: req.lastName,
+            gender: req.gender,
+            dob: req.dob
+        })
 }
 
 const User = mongoose.model("User", userSchema, "user") //create model
