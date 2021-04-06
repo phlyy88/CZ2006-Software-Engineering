@@ -1,4 +1,3 @@
-
 <template>
 <div>
   <header>
@@ -11,11 +10,39 @@
   </nav>
   </header>
 
+ <main>
+    <b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="2000"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height= "720"
+      style="text-shadow: 1px 1px 2px #333;"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+      <b-carousel-slide
+        caption="Plan for your dream home"
+        text="From resales to HDB. Get more information now :)"
+        img-src="http://m1.sdimgs.com/sd_static/u/201312/52ac736ba8caa.jpg"
+      ></b-carousel-slide>
 
+      <b-carousel-slide
+        caption="Plan for your dream vehicle"
+        text="Find out cost breakdowns for your vehicle - including ARF, OMV etc. now :)"
+        img-src="https://www.topteny.com/wp-content/uploads/2015/09/Ciprian-Mihai-3.jpg"
+      ></b-carousel-slide>
 
-
-
-
+      <b-carousel-slide
+        caption="Plan for your child's future"
+        text="Find out cost and subsidies available at this one-stop destination"
+        img-src="https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg"
+      ></b-carousel-slide>
+    </b-carousel>
+  </main>
 
 <!-- Footer -->
 <footer class="page-footer font-small blue pt-4">
@@ -86,8 +113,6 @@
 </template>
 
 <script>
-//import Navbar from '@/components/NavBar'
-//import mdiVue from 'mdi-vue'
 export default {
   name: 'App',
   data () {
