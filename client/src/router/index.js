@@ -33,10 +33,6 @@ Vue.use(VueRouter)
     component: () => import('../components/Childcare.vue')
   },
   {
-    path: '/child', component: Child
-  },
-  {
-    path: '/vehicle',
     path: '/vehicle/',
     name: 'vehicle',
     component: () => import('../components/Vehicle.vue')
@@ -55,6 +51,11 @@ Vue.use(VueRouter)
     path:'/childcarev2',
     name:'childcarev2',
     component: () => import('../components/Childcarev2.vue')
+  },
+  {
+    path:'/registerpopup',
+    name:'registerpopup',
+    component:() => import('../components/RegisterPopup.vue')
   }
 ]
 

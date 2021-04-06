@@ -1,4 +1,5 @@
 <template>
+<v-card>
     <div class="vue-template">
         <div style="padding-top:300px;" class="vertical-center"> <!-- padding for navbar -->
             <div class="inner-block">
@@ -53,6 +54,7 @@
             </div>
         </div>
     </div>
+</v-card>
 </template>
 
 <script>
