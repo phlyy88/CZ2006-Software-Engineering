@@ -1,60 +1,63 @@
 <template>
-<v-card>
-    <div class="vue-template">
-        <div style="padding-top:300px;" class="vertical-center"> <!-- padding for navbar -->
-            <div class="inner-block">
-                <form @submit.prevent="registerUser">
-                    <h3>Sign Up</h3>
+<b-modal ref="reg-modal">
+      <div class="modal-body">
+            <form @submit.prevent="registerUser">
+                <h3>Sign Up</h3>
 
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input v-model="register.email" type="email" class="form-control" />
-                    </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input v-model="register.email" type="email" class="form-control" />
+                </div>
 
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input v-model="register.password" type="password" class="form-control" />
-                    </div>
-            
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input v-model="register.firstName" type="text" class="form-control"/>
-                    </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input v-model="register.password" type="password" class="form-control" />
+                </div>
+        
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input v-model="register.firstName" type="text" class="form-control"/>
+                </div>
 
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input v-model="register.lastName" type="text" class="form-control" />
-                    </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input v-model="register.lastName" type="text" class="form-control" />
+                </div>
 
-                    <div class="form-group">
-                        <label>Gender</label>
-                        <b-form-select v-model="register.gender" :options="register.genderOptions"></b-form-select>
-                        <p>Value: '{{ register.gender }}'</p>
-                    </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <b-form-select v-model="register.gender" :options="register.genderOptions"></b-form-select>
+                    <!-- <p>Selected: '{{ register.gender }}'</p> -->
+                </div>
 
-                    <div class="form-group">
-                        <label for="example-datepicker">Date of Birth</label>
-                        <b-form-datepicker v-model="register.dob" class="mb-2"></b-form-datepicker>
-                        <p>Value: '{{ register.dob }}'</p>
-                    </div>
+                <div class="form-group">
+                    <label for="example-datepicker">Date of Birth</label>
+                    <b-form-datepicker v-model="register.dob" class="mb-2"></b-form-datepicker>
+                    <!-- <p>Selected: '{{ register.dob }}'</p> -->
+                </div>
 
-                    <div class="form-group">
-                        <label>Annual Income</label>
-                        <b-form-select v-model="register.income" :options="register.incomeOptions"></b-form-select>
-                        <p>Value: '{{ register.income }}'</p>
-                    </div>
-
-                    <button class="btn btn-dark btn-lg btn-block" type="submit">Sign Up</button>
-
-                    <p class="forgot-password text-right">
-                        Already registered 
-                        <router-link :to="{name: 'login'}">sign in?</router-link>
-                    </p>
-                </form>
+                <div class="form-group">
+                    <label>Annual Income</label>
+                    <b-form-select v-model="register.income" :options="register.incomeOptions"></b-form-select>
+                    <!-- <p>Selected: '{{ register.income }}'</p> -->
+                </div>
+            </form>
             </div>
-        </div>
+
+    <div class="modal-footer">
+            <button type="button" 
+            class="btn btn-secondary"
+            @click="registerUser()">
+            Sign up
+            </button>
+            <!-- <button class="btn btn-light btn-lg btn-block" type="submit">Sign Up</button> -->
+                <p class="forgot-password text-right">
+                    Already registered? 
+                    <router-link :to="{name: 'login'}">Login</router-link>
+                </p>
     </div>
-</v-card>
+</b-modal>  
+
 </template>
 
 <script>
@@ -105,6 +108,9 @@
                         this.$swal("Error", error.data.err.message, "error")
                     }
                 }
+            },
+            show(){
+                this.$refs['reg-modal'].show();
             }
         }
     }
