@@ -43,7 +43,10 @@ Vue.use(VueRouter)
   {
     path: '/vehicle',
     name: 'vehicle',
-    component: () => import('../components/Vehicle.vue')
+    component: () => import('../components/Vehicle.vue'),
+        meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/housing',

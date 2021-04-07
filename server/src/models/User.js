@@ -27,6 +27,42 @@ const userSchema = new Schema({
     income: {
         type: Number
     },
+    plans: {
+        plan1: {
+            housing: {
+                type: Array
+            },
+            vehicle: {
+                type: Array
+            },
+            childcare :{
+                type: Array
+            }
+        },
+        plan2: {
+            housing: {
+                type: Array
+            },
+            vehicle: {
+                type: Array
+            },
+            childcare :{
+                type: Array
+            }
+        },
+        plan3: {
+            housing: {
+                type: Array
+            },
+            vehicle: {
+                type: Array
+            },
+            childcare :{
+                type: Array
+            }
+        }
+    }
+    ,
     tokens: [
         {
             token: {

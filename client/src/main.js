@@ -5,7 +5,7 @@ import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
-
+import Notifications from 'vue-notification'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/assets/css/main.css'
@@ -35,6 +35,7 @@ Vue.config.productionTip = false
 Vue.use(GridPlugin)
 Vue.use(DropDownListPlugin)
 Vue.use(VueSweetalert2)
+Vue.use(Notifications)
 
 const base = axios.create({
   baseURL: "http://localhost:8080/api"
