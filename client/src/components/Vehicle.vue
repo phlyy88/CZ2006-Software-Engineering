@@ -50,35 +50,63 @@
                     <div class="accordion" role="tablist">
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-1 variant="info">Accordion 1</b-button>
+                            <b-button block v-b-toggle.accordion-1 variant="info">Flat Costs</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
                             <b-card-body>
-                            <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
+                            <!-- <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text> -->
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">{{ costBreakdown.data }}</b-card-text>
+                            <b-card-text v-if="showPreviousCost">
+                                Registration Cost:
+                                <br>
+                                $ {{ costBreakdown.data.cost_object.registration_fee }}
+                                <br>
+                                Ves Subsidy/Cost:
+                                <br>
+                                $ {{ costBreakdown.data.cost_object.ves }}
+                            </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
 
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-2 variant="info">Accordion 2</b-button>
+                            <b-button block v-b-toggle.accordion-2 variant="info">Percentage Costs</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
-                            <b-card-text>{{ text }}</b-card-text>
+                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-text v-if="showPreviousCost">
+                                Additional Registration Fee (ARF):
+                                <br>
+                                {{ costBreakdown.data.cost_object.arf }}
+                                <br>
+                                GST (Flat price x GST rate):
+                                <br>
+                                $ {{ selectedOption.omv }} x {{ costBreakdown.data.cost_object.gst_perc }} = $ {{ costBreakdown.data.cost_object.gst.toFixed(2) }}
+                                <br>
+                                Road Tax (Flat road tax +  (Road tax rate x Flat price)):
+                                <br>
+                                $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
+                                <br>
+
+                                {{ costBreakdown.data }}
+                            </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
 
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-3 variant="info">Accordion 3</b-button>
+                            <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
-                            <b-card-text>{{ text }}</b-card-text>
+                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-text v-if="showPreviousCost">
+                                Total Cost:
+                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                            </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
@@ -88,7 +116,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import { Filter } from "@syncfusion/ej2-vue-grids";
 export default {
@@ -100,7 +127,19 @@ export default {
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
-        costBreakdown: {},
+        costBreakdown: {
+            "data" : {
+                "cost_object": {
+                    "registration_fee": 0,
+                    "gst": 0,
+                    "excise_duty": 0,
+                    "ves": 0,
+                    "arf": 0,
+                    "road_tax": 0,
+                    "total_cost": 0
+                }
+            }
+        },
         filterOptions: {
             type: 'CheckBox'
         },
