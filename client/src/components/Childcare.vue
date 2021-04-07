@@ -1,163 +1,82 @@
 <template>
+<v-app dark>
+<!-- <div class="home">
+    <h1>This is the homepage</h1>
+    <p class="red white--text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ipsam cupiditate in et libero blanditiis nam fuga beatae eum impedit officia temporibus voluptate error at aliquam, nobis architecto sunt atque?</p>
+    <p class="pink red--text lighten-3 text--darken-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam fugit rerum, magni beatae sapiente dolores consectetur ea laboriosam totam, nulla nemo atque veritatis quibusdam esse aliquid quaerat laborum id nihil!</p>
+    <h1 class="display-4">Massive display text</h1> 
+    <h4 class="display-1">Smaller display text</h4>
+    <p class="headline">this is a headline</p>
+    <p class="subheading">this is a sub-heading</p>
+    <p class="caption">this is a caption</p>
+  </div> -->
     <div class="vertical-center">
         <div class="filter">
             <ejs-grid 
                 ref="grid"
                 height='100%'
                 width='100%'
-                :dataSource="childcareArray.data" 
-                :allowFiltering='true' 
-                :filterSettings='filterOptions' 
+                :dataSource="childcareArray.data"
+                :allowFiltering="true"
+                :filterSettings='filterOptions'
                 :selectionSettings='selectionOptions'
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" ></e-column>
-                    <e-column field="level" headerText="Level" textAlign="Right" ></e-column>
-                    <e-column field="child_age" headerText="Age of Child" textAlign="Right" ></e-column>
-
+                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" filter="columnFilterOptions"></e-column>-->
+                    <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
+                    <e-column field="level" headerText="Level" filter="columnFilterOptions"></e-column>
+                    <e-column field="child_age" headerText="Age of Child" filter="columnFilterOptions"></e-column>
+                    <e-column field="full_half_day" headerText="Full or Half Day" filter="columnFilterOptions"></e-column>
+                    <e-column field="type" headerText="Type" filter="columnFilterOptions"></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
         <div class="info-side">
-            <h3>Selected:</h3>
+            <h3>This is your selected option</h3>
             <b-card
-                title="Childcare"
-                tag="chidlcare"
-                style="max-width: 20rem; width: 100%"
-                class="mb-2">
-                <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
+                title="Card Title"
+                img-src="https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg"
+                img-alt="Image"
+                img-top
+                tag="article"
+                style="max-width: 20rem;"
+                class="mb-2"
+            >
                 <b-card-text>
-                    Model: {{ selectedOption.name }}
-                    <br>
-                    Brand: {{ selectedOption.brand }}
-                    <br>
-                    Price: {{ selectedOption.omv }}
+                {{ selectedOption}}
                 </b-card-text>
-                <b-button
-                    variant="primary"
-                    v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
-                    v-b-toggle.sidebar-backdrop
-                    @click="calculateCost">Cost Breakdown</b-button>
-                <b-sidebar
-                    id="sidebar-backdrop"
-                    title="Cost Breakdown"
-                    :backdrop-variant="dark"
-                    backdrop
-                    right
-                    shadow>
-                    <div class="accordion" role="tablist">
-                        <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-1 variant="info">Flat Costs</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <!-- <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text> -->
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">
-                                Registration Cost:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.registration_fee }}
-                                <br>
-                                Ves Subsidy/Cost:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.ves }}
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
-                        </b-card>
-
-                        <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-2 variant="info">Percentage Costs</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">
-                                Additional Registration Fee (ARF):
-                                <br>
-                                {{ costBreakdown.data.cost_object.arf.toFixed(2) }}
-                                <br>
-                                GST (Flat price x GST rate):
-                                <br>
-                                $ {{ selectedOption.omv }} x {{ costBreakdown.data.cost_object.gst_perc }} = $ {{ costBreakdown.data.cost_object.gst.toFixed(2) }}
-                                <br>
-                                Road Tax (Flat road tax +  (Road tax rate x Flat price)):
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
-                                <br>
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
-                        </b-card>
-
-                        <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">
-                                Total Cost:
-                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
-                        </b-card>
-                    </div>
-                </b-sidebar>
+                <b-button href="#" variant="primary">Go somewhere</b-button>
             </b-card>
         </div>
     </div>
+<router-view></router-view>
+</v-app>
 </template>
+
 <script>
-import { Filter } from "@syncfusion/ej2-vue-grids";
-export default {
+  import { Filter, Page } from '@syncfusion/ej2-vue-grids'
+  export default {
     data() {
       return {
-        text: "hello",
-        picURL: "https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png",
         childcareArray: {},
-        selectedOption: {},
-        isCalculating: false,
-        showPreviousCost: true,
-        costBreakdown: {
-            "data" : {
-                "cost_object": {
-                    "registration_fee": 0,
-                    "gst": 0,
-                    "excise_duty": 0,
-                    "ves": 0,
-                    "arf": 0,
-                    "road_tax": 0,
-                    "total_cost": 0
-                }
-            }
-        },
+        selectedOption: null,
         filterOptions: {
-            type: 'CheckBox'
+            type: 'Excel'
         },
         columnFilterOptions: {
-            type: 'Menu'
+            type: 'Checkbox'
         },
         selectionOptions: {
-            type: 'Single',
-            enableToggle: true
+            type: 'Single'
         }
       }
     },
-    watch: {
-        selectedOption: function (newSelectedOption) {
-            this.selectedOption = newSelectedOption
-        }
-    },
     methods: {
-       async getChildcareDetails() {
+        async getChildcareDetails() {
             try {
                 this.childcareArray = await this.$http.get('childcare')
+                //await this.$http.get('childcare) means call the childcare.js in backend
             } catch (err) {
                 let error = err.response
                 if (error.status == 409) {
@@ -169,54 +88,69 @@ export default {
         },
         onRowSelected(args) {
             this.selectedOption = args.data
-            this.picURL = args.data.image_url
-        },
-        async calculateCost() {
-            try {
-                this.isCalculating = true
-                this.showPreviousCost = false
-                this.costBreakdown= await this.$http.post('vehicle/costBreakdown', this.selectedOption)
-                this.showPreviousCost = true
-                this.isCalculating = false
-                console.log(this.costBreakdown)
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
         }
     },
     provide: {
-        grid: [Filter]
+        grid: [Filter, Page]
     },
     mounted() {
         this.getChildcareDetails();
     },
-};
+    UiCard(){
+
+    },
+    name: 'NavFilter',
+    props: {
+    filters: {
+      default: () => [],
+      type: Array,
+    },
+    },
+    //components:{VueSplitPane}
+  }
+  export const UiCard = {
+      props: {
+          tag:{
+              default:'div',
+              type: String,
+          },
+      },
+      render(){
+          const Tag = this.tag;
+          return (
+            <Tag class="UiCard">
+                {this.$slots.default}
+            </Tag>
+          );
+      },
+  };
+
+  export const UiCardBody = {
+      props: {
+        tag: {
+            default: 'div',
+            type: String,
+        },
+      },
+      render() {
+        const Tag = this.tag;
+        return (
+            <Tag class="UiCard__body">
+                {this.$slots.default}
+            </Tag>
+        );
+      },
+  };
+
 </script>
 
 <style>
 @import url("https://cdn.syncfusion.com/ej2/material.css");
 .e-resizable {
-  resize: both;
-  overflow: auto;
-  padding: 10px;
-  height: 500px;
+    resize: both;
+    overflow: auto;
+    padding: 10px;
+    height: 500px;
 }
 
-.filter {
-  height: 100%;
-  flex: 1 0 70%;
-}
-
-.info-side {
-  flex: 0 0 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
 </style>
