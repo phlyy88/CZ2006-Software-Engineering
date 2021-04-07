@@ -30,8 +30,12 @@
                     </button> <!-- on click, call method "login" -->
 
                     <p class="forgot-password text-right mt-2 mb-4">
-                        <router-link to="/forgot-password">Forgot password ?</router-link>
+                        <router-link to="/forgot-password">Forgot password?</router-link>
+                        <br>
+                        New User? 
+                        <router-link to="/register">Register an Account</router-link>
                     </p>
+
 
                     <div class="social-icons">
                         <ul>
@@ -67,7 +71,7 @@
                         this.$router.push("/mainpage")
                     }
                 } catch (err) {
-                    this.$swal("Error", "Something Went Wrong", "error")
+                    this.$swal("Error", "Invalid login credentials", "error")
                     console.log(err.response)
                 }
             }

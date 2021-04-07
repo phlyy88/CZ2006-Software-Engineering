@@ -87,9 +87,9 @@ taxSchema.statics.car_percent_600 = async function() {
 taxSchema.statics.car_flat_600 = async function() {
     const car_flat_600 = await Tax.findOne(
         { tax_name: "Road Tax 600 Car" },
-        { tax_percentage: 1 }
+        { tax_cost: 1 }
     )
-    return car_flat_600.tax_percentage
+    return car_flat_600.tax_cost
 }
 
 taxSchema.statics.car_percent_1000 = async function() {
@@ -103,9 +103,9 @@ taxSchema.statics.car_percent_1000 = async function() {
 taxSchema.statics.car_flat_1000 = async function() {
     const car_flat_1000 = await Tax.findOne(
         { tax_name: "Road Tax 1000 Car" },
-        { tax_percentage: 1 }
+        { tax_cost: 1 }
     )
-    return car_flat_1000.tax_percentage
+    return car_flat_1000.tax_cost
 }
 
 taxSchema.statics.car_percent_1600 = async function() {
@@ -119,9 +119,9 @@ taxSchema.statics.car_percent_1600 = async function() {
 taxSchema.statics.car_flat_1600 = async function() {
     const car_flat_1600 = await Tax.findOne(
         { tax_name: "Road Tax 1600 Car" },
-        { tax_percentage: 1 }
+        { tax_cost: 1 }
     )
-    return car_flat_1600.tax_percentage
+    return car_flat_1600.tax_cost
 }
 
 taxSchema.statics.car_percent_3000 = async function() {
@@ -135,9 +135,9 @@ taxSchema.statics.car_percent_3000 = async function() {
 taxSchema.statics.car_flat_3000 = async function() {
     const car_flat_3000 = await Tax.findOne(
         { tax_name: "Road Tax 3000 Car" },
-        { tax_percentage: 1 }
+        { tax_cost: 1 }
     )
-    return car_flat_3000.tax_percentage
+    return car_flat_3000.tax_cost
 }
 
 taxSchema.statics.motor_percent_200 = async function() {
@@ -151,9 +151,9 @@ taxSchema.statics.motor_percent_200 = async function() {
 taxSchema.statics.motor_flat_200 = async function() {
     const motor_flat_200 = await Tax.findOne(
         { tax_name: "Road Tax 200 Motor" },
-        { tax_percentage: 1 }
+        { tax_cost: 1 }
     )
-    return motor_flat_200.tax_percentage
+    return motor_flat_200.tax_cost
 }
 
 taxSchema.statics.motor_percent_1000 = async function() {
@@ -167,9 +167,9 @@ taxSchema.statics.motor_percent_1000 = async function() {
 taxSchema.statics.motor_flat_1000 = async function() {
     const motor_flat_1000 = await Tax.findOne(
         { tax_name: "Road Tax 1000 Motor" },
-        { tax_percentage: 1 }
+        { tax_cost: 1 }
     )
-    return motor_flat_1000.tax_percentage
+    return motor_flat_1000.tax_cost
 }
 
 

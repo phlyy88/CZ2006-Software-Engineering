@@ -1,27 +1,33 @@
 <template>
-  <div class="vue-template">
-    <!-- Navigation -->
-    <nav class="navbar shadow bg-white rounded justify-content-end fixed-top">
-      <div class="container">
-        <a class="navbar-brand float-left">
-           10 Degrees
-        </a>
-        <ul class="nav navbar-nav flex-row float-right">
-          <li class="nav-item">
-            <router-link class="nav-link pr-3" to="/">Sign in</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="btn btn-outline-primary" to="/register">Sign up</router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <v-card>
+    <v-card-title class="vertical center py-6">
+      <h1 class="font-weight-bold display-3 basil--text">
+        Family Planning
+      </h1>
+      <v-spacer></v-spacer>
+      <b-button href = "/mainpage" variant = "outline-dark" style ="float:right;">Back to Mainpage</b-button>
+    </v-card-title>
 
-    <!-- Main -->
-    <div class="App">
-      <div class="vertical-center">
-          <router-view />
-      </div>
-    </div>
-  </div>
+    <router-view></router-view>
+
+  </v-card>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      tab: null,
+        items: [
+          'Houses', 'Vehicles', 'Childcares', 'Favourite Plans',
+        ],
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      }
+  },
+}
+</script>
+
+<style>
+
+</style>
