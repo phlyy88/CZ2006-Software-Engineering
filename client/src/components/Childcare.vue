@@ -89,52 +89,7 @@
     mounted() {
         this.getChildcareDetails();
     },
-    UiCard(){
-
-    },
-    name: 'NavFilter',
-    props: {
-    filters: {
-      default: () => [],
-      type: Array,
-    },
-    },
-    //components:{VueSplitPane}
   }
-  export const UiCard = {
-      props: {
-          tag:{
-              default:'div',
-              type: String,
-          },
-      },
-      render(){
-          const Tag = this.tag;
-          return (
-            <Tag class="UiCard">
-                {this.$slots.default}
-            </Tag>
-          );
-      },
-  };
-
-  export const UiCardBody = {
-      props: {
-        tag: {
-            default: 'div',
-            type: String,
-        },
-      },
-      render() {
-        const Tag = this.tag;
-        return (
-            <Tag class="UiCard__body">
-                {this.$slots.default}
-            </Tag>
-        );
-      },
-  };
-
 </script>
 
 <style>

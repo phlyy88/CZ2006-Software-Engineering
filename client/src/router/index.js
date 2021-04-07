@@ -6,13 +6,8 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'login',
-    component: () => import('../components/Login.vue')
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: () => import('../components/Register.vue')
+    name: 'startPage',
+    component: () => import('../components/StartPage.vue')
   },
   {
     path: '/edit-profile',
