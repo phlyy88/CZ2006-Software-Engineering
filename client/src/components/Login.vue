@@ -58,16 +58,11 @@
                     this.$swal("Error", "Invalid login credentials", "error")
                     console.log(err.response)
                 }
-            }
-        }
-      } catch (err) {
-        this.$swal("Error", "Something Went Wrong", "error");
-        console.log(err.response);
       }
     },
     showModal() {
       this.$refs["login-modal"].show();
     },
-  },
+
 };
 </script>
