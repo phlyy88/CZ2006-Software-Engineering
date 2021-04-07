@@ -12,156 +12,20 @@
   </nav>
   </header>
 
- <main>
-    <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="2000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height= "720"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
+    <router-view/>
 
-      <b-carousel-slide
-        caption="Plan for your dream home"
-        text="From resales to HDB. Get more information now :)"
-        img-src="http://m1.sdimgs.com/sd_static/u/201312/52ac736ba8caa.jpg"
-      >
-      <div>
-      <button type = "button" 
-      ref = "reg-button"
-      class = "btn btn-primary btn -small"
-      @click="showRegModal()" 
-      data-toggle="modal" 
-      data-target="#RegForm">
-        <p1><i>Not registered yet?</i></p1>
-        <h>Create Account</h>
-        </button>
-        <RegForm ref = "RegForm"/>
-      </div>
+          <!-- Grid column -->
+          <div class="col-md-3 mb-md-0 mb-3">
+            <!-- Links -->
+            <h5 class="text-uppercase">Links</h5>
 
-      <button
-      align="right"
-      ref = "login-button"
-      class="btn btn-secondary -lg"
-      @click="loginModal()"
-      data-toggle="modal"
-      data-target="#LoginForm"
-      >
-      <p1><i>Already have one?</i></p1>
-      <h>Login</h>
-      </button>
-      <LoginForm ref = "LoginForm"/>
-
-      </b-carousel-slide>
-
-<!-- Vehicle carousel slide -->
-      <b-carousel-slide
-        caption="Plan for your dream vehicle"
-        text="Find out cost breakdowns for your vehicle - including ARF, OMV etc. now :)"
-        img-src="https://www.topteny.com/wp-content/uploads/2015/09/Ciprian-Mihai-3.jpg"
-      >
-      <div>
-        <button type = "button" 
-        ref = "reg-button"
-        class = "btn btn-primary btn -small"
-        @click="showRegModal()" 
-        data-toggle="modal" 
-        data-target="#RegForm">
-        <p1><i>Not registered yet?</i></p1>
-        <h>Create Account</h>
-        </button>
-        <RegForm ref = "RegForm"/>
-      </div>
-
-      <button
-      align="right"
-      ref = "login-button"
-      class="btn btn-secondary -lg"
-      @click="loginModal()"
-      data-toggle="modal"
-      data-target="#LoginForm"
-      >
-      <p1><i>Already have one?</i></p1>
-      <h>Login</h>
-      </button>
-      <LoginForm ref = "LoginForm"/>
-      </b-carousel-slide>
-
-<!-- Childcare carousel slide -->
-      <b-carousel-slide
-        caption="Plan for your child's future"
-        text="Find out cost and subsidies available at this one-stop destination"
-        img-src="https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg"
-      >
-        <div>
-          <button type = "button" 
-          ref = "reg-button"
-          class = "btn btn-primary btn -small"
-          @click="showRegModal()" 
-          data-toggle="modal" 
-          data-target="#RegForm">
-          <p1><i>Not registered yet?</i></p1>
-          <h>Create Account</h>
-          </button>
-          <RegForm ref = "RegForm"/>
-      </div>
-
-      <button
-      align="right"
-      ref = "login-button"
-      class="btn btn-secondary -lg"
-      @click="loginModal()"
-      data-toggle="modal"
-      data-target="#LoginForm"
-      >
-      <p1><i>Already have one?</i></p1>
-      <h>Login</h>
-      </button>
-      <LoginForm ref = "LoginForm"/>
-
-      </b-carousel-slide>
-    </b-carousel>
-  </main>
-
-<!-- Footer -->
-<footer class="page-footer font-small blue pt-4">
-
-  <!-- Footer Links -->
-  <div class="container-fluid text-center text-md-left">
-    <div class="row">
-      <hr class="clearfix w-100 d-md-none pb-3">
-      <div class="col-md-3 mb-md-0 mb-3">
-        <h5 class="text-uppercase">Housing</h5>
-        <ul class="list-unstyled">
-          <li>
-            <a href="https://www.hdb.gov.sg/residential/buying-a-flat/new/sales-launches/bto-sbf-open-booking">HDB BTO Government Site</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-3 mb-md-0 mb-3">
-        <h5 class="text-uppercase">Childcare</h5>
-        <ul class="list-unstyled">
-          <li>
-            <a href="https://www.ecda.gov.sg/pages/default.aspx">Early Childhood Development Agency</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-3 mb-md-0 mb-3">
-        <h5 class="text-uppercase">Childcare</h5>
-        <ul class="list-unstyled">
-          <li>
-            <a href="https://www.ecda.gov.sg/pages/default.aspx">Early Childhood Development Agency</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!">Link 1</a>
+              </li>
+            </ul>
+          </div>
+          <!-- Grid column -->
 
   <!-- Grid container -->
   <div class="container p-4">
@@ -181,41 +45,15 @@
     </div>
     <!--Grid row-->
   </div>
-  <!-- Grid container -->
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a> 10 Degrees</a>
-  </div>
-  <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
-</div>
 </template>
 
 <script>
-import RegForm from "./components/Register";
-import LoginForm from './components/Login';
 export default {
-  name: 'App',
-  data () {
+  name: "App",
+  data() {
     return {
-      }
+    };
   },
-  methods:{
-    showRegModal(){
-      this.$refs.RegForm.show();
-    },
-    // showRegModal(){
-    //   this.$refs.RegForm.show();
-    // },
-    loginModal(){
-      this.$refs.LoginForm.showModal();
-    }
-  },
-  components:{
-    RegForm, LoginForm
-  }
-}
+};
 </script>
+

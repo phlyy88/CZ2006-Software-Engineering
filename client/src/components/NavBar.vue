@@ -1,62 +1,43 @@
 <template>
   <div>
-    <v-toolbar
-      dark
-      prominent
-      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <b-navbar toggleable="lg" type="light" variant="light" id = "navbar">
+      <b-navbar-brand href="/mainpage">
+        <strong style="text-decoration: underline">
+          Plan for Your Future
+        </strong>
+      </b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <v-toolbar-title>Vuetify</v-toolbar-title>
+      <b-collapse id="nav-collapse" is-nav>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-navbar-nav> </b-navbar-nav>
 
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-export</v-icon>
-      </v-btn>
-    </v-toolbar>
-      <v-card
-    class="mx-auto"
-    height="300"
-    width="300"
-  >
-    <v-navigation-drawer
-      absolute
-      dark
-      src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
-      width="100%"
-      permanent
-    >
-      <v-list>
-        <v-list-item
-          v-for="([icon, text], i) in items"
-          :key="i"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-  </v-card>
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <em>User</em>
+            </template>
+            <b-dropdown-item href="/editprofile">Edit Profile</b-dropdown-item>
+            <b-dropdown-item href="/plan">My Saved Plans</b-dropdown-item>
+            <b-dropdown-item @click="logUserOut">Sign Out</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
   </div>
 </template>
 
 <script>
 export default {
-  data() {},
-    items: [
-        ['mdi-email', 'Inbox'],
-        ['mdi-account-supervisor-circle', 'Supervisors'],
-        ['mdi-clock-start', 'Clock-in'],
-      ],
-}
+  data() {
+    return {};
+  },
+  methods: {
+    logUserOut() {
+      localStorage.removeItem("jwt");
+      this.$router.push("/");
+    },
+  },
+};
 </script>
-
-<style>
-</style>

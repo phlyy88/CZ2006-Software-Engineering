@@ -1,5 +1,5 @@
 <template>
-<b-modal ref="login-modal">
+<b-modal ref="login-modal" hide-footer>
     <div class="modal-body">
         <form @submit.prevent="loginUser">
             <h3>Sign In</h3>
@@ -22,22 +22,11 @@
                 />
             </div>
 
-            <button
+            <b-button
                 type="submit"
-                class="btn btn-dark btn-lg btn-block"
-            >Sign In
-            </button> <!-- on click, call method "login" -->
-
-            <!-- <p class="forgot-password text-right mt-2 mb-4">
-                <router-link to="/forgot-password">Forgot password ?</router-link>
-            </p> -->
-
-            <p class="forgot-password text-right mt-2 mb-4">
-                <router-link to="/forgot-password">Forgot password?</router-link>
-                <br>
-                New User? 
-                <router-link to="/register">Register an Account</router-link>
-            </p>
+                variant = "info"
+            ><p1 style = "color:white">Sign In</p1>
+            </b-button> <!-- on click, call method "login" -->
         </form>
     </div>    
 </b-modal>
@@ -64,7 +53,7 @@
                         this.$router.push("/mainpage")
                     }
                 } catch (err) {
-                    this.$swal("Error", "Something Went Wrong", "error")
+                    this.$swal("Error", "Invalid login credentials", "error")
                     console.log(err.response)
                 }
             },

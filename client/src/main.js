@@ -6,9 +6,9 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+//import 'bootstrap/dist/css/bootstrap.min.css'
 
-// import '@/assets/css/main.css'
+//import '@/assets/css/main.css'
 
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -18,13 +18,13 @@ import 'vue-mdi/dist/mdi.css';
 
 import { GridPlugin } from "@syncfusion/ej2-vue-grids"
 import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns'
-import vuetify from './plugins/vuetify';
-import { VueMdi, library } from 'vue-mdi'
-import { mdiAccount } from '@mdi/js'
+// import vuetify from './plugins/vuetify';
+// import { VueMdi, library } from 'vue-mdi'
+// import { mdiAccount } from '@mdi/js'
 
-library.add({ mdiAccount })
+// library.add({ mdiAccount })
  
-Vue.component('vue-mdi', VueMdi)
+// Vue.component('vue-mdi', VueMdi)
  
 Vue.config.productionTip = false
 
@@ -45,6 +45,5 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  vuetify,
   render: h => h(App)
 }).$mount('#app')

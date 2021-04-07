@@ -6,51 +6,73 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'login',
-    component: () => import('../components/Login.vue')
+    name: 'startPage',
+    component: () => import('../components/StartPage.vue')
   },
   {
-    path: '/register',
-    name: 'register',
-    component: () => import('../components/Register.vue')
+    path: '/edit-profile',
+    name: 'edit-profile',
+    component: () => import('../components/EditProfile.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/forgot-password',
     name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue')
+    component: () => import('../components/ForgotPassword.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/mainpage',
     name: 'mainpage',
     component: () => import('../components/MainPage.vue'),
-    // meta: {
-    //   requiresAuth: true
-    // }
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/childcare',
     name: 'childcare',
-    component: () => import('../components/Childcare.vue')
+    component: () => import('../components/Childcare.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
-    path: '/vehicle/',
+    path: '/vehicle',
     name: 'vehicle',
-    component: () => import('../components/Vehicle.vue')
-  },
-  {
-    path: '/vehicle/:id',
-    name: 'vehicle_index',
-    component: () => import('../components/VehiclePage.vue')
+    component: () => import('../components/Vehicle.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/housing',
     name: 'housing',
-    component: () => import('../components/Housing.vue')
+    component: () => import('../components/Housing.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
-    path:'/childcarev2',
-    name:'childcarev2',
-    component: () => import('../components/Childcarev2.vue')
+    path: '/plan',
+    name: 'plan',
+    component: () => import('../components/PlanPage.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/plan/:index',
+    name: 'plan_index',
+    component: () => import('../components/Plan.vue'),
+    meta: {
+      requiresAuth: true
+    },
+    props: true
   },
 ]
 

@@ -1,15 +1,17 @@
 <template>
-<v-app dark>
     <div class="vertical-center">
-        <div id="filter-container" class="e-resizable">
+        <NavBar/>
+        <div class="filter">
             <ejs-grid 
                 ref="grid"
-                :dataSource="childcareArray.data" 
-                :allowFiltering="true" 
-                :filterSettings='filterOptions' 
+                height='100%'
+                width='100%'
+                :dataSource="childcareArray.data"
+                :allowFiltering="true"
+                :filterSettings='filterOptions'
                 :selectionSettings='selectionOptions'
-                :rowSelecting='rowSelecting'>
-            Filter box with the HDB characteristics for users to narrow down their search. Need to update the column values using the HDB data. -->
+                :rowSelecting='rowSelecting'
+                :rowSelected='onRowSelected'>
                 <e-columns>
                     <e-column field="childcare_organization" headerText="Organization" textAlign="Right" filter="columnFilterOptions"></e-column>-->
                     <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
@@ -20,18 +22,35 @@
                 </e-columns>
             </ejs-grid>
         </div>
+        <div class="info-side">
+            <h3>This is your selected option</h3>
+            <b-card
+                title="Card Title"
+                img-src="https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg"
+                img-alt="Image"
+                img-top
+                tag="article"
+                style="max-width: 20rem;"
+                class="mb-2"
+            >
+                <b-card-text>
+                {{ selectedOption}}
+                </b-card-text>
+                <b-button href="#" variant="primary">Go somewhere</b-button>
+            </b-card>
+        </div>
     </div>
-<router-view></router-view>
-</v-app>
+
 </template>
 
 <script>
-import { Filter } from '@syncfusion/ej2-vue-grids'
+  import { Filter, Page } from '@syncfusion/ej2-vue-grids'
+  import NavBar from './NavBar.vue'
   export default {
     data() {
       return {
         childcareArray: {},
-        selectedOption: {},
+        selectedOption: null,
         filterOptions: {
             type: 'Excel'
         },
@@ -40,12 +59,14 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
         },
         selectionOptions: {
             type: 'Single'
-        },
-        pageSettings: { pageSize: 10 }
+        }
       }
     },
+    components:{
+        NavBar
+    },
     methods: {
-       async getChildcareDetails() {
+        async getChildcareDetails() {
             try {
                 this.childcareArray = await this.$http.get('childcare')
                 //await this.$http.get('childcare) means call the childcare.js in backend
@@ -57,10 +78,13 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
                     this.$swal("Error", error.data.err.message, "error")
                 }
             }
+        },
+        onRowSelected(args) {
+            this.selectedOption = args.data
         }
     },
     provide: {
-        grid: [Filter]
+        grid: [Filter, Page]
     },
     mounted() {
         this.getChildcareDetails();
