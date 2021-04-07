@@ -1,6 +1,17 @@
 <template>
     <div class="vertical-center">
+        <div>
         <NavBar/>
+        <h3>Selected Plan: {{selectedPlan}}</h3>
+        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
+          <b-dropdown-item 
+          v-for="plan in plan" 
+          :key="plan.plan"
+          @click="selectedPlan => doPlan(plan.plan)"
+           >Plan {{plan.plan}}</b-dropdown-item>
+           
+        </b-dropdown>
+      </div>
         <div class="filter">
             <ejs-grid 
                 ref="grid"
@@ -36,11 +47,20 @@
                     <br>
                     Price: {{ selectedOption.omv }}
                 </b-card-text>
-                <b-button
-                    variant="primary"
-                    v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
-                    v-b-toggle.sidebar-backdrop
-                    @click="calculateCost">Cost Breakdown</b-button>
+                <div class="wrapper">
+                    <b-button
+                        variant="primary"
+                        v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                        v-b-toggle.sidebar-backdrop
+                        @click="calculateCost">Cost Breakdown</b-button>
+                    <!-- <favBtn/> -->
+                    <div class="button-div" > 
+                        <button class="fav-button" @click="addFav"> 
+                            <i class="fa fa-star"></i> 
+                            <span>Favorites</span> 
+                        </button> 
+                    </div>
+                </div>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -91,8 +111,12 @@
 </template>
 
 <script>
+// import favBtn from './FavBtn'
+import User from '../../../server/src/models/User'
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import NavBar from "./NavBar.vue"
+import VueJwtDecode from "vue-jwt-decode";
+
 export default {
     data() {
       return {
@@ -112,11 +136,18 @@ export default {
         selectionOptions: {
             type: 'Single',
             enableToggle: true
-        }
+        },
+        plan: [
+        {plan: 1}, 
+        {plan: 2}, 
+        {plan: 3}],
+      selectedPlan: 1,
+      user: User,
       }
     },
     components:{
-        NavBar
+        NavBar,
+        // favBtn
     },
     watch: {
         selectedOption: function (newSelectedOption) {
@@ -124,7 +155,12 @@ export default {
         }
     },
     methods: {
-       async getVehicleDetails() {
+        getUserDetails() {
+            let token = localStorage.getItem("jwt");
+            let decoded = VueJwtDecode.decode(token);
+            this.user = decoded;
+        },
+        async getVehicleDetails() {
             try {
                 this.vehicleArray = await this.$http.get('vehicle')
             } catch (err) {
@@ -156,36 +192,73 @@ export default {
                     this.$swal("Error", error.data.err.message, "error")
                 }
             }
+        },
+        doPlan(plan){
+            console.log(plan)
+            this.selectedPlan = plan
+        },
+        async addFav() {
+            // this.$notify({
+            //             group: 'foo',
+            //             title: 'added_plan1',
+            //             text: this.selectedPlan
+            //             });
+            if (this.selectedPlan == 1){
+                this.$notify({
+                        group: 'foo',
+                        title: 'added_plan1',
+                        text: this.user.plans
+                        });
+                    this.user.plans.plan1 = this.selectedPlan
+                    this.$notify({
+                        group: 'foo',
+                        title: 'added_plan1',
+                        text: 'Added to plan 1!'
+                        });
+                }
+                if (this.selectedPlan == 2) {
+                    this.user.plans.plan2 = this.selectedOption
+                }
+                if (this.selectedPlan == 3) {
+                    this.user.plans.plan3 = this.selectedOption
+                }
         }
     },
     provide: {
         grid: [Filter]
     },
-  mounted() {
-    this.getVehicleDetails();
-  },
+    mounted() {
+        this.getVehicleDetails();
+        this.getUserDetails();
+    },
+
 };
 </script>
 
 <style>
 @import url("https://cdn.syncfusion.com/ej2/material.css");
 .e-resizable {
-  resize: both;
-  overflow: auto;
-  padding: 10px;
-  height: 500px;
+    resize: both;
+    overflow: auto;
+    padding: 10px;
+    height: 500px;
+}
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+.fav-button {
+    border: none;
+    height: 40px;
+    width: 120px; 
+    font-size: 15px;
+    background-color: #000;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
-.filter {
-  height: 100%;
-  flex: 1 0 70%;
-}
-
-.info-side {
-  flex: 0 0 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
 </style>
