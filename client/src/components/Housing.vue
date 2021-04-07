@@ -32,6 +32,8 @@
                     <e-column field="expected_year_of_completion" headerText="Expected Year of Completion" :filter="columnFilterOptions"></e-column>
                     <e-column field="room_types" headerText="Room Types" :filter="columnFilterOptions"></e-column>
                     <e-column field="no_of_blocks" headerText="Number of Blocks" :filter="columnFilterOptions"></e-column>
+                    <e-column field="no_of_units" headerText="Number of Units" :filter="columnFilterOptions"></e-column>
+                    <e-column field="facilities" headerText="Facilities" :filter="columnFilterOptions"></e-column>
                 </e-columns>
             </ejs-grid>
 
