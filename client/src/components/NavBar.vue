@@ -36,7 +36,10 @@ export default {
         return{}
     },
     methods: {
-        logUserOut(){}
+      logUserOut() {
+      localStorage.removeItem("jwt");
+      this.$router.push("/");
+    },
     }
 }
 </script>
