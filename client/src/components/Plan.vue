@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1 style = "text-align:center;">Plan 2</h1>
+    <NavBar />
+    <h1 style = "text-align:center;">Plan {{plan}}</h1>
     <b-container>
       <div>
         <b-card no-body class="overflow-hidden">
@@ -77,6 +78,7 @@
 
 <script>
 import VueJwtDecode from "vue-jwt-decode";
+import NavBar from "./NavBar.vue"
 export default {
   data() {
     return {
@@ -87,6 +89,17 @@ export default {
       ChildcarePicURL:
         "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
     };
+  },
+  props:{
+    plan: {
+      type:Number
+    }
+  },
+  created() {
+            this.plan = this.$route.params.index;
+        },
+  components:{
+    NavBar
   },
   methods: {
     getPlanDetails() {
@@ -101,6 +114,7 @@ export default {
     sumCosts() {
       this.totalCosts = 1000;
     },
+
   },
 };
 </script>

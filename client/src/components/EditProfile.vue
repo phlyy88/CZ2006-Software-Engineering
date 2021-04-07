@@ -7,7 +7,7 @@
             
                     <div class="form-group">
                         <label>First Name</label>
-                        <input v-model="edit.firstName" type="text" class="form-control"/>
+                        <input v-model="edit.firstName" type="text" :placeholder="currentUser.firstName" class="form-control"/>
                     </div>
 
                     <div class="form-group">
@@ -80,15 +80,24 @@ export default {
             this.$swal("Success", "Logout Successful", "success")
             this.$router.push("/")
         },
-        getUserDetails() {
+        async getCurrentUser() {
             let token = localStorage.getItem("jwt")
             let decoded = VueJwtDecode.decode(token)
-            this.currentUser = decoded
             this.edit.email = decoded.email
-        }  
+            try {
+                this.currentUser = await this.$http.get('user/me', this.edit.email)
+            } catch (err) {
+                let error = err.response
+                if (error.status == 409) {
+                    this.$swal("Error", error.data.message, "error")
+                } else {
+                    this.$swal("Error", error.data.err.message, "error")
+                }
+            }
+        }
     },
     created() {
-        this.getUserDetails()
+        this.getCurrentUser()
     }
 }
 </script>

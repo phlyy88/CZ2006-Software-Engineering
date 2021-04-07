@@ -49,7 +49,6 @@ exports.loginUser = async (req, res) => {
         const password = req.body.password
         console.log(req)
         const user = await User.findByCredentials(email, password)
-        console.log("hell!")
         if (!user) {
             return res.status(401).json({ error: "Login failed! Check authentication credentials" })
         }
@@ -69,27 +68,27 @@ exports.editProfile = async (req, res) => {
         const dob = user.dob
 
         if (firstName == req.body.firstName) {
-            return res.status(409).json({
+            res.status(409).json({
                 message: "First name had no changes."
             })
         }
         if (lastName == req.body.lastName) {
-            return res.status(409).json({
+            res.status(409).json({
                 message: "Last name had no changes."
             })
         }
         if (gender == req.body.gender) {
-            return res.status(409).json({
+            res.status(409).json({
                 message: "Gender had no changes."
             })
         }
         if (dob == req.body.dob) {
-            return res.status(409).json({
+            res.status(409).json({
                 message: "Date of birth had no changes."
             })
         }
         await User.editProfile(req.body)
-        return res.status(201).json({
+        res.status(201).json({
             message: "Successful Change"
         })
     } catch (err) {
@@ -98,5 +97,22 @@ exports.editProfile = async (req, res) => {
 }
 
 exports.getUserDetails = async (req, res) => {
-    await res.json(req.userData)
+    // await res.json(req.userData)
+    // console.log(req)
+    // try {
+    //     const user = await User.findByEmail(req.body.email)
+    //     res.status(201).json({ user: user })
+    // } catch (err) {
+    //     res.status(400).json({ err: err })
+    // }
+
+    try {
+        const user = User.findOne({ email: req.body.email })
+        res.status(201).json({ user })
+    } catch (err) {
+        res.status(400).json({ err: err})
+    }
+
+
+
 }
