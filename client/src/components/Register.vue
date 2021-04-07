@@ -1,5 +1,4 @@
 <template>
-  <v-card>
     <b-modal ref="reg-modal" hide-footer>
       <div class="modal-body">
         <form @submit.prevent="registerUser">
@@ -71,7 +70,6 @@
         </form>
       </div>
     </b-modal>
-  </v-card>
 </template>
 
 <script>

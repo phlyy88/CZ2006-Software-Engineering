@@ -19,24 +19,6 @@
 
     <router-view/>
 
-    <!-- Footer -->
-    <footer class="page-footer font-small blue pt-4">
-      <!-- Footer Links -->
-      <div class="container-fluid text-center text-md-left">
-        <!-- Grid row -->
-        <div class="row">
-          <!-- Grid column -->
-          <div class="col-md-6 mt-md-0 mt-3">
-            <!-- Content -->
-            <h5 class="text-uppercase">Footer Content</h5>
-            <p>
-              Here you can use rows and columns to organize your footer content.
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <hr class="clearfix w-100 d-md-none pb-3" />
-
           <!-- Grid column -->
           <div class="col-md-3 mb-md-0 mb-3">
             <!-- Links -->
@@ -50,31 +32,17 @@
           </div>
           <!-- Grid column -->
 
-          <!-- Grid column -->
-          <div class="col-md-3 mb-md-0 mb-3">
-            <!-- Links -->
-            <h5 class="text-uppercase">Links</h5>
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+        <h5 class="text-uppercase">About Us</h5>
 
-            <ul class="list-unstyled">
-              <li>
-                <a href="#!">Link 1</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
-      </div>
-      <!-- Footer Links -->
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">
-        © 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+        <p>
+          One stop destination for the estimation of total cost required for you to own your
+          desired housing, vehicle and raise a child in your desired number of years!
+        </p>
+    </div>
   </div>
 </template>
 
@@ -84,24 +52,6 @@ export default {
   name: "App",
   data() {
     return {
-      links: ["About Us", "Contact Us"],
-      slides: ["First", "Second", "Third"],
-      items: [
-        {
-          src: "http://m1.sdimgs.com/sd_static/u/201312/52ac736ba8caa.jpg",
-        },
-        {
-          src:
-            "https://www.topteny.com/wp-content/uploads/2015/09/Ciprian-Mihai-3.jpg",
-        },
-        {
-          src:
-            "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
-        },
-      ],
-      login: null,
-      text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     };
   },
 };
