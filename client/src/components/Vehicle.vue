@@ -79,7 +79,7 @@
                             <b-card-text v-if="showPreviousCost">
                                 Additional Registration Fee (ARF):
                                 <br>
-                                {{ costBreakdown.data.cost_object.arf }}
+                                {{ costBreakdown.data.cost_object.arf.toFixed(2) }}
                                 <br>
                                 GST (Flat price x GST rate):
                                 <br>
@@ -89,8 +89,6 @@
                                 <br>
                                 $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
                                 <br>
-
-                                {{ costBreakdown.data }}
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
