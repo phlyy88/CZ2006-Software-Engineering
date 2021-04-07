@@ -1,48 +1,35 @@
 <template>
-    <div class="vue-template">
-        <div class="vertical-center">
-            <div class="inner-block">
-                <form @submit.prevent="loginUser">
-                    <h3>Sign In</h3>
+<b-modal ref="login-modal">
+    <div class="modal-body">
+        <form @submit.prevent="loginUser">
+            <h3>Sign In</h3>
 
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input
-                            type="email"
-                            class="form-control form-control-lg" 
-                            v-model="login.email"
-                        />
-                    </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    class="form-control form-control-lg" 
+                    v-model="login.email"
+                />
+            </div>
 
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input
-                            type="password"
-                            class="form-control form-control-lg"
-                            v-model="login.password"
-                        />
-                    </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    v-model="login.password"
+                />
+            </div>
 
-                    <button
-                        type="submit"
-                        class="btn btn-dark btn-lg btn-block"
-                    >Sign In
-                    </button> <!-- on click, call method "login" -->
-
-                    <!-- <p class="forgot-password text-right mt-2 mb-4">
-                        <router-link to="/forgot-password">Forgot password ?</router-link>
-                    </p> -->
-
-                    <p class="forgot-password text-right mt-2 mb-4">
-                        <router-link to="/forgot-password">Forgot password?</router-link>
-                        <br>
-                        New User? 
-                        <router-link to="/register">Register an Account</router-link>
-                    </p>
-                </form>
-            </div>    
-        </div>
-    </div>
+            <button
+                type="submit"
+                class="btn btn-dark btn-lg btn-block"
+            >Sign In
+            </button> <!-- on click, call method "login" -->
+        </form>
+    </div>    
+</b-modal>
 </template>
 
 <script>
@@ -69,6 +56,9 @@
                     this.$swal("Error", "Something Went Wrong", "error")
                     console.log(err.response)
                 }
+            },
+            showModal(){
+                this.$refs['login-modal'].show();
             }
         }
     }

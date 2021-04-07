@@ -1,8 +1,7 @@
 <template>
 <v-card>
-    <div class="vue-template">
-        <div class="vertical-center"> <!-- padding for navbar -->
-            <div class="inner-block">
+    <b-modal ref="reg-modal">
+      <div class="modal-body">
                 <form @submit.prevent="registerUser">
                     <h3>Sign Up</h3>
 
@@ -44,16 +43,10 @@
                         <p>Value: '{{ register.income }}'</p>
                     </div>
 
-                    <button class="btn btn-dark btn-lg btn-block" type="submit">Sign Up</button>
-
-                    <p class="forgot-password text-right">
-                        Already registered 
-                        <router-link :to="{name: 'login'}">sign in?</router-link>
-                    </p>
+                    <button variant="primary" type="submit">Sign Up</button>
                 </form>
             </div>
-        </div>
-    </div>
+        </b-modal>
 </v-card>
 </template>
 
@@ -105,6 +98,9 @@
                         this.$swal("Error", error.data.err.message, "error")
                     }
                 }
+            },
+             show(){
+                this.$refs['reg-modal'].show();
             }
         }
     }

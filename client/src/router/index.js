@@ -6,13 +6,8 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'login',
-    component: () => import('../components/Login.vue')
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: () => import('../components/Register.vue')
+    name: 'startPage',
+    component: () => import('../components/StartPage.vue')
   },
   {
     path: '/forgot-password',
@@ -52,11 +47,6 @@ Vue.use(VueRouter)
     name: 'plan_index',
     component: () => import('../components/Plan.vue'),
     props: true
-  },
-  {
-    path:'/childcarev2',
-    name:'childcarev2',
-    component: () => import('../components/Childcarev2.vue')
   },
 ]
 

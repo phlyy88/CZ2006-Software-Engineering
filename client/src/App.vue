@@ -16,9 +16,7 @@
       </nav>
     </header>
 
-    <b-container>
-      <router-view/>
-    </b-container>
+    <router-view/>
 
     <!-- Footer -->
     <footer class="page-footer font-small blue pt-4">
