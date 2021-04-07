@@ -11,7 +11,8 @@
             class="d-inline-block align-top"
             alt=""
           />
-          Plan for your future
+          <strong style ="text-transform: uppercase;">
+          Plan for your future</strong>
         </a>
       </nav>
     </header>
@@ -78,6 +79,7 @@
 </template>
 
 <script>
+
 export default {
   name: "App",
   data() {
@@ -97,6 +99,7 @@ export default {
             "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
         },
       ],
+      login: null,
       text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     };

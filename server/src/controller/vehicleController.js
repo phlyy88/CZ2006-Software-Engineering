@@ -27,13 +27,17 @@ exports.calculateCost = async (req, res) => {
         const engine_capacity = selectedVehicle.engine_capacity
 
         const registration_fee = await Tax.registration_fee()
-        const gst = omv * await Tax.gst()
+        const gst_perc = await Tax.gst()
+        const gst = omv * gst_perc
+        console.log(gst)
 
-        var excise_duty
+        var excise_duty, excise_duty_perc
         if (category=='D') {
-            excise_duty = omv * await Tax.excise_duty_D()
+            excise_duty_perc = await Tax.excise_duty_D()
+            excise_duty = omv * excise_duty_perc
         } else {
-            excise_duty = omv * await Tax.excise_duty()
+            excise_duty_perc = await Tax.excise_duty()
+            excise_duty = omv * excise_duty_perc
         }
 
         var ves
@@ -88,13 +92,20 @@ exports.calculateCost = async (req, res) => {
 
         const road_tax = omv * road_tax_percent + road_tax_flat
 
+        const total_cost = registration_fee + gst + excise_duty + ves + arf + road_tax
+
         var cost_object = {
             registration_fee: registration_fee, 
             gst: gst,
+            gst_perc: gst_perc,
             excise_duty: excise_duty,
+            excise_duty_perc: excise_duty_perc,
             ves: ves,
             arf: arf,
-            road_tax: road_tax
+            road_tax_flat: road_tax_flat,
+            road_tax_perc: road_tax_percent,
+            road_tax: road_tax,
+            total_cost: total_cost
         }
 
         res.status(201).json({ cost_object })

@@ -10,6 +10,14 @@ Vue.use(VueRouter)
     component: () => import('../components/StartPage.vue')
   },
   {
+    path: '/editprofile',
+    name: 'editprofile',
+    component: () => import('../components/EditProfile.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/forgot-password',
     name: 'forgot-password',
     component: () => import('../components/ForgotPassword.vue'),
