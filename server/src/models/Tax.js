@@ -213,22 +213,6 @@ taxSchema.statics.ves_c2 = async function() {
     return ves_cost.tax_cost
 }
 
-taxSchema.statics.application_submission = async function() {
-    const application_submission = await Tax.findOne(
-        { tax_name: "Application submission" },
-        { tax_amount: 1 }
-    )
-    return application_submission.tax_amount
-    }
-
-taxSchema.statics.downpayment= async function() {
-    const downpayment = await Tax.findOne(
-        { tax_name: "HDB Downpayment" },
-        { tax_percentage: 1 }
-    )
-    return downpayment.tax_percentage
-    }
-
 
 taxSchema.statics.option_fee_2room = async function() {
     const option_fee_2room = await Tax.findOne(
@@ -256,7 +240,7 @@ taxSchema.statics.option_fee_4room = async function() {
 
 taxSchema.statics.stamp_duty_f180000 = async function() {
     const stamp_duty_180000 = await Tax.findOne(
-        { tax_name: "Stamp duty first 180,000" },
+        { tax_name: "Stamp Duty first 180000" },
         { tax_percentage: 1 }
     )
     return stamp_duty_180000.tax_percentage
@@ -264,7 +248,7 @@ taxSchema.statics.stamp_duty_f180000 = async function() {
 
 taxSchema.statics.stamp_duty_n180000 = async function() {
     const stamp_duty_n180000 = await Tax.findOne(
-        { tax_name: "Stamp duty next 180,000" },
+        { tax_name: "Stamp Duty next 180000" },
         { tax_percentage: 1 }
     )
     return stamp_duty_n180000.tax_percentage
@@ -272,7 +256,7 @@ taxSchema.statics.stamp_duty_n180000 = async function() {
     
 taxSchema.statics.stamp_duty_n640000 = async function() {
     const stamp_duty_640000 = await Tax.findOne(
-        { tax_name: "Stamp duty next 640,000" },
+        { tax_name: "Stamp Duty next 640000" },
         { tax_percentage: 1 }
     )
     return stamp_duty_640000.tax_percentage
@@ -280,7 +264,7 @@ taxSchema.statics.stamp_duty_n640000 = async function() {
 
 taxSchema.statics.stamp_duty_remain = async function() {
     const stamp_duty_remain = await Tax.findOne(
-        { tax_name: "Stamp duty remaining" },
+        { tax_name: "Stamp Duty remaining" },
         { tax_percentage: 1 }
     )
     return stamp_duty_remain.tax_percentage
@@ -288,7 +272,7 @@ taxSchema.statics.stamp_duty_remain = async function() {
 
 taxSchema.statics.conveyance_fee_f30000 = async function() {
     const conveyance_fee_f30000 = await Tax.findOne(
-        { tax_name: "Conveyance fee first 30,000" },
+        { tax_name: "Conveyancing fee first 30000" },
         { tax_percentage: 1 }
     )
     return conveyance_fee_f30000.tax_percentage
@@ -296,7 +280,7 @@ taxSchema.statics.conveyance_fee_f30000 = async function() {
 
 taxSchema.statics.conveyance_fee_n30000 = async function() {
     const conveyance_fee_n30000 = await Tax.findOne(
-        { tax_name: "Conveyance fee next 30,000" },
+        { tax_name: "Conveyancing fee next 30000" },
         { tax_percentage: 1 }
     )
     return conveyance_fee_n30000.tax_percentage
@@ -304,7 +288,7 @@ taxSchema.statics.conveyance_fee_n30000 = async function() {
 
 taxSchema.statics.conveyance_fee_remain = async function() {
     const conveyance_fee_remain = await Tax.findOne(
-        { tax_name: "Conveyance fee remaining" },
+        { tax_name: "Conveyancing fee remaining" },
         { tax_percentage: 1 }
     )
     return conveyance_fee_remain.tax_percentage
@@ -312,18 +296,18 @@ taxSchema.statics.conveyance_fee_remain = async function() {
 
 taxSchema.statics.caveat_registration = async function() {
     const caveat_registration = await Tax.findOne(
-        { tax_name: "Caveat registration fee" },
-        { tax_amount: 1 }
+        { tax_name: "Caveat Registration fee" },
+        { tax_cost: 1 }
     )
-    return caveat_registration.tax_amount
+    return caveat_registration.tax_cost
     }  
 
 taxSchema.statics.home_insurance = async function() {
     const home_insurance = await Tax.findOne(
         { tax_name: "Home Insurance Premium" },
-        { tax_amount: 1 }
+        { tax_cost: 1 }
     )
-    return home_insurance.tax_amount
+    return home_insurance.tax_cost
     }  
 
 

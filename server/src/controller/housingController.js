@@ -24,11 +24,9 @@ exports.calculateCosthdb = async (req, res) => {
         const flat_room = selectedhdb.flat_room
         console.log(flat_room)
 
-        const application_submission = await Tax.application_submission()
-        const downpayment = await Tax.downpayment()
-        const home_insurance_premium = await Tax.home_insurance_premium()
+        const home_insurance_premium = await Tax.home_insurance()
         const caveat_registration = await Tax.caveat_registration()
-        
+
         var option_fee
         if (flat_room=="2 ROOM") {
             option_fee = await Tax.option_fee_2room()
@@ -60,8 +58,6 @@ exports.calculateCosthdb = async (req, res) => {
 
 
         var cost_object = {
-            application_submission: application_submission, 
-            downpayment: downpayment,
             option_fee: option_fee,
             caveat_registration: caveat_registration,
             home_insurance_premium: home_insurance_premium,

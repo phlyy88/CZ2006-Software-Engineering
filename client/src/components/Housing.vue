@@ -67,31 +67,9 @@
 
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-2 variant="info">3-room</b-button>
+                            <b-button block v-b-toggle.accordion-2 variant="info">Variable cost</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-card-text>{{ text }}</b-card-text>
-                            </b-card-body>
-                        </b-collapse>
-                        </b-card>
-
-                        <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-2 variant="info">4-room</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-card-text>{{ text }}</b-card-text>
-                            </b-card-body>
-                        </b-collapse>
-                        </b-card>
-
-                        <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-3 variant="info">5-room</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
                             <b-card-text>{{ text }}</b-card-text>
                             </b-card-body>
@@ -109,10 +87,8 @@
 </template>
 
 <script>
-import Vue from "vue"
 import { Filter } from '@syncfusion/ej2-vue-grids'
   export default {
-      props: ['this.selectedOption'],
     data() {
       return {
         housingArray: {},
@@ -129,22 +105,6 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
         selectionOptions: {
             type: 'Single'
         },
-        Template: function() {
-            return { template: Vue.component('housingTemplate', {
-                template: '<div class="image"><img src="image"/></div>',
-                data: function() {
-                    return {
-                        data: {}
-                    }
-                },
-                computed: {
-                    image: function() {
-                        return this.data.image_url //change filepaths to relative file path within folder
-                    }
-                }
-            })}
-        },
-        pageSettings: { pageSize: 10 }
       }
     },
     watch: {
@@ -168,7 +128,7 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url}
-    },
+    ,
         async calculateCosthdb() {
             try {
                 this.isCalculating = true
@@ -185,7 +145,7 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
                     this.$swal("Error", error.data.err.message, "error")
                 }
             }
-        },
+        },},
     provide: {
         grid: [Filter]
     },
