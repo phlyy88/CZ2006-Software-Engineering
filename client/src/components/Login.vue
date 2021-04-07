@@ -40,7 +40,8 @@
                 login: {
                     email: '',
                     password: ''
-                }
+                },
+                //toPass:null,
             }
         },
         methods: {
@@ -51,6 +52,7 @@
                     localStorage.setItem("jwt", token)
                     if (token) {
                         this.$swal("Success", "Login Successful", "success")
+                        //this.toPass = this.login.email
                         this.$router.push("/mainpage")
                     }
                 } catch (err) {

@@ -1,5 +1,5 @@
 <template>
-    <div class="vue-template">
+    <div class="pageView">
         <div class="vertical-center">
             <div class="inner-block">
                 <b-container>

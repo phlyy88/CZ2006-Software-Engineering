@@ -1,11 +1,10 @@
 <template>
-    <div class="vertical-center">
-        <NavBar/>
+    <div class="pageView">
+        <NavBar :user="user" />
         <div class="filter">
             <ejs-grid 
                 ref="grid"
-                height='100%'
-                width='100%'
+                class = "e-resizable"
                 :dataSource="housingArray.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
@@ -92,10 +91,12 @@
 
 <script>
 import { Filter } from '@syncfusion/ej2-vue-grids'
+import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
   export default {
     data() {
       return {
+          user:{},
         housingArray: {},
         selectedOption: {},
         isCalculating: false,
@@ -122,6 +123,11 @@ import NavBar from "./NavBar.vue"
         }
     },    
     methods: {
+        getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
+    },
        async getHousingDetails() {
             try {
                 this.housingArray = await this.$http.get('housing')
@@ -164,6 +170,7 @@ import NavBar from "./NavBar.vue"
         },
     mounted() {
         this.getHousingDetails();
+        this.getUserDetails();
     }
   }
 </script>
@@ -171,8 +178,7 @@ import NavBar from "./NavBar.vue"
 <style>
 @import url("https://cdn.syncfusion.com/ej2/material.css");
 .e-resizable {
-    resize: both;
-    overflow: auto;
+    overflow: scroll;
     padding: 10px;
     height: 500px;
 }

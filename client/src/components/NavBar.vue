@@ -16,7 +16,7 @@
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template #button-content>
-              <em>User</em>
+              <em style="color: black">{{user.email}}</em>
             </template>
             <b-dropdown-item href="/editprofile">Edit Profile</b-dropdown-item>
             <b-dropdown-item href="/plan">My Saved Plans</b-dropdown-item>
@@ -31,13 +31,19 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+    };
+  },
+  props:{
+    user:{
+      type:Object
+    }
   },
   methods: {
     logUserOut() {
       localStorage.removeItem("jwt");
       this.$router.push("/");
     },
-  },
+  }
 };
 </script>

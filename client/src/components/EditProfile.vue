@@ -1,9 +1,9 @@
 <template>
-    <div class="vue-template">
-        <NavBar/>
+    <div class="pageView">
+        <NavBar :user="currentUser" />
         <b-container>
-        <div class="vertical-center">
-            <div class="inner-block">
+        <div class= "vertical-center">
+            <div>
                 <form @submit.prevent="editUser">
                     <h3>Edit Profile</h3>
             

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <NavBar />
+  <div class= "pageView">
+    <NavBar :user="user" />
     <div>
         <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
           <b-dropdown-item 
@@ -118,5 +118,8 @@ export default {
       this.selectedPlan = plan
     }
   },
+  mounted(){
+    this.getUserDetails()
+  }
 };
 </script>

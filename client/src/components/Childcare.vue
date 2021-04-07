@@ -1,11 +1,10 @@
 <template>
-    <div class="vertical-center">
-        <NavBar/>
+    <div class="pageView">
+        <NavBar :user="user" />
         <div class="filter">
             <ejs-grid 
                 ref="grid"
-                height='100%'
-                width='100%'
+                class = "e-resizable"
                 :dataSource="childcareArray.data"
                 :allowFiltering="true"
                 :filterSettings='filterOptions'
@@ -45,10 +44,12 @@
 
 <script>
   import { Filter, Page } from '@syncfusion/ej2-vue-grids'
+  import VueJwtDecode from "vue-jwt-decode";
   import NavBar from './NavBar.vue'
   export default {
     data() {
       return {
+          user:{},
         childcareArray: {},
         selectedOption: null,
         filterOptions: {
@@ -66,6 +67,11 @@
         NavBar
     },
     methods: {
+        getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
+    },
         async getChildcareDetails() {
             try {
                 this.childcareArray = await this.$http.get('childcare')
@@ -88,6 +94,7 @@
     },
     mounted() {
         this.getChildcareDetails();
+        this.getUserDetails();
     },
   }
 </script>
@@ -95,8 +102,7 @@
 <style>
 @import url("https://cdn.syncfusion.com/ej2/material.css");
 .e-resizable {
-    resize: both;
-    overflow: auto;
+    overflow: scroll;
     padding: 10px;
     height: 500px;
 }

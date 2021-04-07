@@ -1,11 +1,10 @@
 <template>
-    <div class="vertical-center">
-        <NavBar/>
+    <div class="pageView">
+        <NavBar :user="user" />
         <div class="filter">
             <ejs-grid 
+            class = "e-resizable"
                 ref="grid"
-                height='100%'
-                width='100%'
                 :dataSource="vehicleArray.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
@@ -118,12 +117,14 @@
 </template>
 <script>
 import { Filter } from "@syncfusion/ej2-vue-grids";
+import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
 export default {
     data() {
       return {
         text: "hello",
         picURL: "https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png",
+        user:{},
         vehicleArray: {},
         selectedOption: {},
         isCalculating: false,
@@ -162,6 +163,11 @@ export default {
         }
     },
     methods: {
+        getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
+    },
        async getVehicleDetails() {
             try {
                 this.vehicleArray = await this.$http.get('vehicle')
@@ -201,6 +207,7 @@ export default {
     },
     mounted() {
         this.getVehicleDetails();
+        this.getUserDetails();
     },
 };
 </script>
@@ -208,22 +215,9 @@ export default {
 <style>
 @import url("https://cdn.syncfusion.com/ej2/material.css");
 .e-resizable {
-  resize: both;
-  overflow: auto;
+  overflow: scroll;
   padding: 10px;
   height: 500px;
 }
 
-.filter {
-  height: 100%;
-  flex: 1 0 70%;
-}
-
-.info-side {
-  flex: 0 0 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
 </style>
