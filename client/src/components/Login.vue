@@ -29,13 +29,16 @@
                     >Sign In
                     </button> <!-- on click, call method "login" -->
 
+                    <!-- <p class="forgot-password text-right mt-2 mb-4">
+                        <router-link to="/forgot-password">Forgot password ?</router-link>
+                    </p> -->
+
                     <p class="forgot-password text-right mt-2 mb-4">
                         <router-link to="/forgot-password">Forgot password?</router-link>
                         <br>
                         New User? 
                         <router-link to="/register">Register an Account</router-link>
                     </p>
-
                 </form>
             </div>    
         </div>
