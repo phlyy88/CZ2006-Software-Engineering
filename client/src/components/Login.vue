@@ -35,24 +35,30 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      login: {
-        email: "",
-        password: "",
-      },
-    };
-  },
-  methods: {
-    async loginUser() {
-      try {
-        let response = await this.$http.post("user/login", this.login);
-        let token = response.data.token;
-        localStorage.setItem("jwt", token);
-        if (token) {
-          this.$swal("Success", "Login Successful", "success");
-          this.$router.push("/mainpage");
+    export default {
+        data() {
+            return {
+                login: {
+                    email: '',
+                    password: ''
+                }
+            }
+        },
+        methods: {
+            async loginUser() {
+                try {
+                    let response = await this.$http.post("user/login", this.login)
+                    let token = response.data.token
+                    localStorage.setItem("jwt", token)
+                    if (token) {
+                        this.$swal("Success", "Login Successful", "success")
+                        this.$router.push("/mainpage")
+                    }
+                } catch (err) {
+                    this.$swal("Error", "Invalid login credentials", "error")
+                    console.log(err.response)
+                }
+            }
         }
       } catch (err) {
         this.$swal("Error", "Something Went Wrong", "error");

@@ -5,18 +5,7 @@ const auth = require("../config/auth")
 
 router.post("/register", userController.registerNewUser)
 router.post("/login", userController.loginUser)
+router.post("/edit", userController.editProfile)
 router.get("/me", auth, userController.getUserDetails)
 
 module.exports = router
-
-// module.exports = app => {
-//     const userController = require("../controller/userController")
-//     const auth = require("../config/auth")
-//     var router = require("express").Router()
-
-//     router.post("/register", userController.registerNewUser)
-//     router.post("/login", userController.loginUser)
-//     router.get("/me", auth, userController.getUserDetails)
-
-//     app.use('/api/user', router)
-// }
