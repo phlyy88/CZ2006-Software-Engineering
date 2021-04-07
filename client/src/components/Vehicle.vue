@@ -55,7 +55,6 @@
                         </b-card-header>
                         <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
                             <b-card-body>
-                            <!-- <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text> -->
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
                                 Registration Cost:

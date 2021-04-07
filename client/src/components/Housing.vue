@@ -1,44 +1,8 @@
 <template>
     <div class="vertical-center">
         <NavBar/>
-        <div>
-            <b-form-group label="Choose a house type" >
-      <b-form-radio-group
-        id="btn-radios-3"
-        v-model="selected"
-        :options="options"
-        name="radio-btn-default"
-        button-variant="outline-primary"
-        buttons
-      >{{selected}}</b-form-radio-group>
-    </b-form-group>
-        </div>
         <div class="filter">
             <ejs-grid 
-            v-if="selected === 'bto'"
-                ref="grid"
-                height='100%'
-                width='100%'
-                :dataSource="housingArray.data" 
-                :allowFiltering='true' 
-                :filterSettings='filterOptions' 
-                :selectionSettings='selectionOptions'
-                :rowSelecting='rowSelecting'
-                :rowSelected='onRowSelected'>
-                <e-columns>
-                    <e-column field="location" headerText="Location" textAlign="Right" ></e-column>
-                    <e-column field="district" headerText="District" textAlign='Center' :template='cTemplate'></e-column>
-                    <e-column field="flat_name" headerText="Flat Name" :filter="columnFilterOptions"></e-column>
-                    <e-column field="expected_year_of_completion" headerText="Expected Year of Completion" :filter="columnFilterOptions"></e-column>
-                    <e-column field="room_types" headerText="Room Types" :filter="columnFilterOptions"></e-column>
-                    <e-column field="no_of_blocks" headerText="Number of Blocks" :filter="columnFilterOptions"></e-column>
-                    <e-column field="no_of_units" headerText="Number of Units" :filter="columnFilterOptions"></e-column>
-                    <e-column field="facilities" headerText="Facilities" :filter="columnFilterOptions"></e-column>
-                </e-columns>
-            </ejs-grid>
-
-            <ejs-grid 
-            v-else-if="selected === 'resale'"
                 ref="grid"
                 height='100%'
                 width='100%'
@@ -67,9 +31,9 @@
                 style="max-width: 20rem; width: 100%"
                 class="mb-2"
             >
-                <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
+                
                 <b-card-text>
-                    block: {{ selectedOption.flat_name }}
+                    Flat Name: {{ selectedOption.block }}
                     <br>
                     Price: {{ selectedOption.price }}
                     <br>
@@ -134,11 +98,6 @@ import NavBar from "./NavBar.vue"
       return {
         housingArray: {},
         selectedOption: {},
-        selected: null,
-        options: [
-          { text: 'Build To Order', value: 'bto' },
-          { text: 'Resale', value: 'resale' }
-        ],
         isCalculating: false,
         showPreviousCost: true,
         hdbcostBreakdown: {},
@@ -198,11 +157,6 @@ import NavBar from "./NavBar.vue"
         },},
     provide: {
         grid: [Filter]
-    },
-    watch: {
-        selectedOption: function (newSelectedOption) {
-            this.selectedOption = newSelectedOption
-        }
     },
     onRowSelected(args) {
             this.selectedOption = args.data
