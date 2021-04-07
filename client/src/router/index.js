@@ -10,8 +10,8 @@ Vue.use(VueRouter)
     component: () => import('../components/StartPage.vue')
   },
   {
-    path: '/edit-profile',
-    name: 'edit-profile',
+    path: '/editprofile',
+    name: 'editprofile',
     component: () => import('../components/EditProfile.vue'),
     meta: {
       requiresAuth: true

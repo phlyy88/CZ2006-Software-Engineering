@@ -1,5 +1,7 @@
 <template>
     <div class="vue-template">
+        <NavBar/>
+        <b-container>
         <div class="vertical-center">
             <div class="inner-block">
                 <form @submit.prevent="editUser">
@@ -18,27 +20,27 @@
                     <div class="form-group">
                         <label>Gender</label>
                         <b-form-select v-model="edit.gender" :options="edit.genderOptions"></b-form-select>
-                        <p>Value: '{{ edit.gender }}'</p>
+                        
                     </div>
 
                     <div class="form-group">
                         <label for="example-datepicker">Date of Birth</label>
                         <b-form-datepicker v-model="edit.dob" class="mb-2"></b-form-datepicker>
-                        <p>Value: '{{ edit.dob }}'</p>
+                        
                     </div>
 
-                    <button class="btn btn-dark btn-lg btn-block" type="submit">Confirm Changes</button>
+                    <b-button variant="primary" type="submit">Confirm Changes</b-button>
 
                 </form>
-                <b-button @click="logUserOut()" variant="outline-primary"
-                    >Log out</b-button>
             </div>
         </div>
+        </b-container>
     </div>
 </template>
 
 <script>
 import VueJwtDecode from "vue-jwt-decode";
+import NavBar from "./NavBar.vue"
 export default {
     data() {
         return {
@@ -58,6 +60,7 @@ export default {
         }
     
     },
+    components:{NavBar},
     methods: {
         async editUser() {
             try {
@@ -74,11 +77,6 @@ export default {
                     this.$swal("Error", error.data.err.message, "error")
                 }
             }
-        },
-        logUserOut() {
-            localStorage.removeItem("jwt")
-            this.$swal("Success", "Logout Successful", "success")
-            this.$router.push("/")
         },
         getUserDetails() {
             let token = localStorage.getItem("jwt")

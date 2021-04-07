@@ -25,6 +25,7 @@
             <b-button
                 type="submit"
                 variant = "info"
+                style="margin-top: 10px"
             ><p1 style = "color:white">Sign In</p1>
             </b-button> <!-- on click, call method "login" -->
         </form>

@@ -64,7 +64,7 @@
           <b-button 
           type="submit" 
           variant="info"
-          @click="registerUSer">
+          >
             <p1 style="color: white">Sign Up</p1></b-button
           >
           <!-- on click, call method "login" -->
