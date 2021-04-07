@@ -58,11 +58,6 @@ Vue.use(VueRouter)
     name:'childcarev2',
     component: () => import('../components/Childcarev2.vue')
   },
-  {
-    path:'/registerpopup',
-    name:'registerpopup',
-    component:() => import('../components/RegisterPopup.vue')
-  }
 ]
 
 const router = new VueRouter({
