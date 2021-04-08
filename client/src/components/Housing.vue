@@ -157,12 +157,12 @@ import { getDetails, calculate } from "../services/systems"
         grantsBreakdown: {
             "data": {
                 "grants_object": {
-                    "income": 0
+                    "total_grants": 0
                 }
             }
         },
         selectedIncome: {
-            "income": null
+            "income": 0
         },
         incomeOptions: [
             { value: null, text: "Please select an income range" },
