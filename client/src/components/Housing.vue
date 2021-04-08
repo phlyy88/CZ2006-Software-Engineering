@@ -40,12 +40,18 @@
                     <br> 
                     Remaining lease: {{ selectedOption.remaining_lease }}
                     <br>
+                    Income Options:
                 </b-card-text>
                 <b-form-select
                     v-if="displayIncome"
                     v-model="selectedIncome.income"
                     :options="incomeOptions"
-                ></b-form-select>
+                >
+                    <template #first>
+                        <b-form-select-option :value="null" disabled>-- Please select an income range --</b-form-select-option>
+                    </template>
+                </b-form-select>
+                
                 <b-button
                     v-if="displayCostBreakdown && displayIncome"
                     v-b-toggle.sidebar-backdrop
@@ -165,7 +171,7 @@ import { getDetails, calculate } from "../services/systems"
             "income": 0
         },
         incomeOptions: [
-            { value: null, text: "Please select an income range" },
+            // { value: null, text: "Please select an income range" },
             { value: 1, text: "5,000 - 5,500" },
             { value: 2, text: "5,500 - 6,000" },
             { value: 3, text: "6,000 - 6,500" },

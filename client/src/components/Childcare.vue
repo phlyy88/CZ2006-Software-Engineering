@@ -38,13 +38,16 @@
                     <br>                    
                     Sector: {{ selectedOption.type }}
                     <br>
+                    Number of Children:
                 </b-card-text>  
                 <b-form-select
                     v-if="displayChild"
                     v-model="selectedChild.child"
                     :options="childOptions"
                 >
-                    
+                   <template #first>
+                        <b-form-select-option :value="null" disabled>-- Please select number of children --</b-form-select-option>
+                    </template> 
                 </b-form-select>
                 <b-button
                     v-if="displayCostBreakdown && displayChild"
@@ -60,57 +63,56 @@
                     shadow>
                     <div class="accordion" role="tablist">
                         <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-1 variant="info">Flat Costs</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-header header-tag="header" class="p-1" role="tab">
+                                <b-button block v-b-toggle.accordion-2 variant="info">Total Costs</b-button>
+                            </b-card-header>
+                            <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
+                                <b-card-body>
+                                    <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                                    <b-card-text v-if="showPreviousCost">
+                                        Registration Fee:
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.registration_cost }}
+                                        <br>
+                                        Monthly Cost:
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.monthly_cost }}
+                                        <br> 
+                                        Total Annual Cost: (Monthly Cost X 12) + registration_cost
+                                        <br>    
+                                        ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }} = $ {{ costBreakdown.data.cost_object.total_cost_annual.toFixed(2) }}
+                                    </b-card-text>
+                                </b-card-body>
+                            </b-collapse>
+                        </b-card>
+                        <b-card no-body class="mb-1">
+                            <b-card-header header-tag="header" class="p-1" role="tab">
+                                <b-button block v-b-toggle.accordion-3 variant="info">Total Grants</b-button>
+                            </b-card-header>
+                            <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+                                <b-card-body>
+                                <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                 <b-card-text v-if="showPreviousCost">
-                                Registration Fee:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.registration_cost }}
-                                <br>
-                                Monthly Cost:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.monthly_cost }}
-                                <br>                               
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
+                                    Total Grants:
+                                    $ {{ grantsBreakdown.data.grant_object.total_grants.toFixed(2) }}
+                                </b-card-text>
+                                </b-card-body>
+                            </b-collapse>
                         </b-card>
-
-                    <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-2 variant="info">Total Costs</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">
-                                Total Annual Cost: (Monthly Cost X 12) + registration_cost
-                                <br>    
-                               ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }} = $ {{ costBreakdown.data.cost_object.total_cost_annual.toFixed(2) }}
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
+                        <b-card no-body class="mb-1">
+                            <b-card-header header-tag="header" class="p-1" role="tab">
+                                <b-button block v-b-toggle.accordion-4 variant="info">Net Cost</b-button>
+                            </b-card-header>
+                            <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
+                                <b-card-body>
+                                <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                                <b-card-text v-if="showPreviousCost">
+                                    Net Cost:
+                                    $ {{ grantsBreakdown.data.grant_object.total_grants.toFixed(2) }}
+                                </b-card-text>
+                                </b-card-body>
+                            </b-collapse>
                         </b-card>
-
-                    <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-3 variant="info">Total Grants</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">
-                                Total Grants:
-                                $ {{ grantsBreakdown.data.grant_object.total_grants.toFixed(2) }}
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
-                        </b-card>
-
                     </div>
                 </b-sidebar>
             </b-card>
@@ -155,7 +157,6 @@
             "child": 0
         },
         childOptions: [
-          { value: null, text: "Please select number of children" },
           { value: 1, text: "1" },
           { value: 2, text: "2" },
           { value: 3, text: "3 or more" },
