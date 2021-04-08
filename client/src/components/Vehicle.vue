@@ -173,7 +173,7 @@ export default {
             this.displayCostBreakdown = true
         },
         calculate() {
-            calculate.calculateCost(this, 'vehicle')
+            calculate.calculateCost(this, 'vehicle', false)
         }
     },
     provide: {

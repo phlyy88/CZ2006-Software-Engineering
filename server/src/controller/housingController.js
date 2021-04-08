@@ -1,6 +1,6 @@
 const Housing = require('../models/Housing')
 const Tax = require('../models/Tax')
-// const Grants = require('../models/Grants')
+const Grants = require('../models/Grants')
 
 exports.getHousingDetails = async (req, res) => {
     Housing.find()
@@ -16,7 +16,7 @@ exports.getHousingDetails = async (req, res) => {
 }
 
 
-exports.calculateCost = async (req, res) => {
+exports.calculateCostHousing = async (req, res) => {
     try {
         const selectedhdb = req.body
         console.log(req.body)
@@ -24,8 +24,6 @@ exports.calculateCost = async (req, res) => {
         console.log(price)
         const flat_room = selectedhdb.flat_room
         console.log(flat_room)
-        // const income = selectedIncome.flat_room
-        // console.log(income)
 
         const home_insurance_premium = await Tax.home_insurance()
         const caveat_registration = await Tax.caveat_registration()
@@ -71,11 +69,43 @@ exports.calculateCost = async (req, res) => {
             total_cost: total_cost
         }
 
-        // var EHG
-        // if (income<)
+        res.status(201).json({ cost_object })
+    } catch (err) {
+        res.status(400).json({ err: err })
+    }
+}
+
+exports.calculateGrantsHousing = async (req, res) => {
+    try {
+        const income = req.body.income
+        console.log(income)
+
+        var ehg
+        if (income==1)
+            {ehg = await Grants.ehg_9()}
+        else if (income==2)
+            {ehg = await Grants.ehg_10()}
+        else if (income== 3)
+            {ehg = await Grants.ehg_11()}
+        else if (income== 4)
+            {ehg = await Grants.ehg_12()}
+        else if (income== 5)
+            {ehg = await Grants.ehg_13()}
+        else if (income== 6)
+            {ehg = await Grants.ehg_14()}
+        else if (income== 7)
+            {ehg = await Grants.ehg_15()}
+        else if (income== 8)
+            {ehg = await Grants.ehg_16()}
+
+        var total_grants = ehg
+
+        var grants_object = {
+            total_grants: total_grants,
+        }
         
 
-        res.status(201).json({ cost_object })
+        res.status(201).json({ grants_object })
     } catch (err) {
         res.status(400).json({ err: err })
     }

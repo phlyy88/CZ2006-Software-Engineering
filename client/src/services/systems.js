@@ -20,7 +20,7 @@ export const calculate = {
             that.isCalculating = true
             that.showPreviousCost = false
             that.costBreakdown= await that.$http.post(type.concat("/costBreakdown"), that.selectedOption)
-            if (calculateGrants){
+            if (calculateGrants) {
                 that.grantsBreakdown = await that.$http.post(type.concat("/grantsBreakdown"), that.selectedIncome)
             }
             that.showPreviousCost = true
@@ -34,5 +34,5 @@ export const calculate = {
                 that.$swal("Error", error.data.err.message, "error")
             }
         }
-    }
+    },
 }

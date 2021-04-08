@@ -32,7 +32,7 @@ const grantSchema = new Schema({
     }
 })
 
-grantSchema.statics.baby_bonus = async function() {
+grantSchema.statics.baby_bonus_1 = async function() {
     const baby_bonus_1 = await Grants.findOne(
         { grant_name: "Baby Bonus 1" },
         { grant_amt: 1 }
@@ -40,54 +40,69 @@ grantSchema.statics.baby_bonus = async function() {
     return baby_bonus_1.grant_amt
 }
 
-grantSchema.statics.EHG = async function() {
-    const EHG = await Grants.findOne(
-        { grant_name: "Enhanced CPF Housing Grant" },
+grantSchema.statics.ehg_9 = async function() {
+    const ehg_9 = await Grants.findOne(
+        { grant_name: "EHG 9" },
         { grant_amt: 1 }
     )
-    return EHG.grant_amt
+    return ehg_9.grant_amt
 }
 
-grantSchema.statics.Family_grant_4room = async function() {
-    const Family_grant_4room = await Grants.findOne(
-        { grant_name: "Family Grant 4 room" },
+grantSchema.statics.ehg_10 = async function() {
+    const ehg_10 = await Grants.findOne(
+        { grant_name: "EHG 10" },
         { grant_amt: 1 }
     )
-    return Family_grant_4room.grant_amt
+    return ehg_10.grant_amt
 }
 
-grantSchema.statics.Family_grant_5room = async function() {
-    const Family_grant_5room = await Grants.findOne(
-        { grant_name: "Family Grant 5 room" },
+grantSchema.statics.ehg_11 = async function() {
+    const ehg_11 = await Grants.findOne(
+        { grant_name: "EHG 11" },
         { grant_amt: 1 }
     )
-    return Family_grant_5room.grant_amt
+    return ehg_11.grant_amt
 }
 
-grantSchema.statics.proximity_grant = async function() {
-    const proximity_grant = await Grants.findOne(
-        { grant_name: "HDB proximity Housing Grant" },
+grantSchema.statics.ehg_12 = async function() {
+    const ehg_12 = await Grants.findOne(
+        { grant_name: "EHG 12" },
         { grant_amt: 1 }
     )
-    return proximity_grant.grant_amt
+    return ehg_12.grant_amt
 }
 
-grantSchema.statics.kafs = async function() {
-    const kafs = await Grants.findOne(
-        { grant_name: "Kindergarten Fee Assistance Scheme" },
+grantSchema.statics.ehg_13 = async function() {
+    const ehg_13 = await Grants.findOne(
+        { grant_name: "EHG 13" },
         { grant_amt: 1 }
     )
-    return kafs.grant_amt
+    return ehg_13.grant_amt
 }
 
-grantSchema.statics.acs = async function() {
-    const acs = await Grants.findOne(
-        { grant_name: "Additional Childcare Subsidy" },
+grantSchema.statics.ehg_14 = async function() {
+    const ehg_14 = await Grants.findOne(
+        { grant_name: "EHG 14" },
         { grant_amt: 1 }
     )
-    return acs.grant_amt
+    return ehg_14.grant_amt
 }
 
+grantSchema.statics.ehg_15 = async function() {
+    const ehg_15 = await Grants.findOne(
+        { grant_name: "EHG 15" },
+        { grant_amt: 1 }
+    )
+    return ehg_15.grant_amt
+}
+
+grantSchema.statics.ehg_16 = async function() {
+    const ehg_16 = await Grants.findOne(
+        { grant_name: "EHG 16" },
+        { grant_amt: 1 }
+    )
+    return ehg_16.grant_amt
+}
 const Grants = mongoose.model("Grants", grantSchema, "grants") //create model
 
 module.exports = Grants

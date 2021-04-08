@@ -41,15 +41,15 @@
                     Remaining lease: {{ selectedOption.remaining_lease }}
                     <br>
                 </b-card-text>
-                                <b-form-select
-                    v-model="selectedIncome"
+                <b-form-select
+                    v-if="displayIncome"
+                    v-model="selectedIncome.income"
                     :options="incomeOptions"
-                >
-                    
-                </b-form-select> <br>
+                ></b-form-select>
                 <b-button
-                    v-if="displayCostBreakdown && displayIncome" 
+                    v-if="displayCostBreakdown && displayIncome"
                     v-b-toggle.sidebar-backdrop
+                    variant="primary"
                     @click ="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
@@ -120,10 +120,8 @@
                             </b-card-body>
                         </b-collapse>
                         </b-card>
-
                     </div>
                 </b-sidebar>
-
                 <b-card-text v-if="cost!==null">
                     Cost: {{ cost }}
                 </b-card-text>
@@ -156,13 +154,26 @@ import { getDetails, calculate } from "../services/systems"
                 }
             }
         },
-        selectedIncome: null,
+        grantsBreakdown: {
+            "data": {
+                "grants_object": {
+                    "total_grants": 0
+                }
+            }
+        },
+        selectedIncome: {
+            "income": 0
+        },
         incomeOptions: [
-          { value: null, text: "Please select a household income range" },
-          { value: 15000, text: "5,000 - 5,500" },
-          { value: 35000, text: "20,000 - 49,999" },
-          { value: 65000, text: "50,000 - 79,999" },
-          { value: 80000, text: ">80,000" },
+            { value: null, text: "Please select an income range" },
+            { value: 1, text: "5,000 - 5,500" },
+            { value: 2, text: "5,500 - 6,000" },
+            { value: 3, text: "6,000 - 6,500" },
+            { value: 4, text: "6,500 - 7,000" },
+            { value: 5, text: "7,000 - 7,500" },
+            { value: 6, text: "7,500 - 8,000" },
+            { value: 7, text: "8,000 - 8,500" },
+            { value: 8, text: "8,500 - 9,000" },
         ],
         filterOptions: {
             type: 'Excel'
@@ -176,16 +187,20 @@ import { getDetails, calculate } from "../services/systems"
       }
     },
     watch: {
-        displayIncome: function() {this.displayCostBreakdown=true
+        // selectedOption: function (newSelectedOption) {
+        //     this.selectedOption = newSelectedOption
+        // },
+        'selectedIncome.income': function () {
+            this.displayCostBreakdown = true
         }
-    },    
+    },
     methods: {
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayIncome = true
         },
         calculate() {
-            calculate.calculateCost(this, 'housing')
+            calculate.calculateCost(this, 'housing', true) //pass in true because we want to calculate grants
         }
     },
     provide: {

@@ -14,7 +14,7 @@ exports.getVehicleDetails = async (req, res) => {
         })
 }
 
-exports.calculateCost = async (req, res) => {
+exports.calculateCostVehicle = async (req, res) => {
     try {
         const selectedVehicle = req.body
         console.log(req.body)
