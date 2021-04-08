@@ -9,7 +9,6 @@
           :key="plan.plan"
           @click="selectedPlan => doPlan(plan.plan)"
            >Plan {{plan.plan}}</b-dropdown-item>
-           
         </b-dropdown>
       </div>
         <div class="filter">

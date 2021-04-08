@@ -1,6 +1,15 @@
 <template>
     <div class="vertical-center">
+        <NavBar/>
         <div class="filter">
+        <h3>Selected Plan: {{selectedPlan}}</h3>
+        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
+          <b-dropdown-item 
+          v-for="plan in plan" 
+          :key="plan.plan"
+          @click="selectedPlan => doPlan(plan.plan)"
+           >Plan {{plan.plan}}</b-dropdown-item>
+        </b-dropdown>
             <ejs-grid 
                 ref="grid"
                 :dataSource="details.data"
@@ -49,11 +58,20 @@
                         <b-form-select-option :value="null" disabled>-- Please select number of children --</b-form-select-option>
                     </template> 
                 </b-form-select>
-                <b-button
-                    v-if="displayCostBreakdown && displayChild"
-                    v-b-toggle.sidebar-backdrop
-                    variant="primary"
-                    @click ="calculate">Cost Breakdown</b-button>
+                <div class='wrapper'>
+                    <b-button
+                        v-if="displayCostBreakdown && displayChild"
+                        v-b-toggle.sidebar-backdrop
+                        variant="primary"
+                        @click ="calculate">Cost Breakdown
+                    </b-button>
+                    <div class="button-div" > 
+                        <button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
+                            <i class="fa fa-star"></i> 
+                            <span>Favorites</span> 
+                        </button> 
+                    </div>
+                </div>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -121,12 +139,22 @@
 </template>
 
 <script>
+  import Navbar from './NavBar'
+  import User from '../../../server/src/models/User'
   import { Filter, Page } from '@syncfusion/ej2-vue-grids'
   import {getDetails, calculate} from "../services/systems"
+  import VueJwtDecode from 'vue-jwt-decode'
 
   export default {
     data() {
       return {
+        user: User,
+        plan: [
+            {plan: 1}, 
+            {plan: 2}, 
+            {plan: 3}
+            ],
+      selectedPlan: 1,
         details: {},
         selectedOption: {
             "cost_for_singaporeans": 0,
@@ -138,6 +166,7 @@
         showPreviousCost: true,
         displayCostBreakdown: false,
         displayChild: false,
+        displayFavBtn: false,
         netCost: 0,
         costBreakdown: {
             "data" : {
@@ -181,12 +210,58 @@
         }
     },
     methods: {
+        getUserDetails() {
+            let token = localStorage.getItem("jwt");
+            let decoded = VueJwtDecode.decode(token);
+            this.user = decoded;
+            console.log(this.costBreakdown.data.cost_object)
+        },
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayChild = true
         },
         calculate(){
             calculate.calculateCost(this,'childcare')
+            this.displayFavBtn = true
+        },
+        async addFav() {
+            this.selectedOption.cost = this.costBreakdown.data.cost_object
+            console.log(this.selectedOption)
+            if (this.selectedPlan == 1){
+                this.$set(this.user, 'c1', this.selectedOption)
+                this.user.type = 'c1'
+                console.log(this.user.c1)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 1!',
+                    text: this.user.c1.child + ' child for ' + this.user.c1.childcare_organization
+                    });
+                console.log("put done")
+            }
+            if (this.selectedPlan == 2) {
+                this.$set(this.user, 'c2', this.selectedOption)
+                this.user.type = 'c2'
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 2!',
+                    text: this.user.c2.child + ' child for ' + this.user.c2.childcare_organization
+                    });
+            }
+            if (this.selectedPlan == 3) {
+                this.$set(this.user, 'c3', this.selectedOption)
+                this.user.type = 'c3'
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 3!',
+                    text: this.user.c3.child + ' child for ' + this.user.c3.childcare_organization
+                    });
+            }
+        },
+        doPlan(plan) {
+            this.selectedPlan = plan
         }
 
     },
@@ -195,6 +270,7 @@
         grid: [Filter, Page]
     },
     mounted() {
+        this.getUserDetails();
         getDetails.getDetails(this,'childcare');
     },
 
@@ -210,6 +286,23 @@
     overflow: auto;
     padding: 10px;
     height: 500px;
+}
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+.fav-button {
+    border: none;
+    height: 40px;
+    width: 120px; 
+    font-size: 15px;
+    background-color: #000;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
 </style>
