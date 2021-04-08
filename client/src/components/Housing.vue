@@ -192,9 +192,6 @@ import { getDetails, calculate } from "../services/systems"
       }
     },
     watch: {
-        // selectedOption: function (newSelectedOption) {
-        //     this.selectedOption = newSelectedOption
-        // },
         'selectedOption.income': function () {
             this.displayCostBreakdown = true
         }
