@@ -74,6 +74,7 @@
       <!-- Copyright -->
     </footer>
     <!-- Footer -->
+    <notifications group="foo" />
   </div>
 </template>
 

@@ -1,6 +1,17 @@
 <template>
     <div class="vertical-center">
+        <div>
         <NavBar/>
+        <h3>Selected Plan: {{selectedPlan}}</h3>
+        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
+          <b-dropdown-item 
+          v-for="plan in plan" 
+          :key="plan.plan"
+          @click="selectedPlan => doPlan(plan.plan)"
+           >Plan {{plan.plan}}</b-dropdown-item>
+           
+        </b-dropdown>
+      </div>
         <div class="filter">
             <ejs-grid 
                 ref="grid"
@@ -36,11 +47,19 @@
                     <br>
                     Price: {{ selectedOption.omv }}
                 </b-card-text>
-                <b-button
+                <div class="wrapper">
+                    <b-button
                     variant="primary"
                     v-if="displayCostBreakdown"
                     v-b-toggle.sidebar-backdrop
                     @click="calculate">Cost Breakdown</b-button>
+                    <div class="button-div" > 
+                        <button class="fav-button" @click="addFav"> 
+                            <i class="fa fa-star"></i> 
+                            <span>Favorites</span> 
+                        </button> 
+                    </div>
+                </div>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -131,8 +150,11 @@
     </div>
 </template>
 <script>
+import User from '../../../server/src/models/User'
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import NavBar from "./NavBar.vue"
+import VueJwtDecode from "vue-jwt-decode";
+
 import { getDetails, calculate } from "../services/systems"
 export default {
     data() {
@@ -165,7 +187,13 @@ export default {
         selectionOptions: {
             type: 'Single',
             enableToggle: true
-        }
+        },
+        plan: [
+        {plan: 1}, 
+        {plan: 2}, 
+        {plan: 3}],
+      selectedPlan: 1,
+      user: User,
       }
     },
     components:{
@@ -177,10 +205,55 @@ export default {
         }
     },
     methods: {
+        getUserDetails() {
+            let token = localStorage.getItem("jwt");
+            let decoded = VueJwtDecode.decode(token);
+            this.user = decoded;
+        },
+        
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
             this.displayCostBreakdown = true
+        },
+        doPlan(plan){
+            console.log(plan)
+            this.selectedPlan = plan
+        },
+        async addFav() {
+            console.log(this.user.v1)
+            console.log(this.user.v2)
+            console.log(this.user.v3)
+            if (this.selectedPlan == 1){
+                this.$set(this.user, 'v1', this.selectedOption)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 1!',
+                    text: this.user.v1.name
+                    });
+                console.log("put done")
+            }
+            if (this.selectedPlan == 2) {
+                this.$set(this.user, 'v2', this.selectedOption)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 2!',
+                    text: this.user.v2.name
+                    });
+                console.log("put done")
+            }
+            if (this.selectedPlan == 3) {
+                this.$set(this.user, 'v3', this.selectedOption)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 3!',
+                    text: this.user.v3.name
+                    });
+                console.log("put done")
+            }
         },
         calculate() {
             calculate.calculateCost(this, 'vehicle')
@@ -190,30 +263,37 @@ export default {
         grid: [Filter]
     },
     mounted() {
+        this.getUserDetails();
         getDetails.getDetails(this, 'vehicle');
     },
+
 };
 </script>
 
 <style>
 @import url("https://cdn.syncfusion.com/ej2/material.css");
 .e-resizable {
-  resize: both;
-  overflow: auto;
-  padding: 10px;
-  height: 500px;
+    resize: both;
+    overflow: auto;
+    padding: 10px;
+    height: 500px;
+}
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+.fav-button {
+    border: none;
+    height: 40px;
+    width: 120px; 
+    font-size: 15px;
+    background-color: #000;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
-.filter {
-  height: 100%;
-  flex: 1 0 70%;
-}
-
-.info-side {
-  flex: 0 0 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
 </style>
