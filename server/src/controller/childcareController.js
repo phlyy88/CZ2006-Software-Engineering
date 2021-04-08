@@ -48,7 +48,7 @@ exports.calculateGrantschild = async (req, res) => {
         if (child==1){
             baby_bonus= await Grants.baby_bonus_1()}
         else if (child==2){baby_bonus=await Grants.baby_bonus_2()}
-        else if (child==3){baby_bonus=await Grants.baby_bonus_3()}
+        else if (child>=3){baby_bonus=await Grants.baby_bonus_3()}
 
         var baby_bonus_step
         baby_bonus_step = child * await Grants.baby_bonus_step()
