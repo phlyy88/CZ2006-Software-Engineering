@@ -51,8 +51,7 @@
                         variant="primary"
                         v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
                         v-b-toggle.sidebar-backdrop
-                        @click="calculateCost">Cost Breakdown</b-button>
-                    <!-- <favBtn/> -->
+                        @click="calculate">Cost Breakdown</b-button>
                     <div class="button-div" > 
                         <button class="fav-button" @click="addFav"> 
                             <i class="fa fa-star"></i> 
@@ -209,7 +208,7 @@ export default {
             this.displayCostBreakdown = true
         },
         calculate() {
-            calculate.calculateCost(this, 'vehicle')
+            calculate.calculateCost(this, 'vehicle', false)
         },
         getUserDetails() {
       let token = localStorage.getItem("jwt");
@@ -217,36 +216,21 @@ export default {
       this.user = decoded;
     },
         doPlan(plan){
-            console.log(plan)
             this.selectedPlan = plan
         },
         async addFav() {
-            //this.getUserDetails();
-            console.log(this.user.v1)
-            console.log(this.user.v2)
-            console.log(this.user.v3)
             if (this.selectedPlan == 1){
                 this.$set(this.user, 'v1', this.selectedOption)
-                console.log(this.user)
-                console.log(this.user.email)
-                console.log(this.user.v1)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
                     title: 'user edited',
                     text: this.user.v1
                     });
-                // .then (response => 
-                // {this.user = response.user}, 
-                // error => {console.log(error);})
-                console.log("put done")
-                console.log(this.user)
+
             }
             if (this.selectedPlan == 2) {
                 this.$set(this.user, 'v2', this.selectedOption)
-                console.log(this.user)
-                // console.log(this.user.email)
-                // console.log(this.user.v2)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
@@ -256,15 +240,7 @@ export default {
                 console.log("put done")
             }
             if (this.selectedPlan == 3) {
-                console.log(this.user.email)
-                console.log(this.user.v1)
-                console.log(this.user.v2)
                 this.$set(this.user, 'v3', this.selectedOption)
-                // console.log(this.user)
-                // console.log(this.user.email)
-                // console.log(this.user.v3)
-                console.log(this.user.v1)
-                console.log(this.user.v2)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',

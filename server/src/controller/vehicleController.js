@@ -43,14 +43,21 @@ exports.calculateCostVehicle = async (req, res) => {
         var ves
         if (ves_cost=="A1") {
             ves = await Tax.ves_a1()
-        } else if (ves_cost=="A2") {
+        } 
+        if (ves_cost=="A2") {
             ves = await Tax.ves_a2()
-        } else if (ves_cost=='B') {
+        }
+        if (ves_cost=='B') {
             ves = await Tax.ves_b()
-        } else if (ves_cost=="C1") {
+        }
+        if (ves_cost=="C1") {
             ves = await Tax.ves_c1()
-        } else if (ves_cost=="C2") {
+        }
+        if (ves_cost=="C2") {
             ves = await Tax.ves_C2()
+        }
+        if (ves_cost=="-") {
+            ves = 0
         }
 
         var arf
