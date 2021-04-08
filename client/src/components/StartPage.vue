@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class = "pageView">
     <main>
       <b-carousel
         id="carousel-1"

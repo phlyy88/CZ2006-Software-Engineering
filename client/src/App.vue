@@ -22,61 +22,76 @@
     <router-view/>
 
     <!-- Footer -->
-    <footer class="page-footer font-small blue pt-4 bg-light">
-      <!-- Footer Links -->
-      <div class="container-fluid text-center text-md-left">
-        <!-- Grid row -->
-        <div class="row">
-          <!-- Grid column -->
-          <div class="col-md-6 mt-md-0 mt-3">
-            <!-- Content -->
-            <h5 class="text-uppercase">About us</h5>
-            <p>
-              One stop destination for the estimation of total cost required for you to own your
+<footer class="page-footer font-small blue pt-4">
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+    <div class="row">
+      <hr class="clearfix w-100 d-md-none pb-3">
+      <div class="col-md-4 mb-md-0 mb-3">
+        <h5 class="text-uppercase">Housing</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.hdb.gov.sg/residential/buying-a-flat/new/sales-launches/bto-sbf-open-booking">HDB BTO Government Site</a>
+          </li>
+          <li>
+            <a href="https://services2.hdb.gov.sg/webapp/BB33RTIS/">Resale Flat Prices (HDB)</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-md-0 mb-3">
+        <h5 class="text-uppercase">Vehicle</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://onemotoring.lta.gov.sg/content/onemotoring/home/buying/upfront-vehicle-costs/tax-structure.html">Introduction to vehicle costs (LTA)</a>
+          </li>
+          <li>
+            <a href="https://vrl.lta.gov.sg/lta/vrl/action/pubfunc2?ID=EnquireRoadTaxExpDtProxy">Enquiry Road Tax Expiry Date</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-md-0 mb-3">
+        <h5 class="text-uppercase">Childcare</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.ecda.gov.sg/pages/default.aspx">Early Childhood Development Agency</a>
+          </li>
+          <li>
+            <a href="https://www.moe.gov.sg/financial-matters/fees">School Fees (MOE)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <!-- <div class="col-lg-6 col-md-12 mb-4 mb-md-0"> -->
+        <h5 class="text-uppercase">About Us</h5>
+
+        <p>
+          One stop destination for the estimation of total cost required for you to own your
           desired housing, vehicle and raise a child in your desired number of years!
-            </p>
-          </div>
-          <!-- Grid column -->
+        </p>
+      <!-- </div> -->
+      <!--Grid column-->
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
 
-          <hr class="clearfix w-100 d-md-none pb-3" />
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a> 10 Degrees</a>
+  </div>
+  <!-- Copyright -->
 
-          <!-- Grid column -->
-          <div class="col-md-3 mb-md-0 mb-3">
-            <!-- Links -->
-            <h5 class="text-uppercase">Links</h5>
-
-            <ul class="list-unstyled">
-              <li>
-                <a href="#!">Link 1</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-3 mb-md-0 mb-3">
-            <!-- Links -->
-            <h5 class="text-uppercase">Links</h5>
-
-            <ul class="list-unstyled">
-              <li>
-                <a href="#!">Link 1</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
-      </div>
-      <!-- Footer Links -->
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">
-        © 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
+</footer>
+<!-- Footer -->
 
   </div>
 </template>

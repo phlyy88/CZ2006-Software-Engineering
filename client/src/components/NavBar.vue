@@ -18,7 +18,6 @@
             <template #button-content>
               <em style="color: black">{{user.email}}</em>
             </template>
-            <b-dropdown-item href="/editprofile">Edit Profile</b-dropdown-item>
             <b-dropdown-item href="/plan">My Saved Plans</b-dropdown-item>
             <b-dropdown-item @click="logUserOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>

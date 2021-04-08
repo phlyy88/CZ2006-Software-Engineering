@@ -9,7 +9,7 @@ Vue.use(VueRouter)
     name: 'startPage',
     component: () => import('../components/StartPage.vue')
   },
-  {
+  /* {
     path: '/editprofile',
     name: 'editprofile',
     component: () => import('../components/EditProfile.vue'),
@@ -24,7 +24,7 @@ Vue.use(VueRouter)
     meta: {
       requiresAuth: true
     }
-  },
+  }, */
   {
     path: '/mainpage',
     name: 'mainpage',
