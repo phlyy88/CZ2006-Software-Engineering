@@ -14,7 +14,7 @@ export const getDetails = {
     } 
 }
 
-export const calculateCost = {
+export const calculate = {
     calculateCost: async function(that, type) {
         try {
             that.isCalculating = true

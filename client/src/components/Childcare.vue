@@ -40,14 +40,12 @@
                     Sector: {{ selectedOption.type }}
                     <br>
                 </b-card-text>  
-                <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
-                    <b-dropdown-item>First Action</b-dropdown-item>
-                    <b-dropdown-item>Second Action</b-dropdown-item>
-                    <b-dropdown-item>Third Action</b-dropdown-item>
-                    <b-dropdown-divider></b-dropdown-divider>
-                    <b-dropdown-item active>Active action</b-dropdown-item>
-                    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-                </b-dropdown> <br>
+                <b-form-select
+                    v-model="selectedIncome"
+                    :options="incomeOptions"
+                >
+                    
+                </b-form-select> <br>
                 <b-button
                     v-if="picURL!=='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
                     v-b-toggle.sidebar-backdrop
@@ -83,14 +81,15 @@
 
                     <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
+                            <b-button block v-b-toggle.accordion-2 variant="info">Total Costs</b-button>
                         </b-card-header>
-                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+                        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
-                                Total Cost:
-                                $ {{ childcostBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                Total Annual Cost: (Monthly Cost X 12) + registration_cost
+                                <br>    
+                               ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }} = $ {{ childcostBreakdown.data.cost_object.total_cost_annual.toFixed(2) }}
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -134,10 +133,19 @@
                     "registration_cost": 0,
                     "monthly_cost": 0,
                     "total_cost": 0,
+                    "total_cost_annual": 0,
                     "baby_bonus": 0,
                     "total_grants": 0
                 }}
         },
+        selectedIncome: null,
+        incomeOptions: [
+          { value: null, text: "Please select an income range" },
+          { value: 15000, text: "10,000 - 19,999" },
+          { value: 35000, text: "20,000 - 49,999" },
+          { value: 65000, text: "50,000 - 79,999" },
+          { value: 80000, text: ">80,000" },
+        ],
         filterOptions: {
             type: 'Excel'
         },

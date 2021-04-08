@@ -1,5 +1,6 @@
 const Housing = require('../models/Housing')
 const Tax = require('../models/Tax')
+// const Grants = require('../models/Grants')
 
 exports.getHousingDetails = async (req, res) => {
     Housing.find()
@@ -23,6 +24,8 @@ exports.calculateCost = async (req, res) => {
         console.log(price)
         const flat_room = selectedhdb.flat_room
         console.log(flat_room)
+        // const income = selectedIncome.flat_room
+        // console.log(income)
 
         const home_insurance_premium = await Tax.home_insurance()
         const caveat_registration = await Tax.caveat_registration()
@@ -56,7 +59,7 @@ exports.calculateCost = async (req, res) => {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * 30) + (await Tax.conveyance_fee_remain() * (price-60000)/1000)
         }
 
-        const total_cost = home_insurance_premium + caveat_registration + option_fee + stamp_duty + conveyancefee 
+        const total_cost = home_insurance_premium + caveat_registration + option_fee + stamp_duty + conveyancefee + price
 
         var cost_object = {
             option_fee: option_fee,
@@ -66,6 +69,10 @@ exports.calculateCost = async (req, res) => {
             conveyancefee: conveyancefee,
             total_cost: total_cost
         }
+
+        // var EHG
+        // if (income<)
+        
 
         res.status(201).json({ cost_object })
     } catch (err) {

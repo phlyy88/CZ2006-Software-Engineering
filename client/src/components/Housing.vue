@@ -41,10 +41,16 @@
                     Remaining lease: {{ selectedOption.remaining_lease }}
                     <br>
                 </b-card-text>
+                                <b-form-select
+                    v-model="selectedIncome"
+                    :options="incomeOptions"
+                >
+                    
+                </b-form-select> <br>
                 <b-button
-                    v-if="displayCostBreakdown"
+                    v-if="displayCostBreakdown && displayIncome" 
                     v-b-toggle.sidebar-backdrop
-                    @click ="calculateCost">Cost Breakdown</b-button>
+                    @click ="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -128,7 +134,7 @@
 
 <script>
 import { Filter } from '@syncfusion/ej2-vue-grids'
-import { getDetails, calculateCost } from "../services/systems"
+import { getDetails, calculate } from "../services/systems"
   export default {
     data() {
       return {
@@ -137,6 +143,7 @@ import { getDetails, calculateCost } from "../services/systems"
         isCalculating: false,
         showPreviousCost: true,
         displayCostBreakdown: false,
+        displayIncome: false,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -148,6 +155,14 @@ import { getDetails, calculateCost } from "../services/systems"
                     "total_cost": 0
                 }}
         },
+        selectedIncome: null,
+        incomeOptions: [
+          { value: null, text: "Please select a household income range" },
+          { value: 15000, text: "5,000 - 5,500" },
+          { value: 35000, text: "20,000 - 49,999" },
+          { value: 65000, text: "50,000 - 79,999" },
+          { value: 80000, text: ">80,000" },
+        ],
         filterOptions: {
             type: 'Excel'
         },
@@ -167,10 +182,11 @@ import { getDetails, calculateCost } from "../services/systems"
     methods: {
         onRowSelected(args) {
             this.selectedOption = args.data
+            this.displayIncome = true
             this.displayCostBreakdown = true
         },
-        calculateCost() {
-            calculateCost.calculateCost(this, 'housing')
+        calculate() {
+            calculate.calculateCost(this, 'housing')
         }
     },
     provide: {

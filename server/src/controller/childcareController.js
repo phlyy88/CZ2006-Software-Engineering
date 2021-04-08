@@ -25,6 +25,7 @@ exports.calculateCostchild = async (req, res) => {
 
 
         const total_cost = registration_cost + monthly_cost
+        const total_cost_annual = (12 * monthly_cost) + registration_cost
 
         var baby_bonus =  await Grants.baby_bonus_1()
         const total_grants = baby_bonus
@@ -33,6 +34,7 @@ exports.calculateCostchild = async (req, res) => {
             registration_cost: registration_cost, 
             monthly_cost: monthly_cost,
             total_cost: total_cost,
+            total_cost_annual: total_cost_annual,
             baby_bonus: baby_bonus,
             total_grants: total_grants,
         }
