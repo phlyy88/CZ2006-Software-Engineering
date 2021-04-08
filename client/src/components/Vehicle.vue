@@ -211,54 +211,35 @@ export default {
             this.selectedPlan = plan
         },
         async addFav() {
-            //this.getUserDetails();
             console.log(this.user.v1)
             console.log(this.user.v2)
             console.log(this.user.v3)
             if (this.selectedPlan == 1){
                 this.$set(this.user, 'v1', this.selectedOption)
-                console.log(this.user)
-                console.log(this.user.email)
-                console.log(this.user.v1)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
-                    title: 'user edited',
-                    text: this.user.v1
+                    title: 'Added to plan 1!',
+                    text: this.user.v1.name
                     });
-                // .then (response => 
-                // {this.user = response.user}, 
-                // error => {console.log(error);})
                 console.log("put done")
-                console.log(this.user)
             }
             if (this.selectedPlan == 2) {
                 this.$set(this.user, 'v2', this.selectedOption)
-                console.log(this.user)
-                // console.log(this.user.email)
-                // console.log(this.user.v2)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
-                    title: 'Added to plan 2',
+                    title: 'Added to plan 2!',
                     text: this.user.v2.name
                     });
                 console.log("put done")
             }
             if (this.selectedPlan == 3) {
-                console.log(this.user.email)
-                console.log(this.user.v1)
-                console.log(this.user.v2)
                 this.$set(this.user, 'v3', this.selectedOption)
-                // console.log(this.user)
-                // console.log(this.user.email)
-                // console.log(this.user.v3)
-                console.log(this.user.v1)
-                console.log(this.user.v2)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
-                    title: 'Added to plan 3',
+                    title: 'Added to plan 3!',
                     text: this.user.v3.name
                     });
                 console.log("put done")

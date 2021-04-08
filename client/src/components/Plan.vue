@@ -79,13 +79,14 @@
 <script>
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
+//import calculate from "../services/systems"
 export default {
   data() {
     return {
       user: {},
       totalCosts: null,
-      HousePicURL: null,
       VehiclePicURL: null,
+      HousePicURL: "https://www.teoalida.com/world/9710488.jpg",
       ChildcarePicURL:
         "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
       userGet: null
@@ -115,7 +116,7 @@ export default {
     getHousingCost(){},
     getVehicleCost(){
       // if (this.plan == 1) {
-
+      //   calculate.calculateCost(this, 'vehicle')
       // }
       // if (this.plan == 2) {
 
