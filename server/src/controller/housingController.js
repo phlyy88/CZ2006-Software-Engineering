@@ -15,7 +15,7 @@ exports.getHousingDetails = async (req, res) => {
 }
 
 
-exports.calculateCost = async (req, res) => {
+exports.calculateCostHousing = async (req, res) => {
     try {
         const selectedhdb = req.body
         console.log(req.body)
@@ -69,6 +69,20 @@ exports.calculateCost = async (req, res) => {
         }
 
         res.status(201).json({ cost_object })
+    } catch (err) {
+        res.status(400).json({ err: err })
+    }
+}
+
+exports.calculateGrantsHousing = async (req, res) => {
+    try {
+        const income = req.body
+        console.log(income)
+        var grant_object = {
+            income: income
+        }
+
+        res.status(201).json({ grant_object })
     } catch (err) {
         res.status(400).json({ err: err })
     }

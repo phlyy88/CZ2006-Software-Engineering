@@ -41,10 +41,16 @@
                     Remaining lease: {{ selectedOption.remaining_lease }}
                     <br>
                 </b-card-text>
+                <b-form-select
+                    v-if="displayIncome"
+                    v-model="selectedIncome.income"
+                    :options="incomeOptions"
+                ></b-form-select>
                 <b-button
-                    v-if="displayCostBreakdown"
+                    v-if="displayCostBreakdown && displayIncome"
                     v-b-toggle.sidebar-backdrop
-                    @click ="calculateCost">Cost Breakdown</b-button>
+                    variant="primary"
+                    @click ="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -114,10 +120,8 @@
                             </b-card-body>
                         </b-collapse>
                         </b-card>
-
                     </div>
                 </b-sidebar>
-
                 <b-card-text v-if="cost!==null">
                     Cost: {{ cost }}
                 </b-card-text>
@@ -128,7 +132,7 @@
 
 <script>
 import { Filter } from '@syncfusion/ej2-vue-grids'
-import { getDetails, calculateCost } from "../services/systems"
+import { getDetails, calculate } from "../services/systems"
   export default {
     data() {
       return {
@@ -137,6 +141,7 @@ import { getDetails, calculateCost } from "../services/systems"
         isCalculating: false,
         showPreviousCost: true,
         displayCostBreakdown: false,
+        displayIncome: false,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -149,6 +154,27 @@ import { getDetails, calculateCost } from "../services/systems"
                 }
             }
         },
+        grantsBreakdown: {
+            "data": {
+                "grants_object": {
+                    "income": 0
+                }
+            }
+        },
+        selectedIncome: {
+            "income": null
+        },
+        incomeOptions: [
+            { value: null, text: "Please select an income range" },
+            { value: 1, text: "5,000 - 5,500" },
+            { value: 2, text: "5,500 - 6,000" },
+            { value: 3, text: "6,000 - 6,500" },
+            { value: 4, text: "6,500 - 7,000" },
+            { value: 5, text: "7,000 - 7,500" },
+            { value: 6, text: "7,500 - 8,000" },
+            { value: 7, text: "8,000 - 8,500" },
+            { value: 8, text: "8,500 - 9,000" },
+        ],
         filterOptions: {
             type: 'Excel'
         },
@@ -161,17 +187,20 @@ import { getDetails, calculateCost } from "../services/systems"
       }
     },
     watch: {
-        selectedOption: function (newSelectedOption) {
-            this.selectedOption = newSelectedOption
+        // selectedOption: function (newSelectedOption) {
+        //     this.selectedOption = newSelectedOption
+        // },
+        'selectedIncome.income': function () {
+            this.displayCostBreakdown = true
         }
-    },    
+    },
     methods: {
         onRowSelected(args) {
             this.selectedOption = args.data
-            this.displayCostBreakdown = true
+            this.displayIncome = true
         },
-        calculateCost() {
-            calculateCost.calculateCost(this, 'housing')
+        calculate() {
+            calculate.calculateCost(this, 'housing', true) //pass in true because we want to calculate grants
         }
     },
     provide: {

@@ -40,7 +40,7 @@
                     variant="primary"
                     v-if="displayCostBreakdown"
                     v-b-toggle.sidebar-backdrop
-                    @click="calculateCost">Cost Breakdown</b-button>
+                    @click="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -123,7 +123,7 @@
 <script>
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import NavBar from "./NavBar.vue"
-import { getDetails, calculateCost } from "../services/systems"
+import { getDetails, calculate } from "../services/systems"
 export default {
     data() {
       return {
@@ -172,8 +172,8 @@ export default {
             this.picURL = args.data.image_url
             this.displayCostBreakdown = true
         },
-        calculateCost() {
-            calculateCost.calculateCost(this, 'vehicle')
+        calculate() {
+            calculate.calculateCost(this, 'vehicle', false)
         }
     },
     provide: {

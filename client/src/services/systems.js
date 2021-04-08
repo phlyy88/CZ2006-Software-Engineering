@@ -14,12 +14,15 @@ export const getDetails = {
     } 
 }
 
-export const calculateCost = {
-    calculateCost: async function(that, type) {
+export const calculate = {
+    calculateCost: async function(that, type, calculateGrants) {
         try {
             that.isCalculating = true
             that.showPreviousCost = false
             that.costBreakdown= await that.$http.post(type.concat("/costBreakdown"), that.selectedOption)
+            if (calculateGrants) {
+                that.grantsBreakdown = await that.$http.post(type.concat("/grantsBreakdown"), that.selectedIncome)
+            }
             that.showPreviousCost = true
             that.isCalculating = false
             console.log(that.costBreakdown)
@@ -31,5 +34,5 @@ export const calculateCost = {
                 that.$swal("Error", error.data.err.message, "error")
             }
         }
-    }
+    },
 }
