@@ -139,7 +139,6 @@
     </div>
 </template>
 <script>
-import User from '../../../server/src/models/User'
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
@@ -182,12 +181,11 @@ export default {
         {plan: 2}, 
         {plan: 3}],
       selectedPlan: 1,
-      user: User,
       }
     },
     components:{
         NavBar,
-        // favBtn
+
     },
     watch: {
         selectedOption: function (newSelectedOption) {
@@ -201,7 +199,7 @@ export default {
             this.displayCostBreakdown = true
         },
         calculate() {
-            calculate.calculateCost(this, 'vehicle', false)
+            calculate.calculateCost(this, 'vehicle')
         },
         getUserDetails() {
       let token = localStorage.getItem("jwt");
