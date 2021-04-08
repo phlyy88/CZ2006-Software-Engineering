@@ -44,7 +44,7 @@
                 </b-card-text>
                 <b-form-select
                     v-if="displayIncome"
-                    v-model="selectedIncome.income"
+                    v-model="selectedOption.income"
                     :options="incomeOptions"
                 >
                     <template #first>
@@ -148,7 +148,7 @@ import { getDetails, calculate } from "../services/systems"
         showPreviousCost: true,
         displayCostBreakdown: false,
         displayIncome: false,
-        netCost: null,
+        netCost: 0,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -157,7 +157,8 @@ import { getDetails, calculate } from "../services/systems"
                     "caveat_registration": 0,
                     "conveyancefee": 0,
                     "stamp_duty": 0,
-                    "total_cost": 0
+                    "total_cost": 0,
+                    "income": 0
                 }
             }
         },
@@ -167,9 +168,6 @@ import { getDetails, calculate } from "../services/systems"
                     "total_grants": 0
                 }
             }
-        },
-        selectedIncome: {
-            "income": 0
         },
         incomeOptions: [
             // { value: null, text: "Please select an income range" },
@@ -197,7 +195,7 @@ import { getDetails, calculate } from "../services/systems"
         // selectedOption: function (newSelectedOption) {
         //     this.selectedOption = newSelectedOption
         // },
-        'selectedIncome.income': function () {
+        'selectedOption.income': function () {
             this.displayCostBreakdown = true
         }
     },

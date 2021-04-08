@@ -100,7 +100,7 @@ exports.calculateGrantsHousing = async (req, res) => {
         var total_grants = ehg
 
         var grants_object = {
-            total_grants: total_grants,
+            total_grants: total_grants
         }
         
 

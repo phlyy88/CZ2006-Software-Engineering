@@ -57,6 +57,9 @@ exports.calculateCostVehicle = async (req, res) => {
         if (ves_cost=="C2") {
             ves = await Tax.ves_c2()
         }
+        if (ves_cost=="-") {
+            ves = 0
+        }
             
         // if (ves_cost=="A1") {
         //     ves = await Tax.ves_a1()
