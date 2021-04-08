@@ -9,7 +9,11 @@ exports.registerNewUser = async (req, res) => {
         lastName,
         gender,
         dob,
-        income
+        income,
+        v1,
+        v2,
+        v3,
+        //h1,h2,h3,c1,c2,c3
     } = req.body
     try {
         // console.log(isUser)
@@ -33,7 +37,11 @@ exports.registerNewUser = async (req, res) => {
             lastName,
             gender,
             dob,
-            income
+            income,
+            v1,
+            v2,
+            v3,
+            //h1,h2,h3,c1,c2,c3
         })
         let data = await user.save()
         const token = await user.generateAuthToken() // here it is calling the method that we created in the model
@@ -60,4 +68,10 @@ exports.loginUser = async (req, res) => {
 
 exports.getUserDetails = async (req, res) => {
     await res.json(req.userData)
+}
+
+exports.updateUserPlan = async (req) => {
+    console.log("in controller")
+    User.updatePlan(req)
+    console.log("back to controller")
 }

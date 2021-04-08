@@ -143,6 +143,7 @@ import User from '../../../server/src/models/User'
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import NavBar from "./NavBar.vue"
 import VueJwtDecode from "vue-jwt-decode";
+//import axios from 'axios'
 
 export default {
     data() {
@@ -237,30 +238,52 @@ export default {
             this.selectedPlan = plan
         },
         async addFav() {
-            // this.$notify({
-            //             group: 'foo',
-            //             title: 'added_plan1',
-            //             text: this.selectedPlan
-            //             });
             if (this.selectedPlan == 1){
+                this.$set(this.user, 'v1', this.selectedOption)
+                console.log(this.user)
+                console.log(this.user.email)
+                console.log(this.user.v1)
                 this.$notify({
-                        group: 'foo',
-                        title: 'added_plan1',
-                        text: this.user.plans
-                        });
-                    this.user.plans.plan1 = this.selectedPlan
-                    this.$notify({
-                        group: 'foo',
-                        title: 'added_plan1',
-                        text: 'Added to plan 1!'
-                        });
-                }
-                if (this.selectedPlan == 2) {
-                    this.user.plans.plan2 = this.selectedOption
-                }
-                if (this.selectedPlan == 3) {
-                    this.user.plans.plan3 = this.selectedOption
-                }
+                    group: 'foo',
+                    title: 'user edited',
+                    text: this.user.v1
+                    });
+                this.$http.put('user/update', this.user)
+                // .then (response => 
+                // {this.user = response.user}, 
+                // error => {console.log(error);})
+                console.log("put done")
+            }
+            if (this.selectedPlan == 2) {
+                this.$set(this.user, 'v2', this.selectedOption)
+                console.log(this.user)
+                // console.log(this.user.email)
+                // console.log(this.user.v2)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 2',
+                    text: this.user.v2.name
+                    });
+                console.log("put done")
+            }
+            if (this.selectedPlan == 3) {
+                console.log(this.user.v1)
+                console.log(this.user.v2)
+                this.$set(this.user, 'v3', this.selectedOption)
+                // console.log(this.user)
+                // console.log(this.user.email)
+                // console.log(this.user.v3)
+                console.log(this.user.v1)
+                console.log(this.user.v2)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 3',
+                    text: this.user.v3.name
+                    });
+                console.log("put done")
+            }
         }
     },
     provide: {

@@ -27,42 +27,50 @@ const userSchema = new Schema({
     income: {
         type: Number
     },
-    plans: {
-        plan1: {
-            housing: {
-                type: Array
-            },
-            vehicle: {
-                type: Array
-            },
-            childcare :{
-                type: Array
-            }
-        },
-        plan2: {
-            housing: {
-                type: Array
-            },
-            vehicle: {
-                type: Array
-            },
-            childcare :{
-                type: Array
-            }
-        },
-        plan3: {
-            housing: {
-                type: Array
-            },
-            vehicle: {
-                type: Array
-            },
-            childcare :{
-                type: Array
-            }
-        }
-    }
-    ,
+    // plans: {
+    //     plan1: {
+    //         housing: {
+    //             type: Array
+    //         },
+    //         vehicle: {
+    //             type: Array
+    //         },
+    //         childcare :{
+    //             type: Array
+    //         }
+    //     },
+    //     plan2: {
+    //         housing: {
+    //             type: Array
+    //         },
+    //         vehicle: {
+    //             type: Array
+    //         },
+    //         childcare :{
+    //             type: Array
+    //         }
+    //     },
+    //     plan3: {
+    //         housing: {
+    //             type: Array
+    //         },
+    //         vehicle: {
+    //             type: Array
+    //         },
+    //         childcare :{
+    //             type: Array
+    //         }
+    //     }
+    // },
+    v1: {type: Array},
+    v2: {type: Array},
+    v3: {type: Array},
+    // h1: {type: Array},
+    // h2: {type: Array},
+    // h3: {type: Array},
+    // c1: {type: Array},
+    // c2: {type: Array},
+    // c3: {type: Array},
     tokens: [
         {
             token: {
@@ -121,6 +129,29 @@ userSchema.statics.editProfile = async (req) => {
             gender: req.gender,
             dob: req.dob
         })
+}
+
+userSchema.statics.updatePlan = async (req) => {
+    console.log("Before update")
+    console.log(req.body)
+    console.log(req.body.email)
+    console.log(req.body.v1)
+    try {
+        User.findOneAndUpdate(
+        {"email":req.body.email},
+        {$set:{
+            "v1": req.body.v1, 
+            "v2": req.body.v2,
+            "v3": req.body.v3,
+            }},
+        {new: true}, function(err){
+            if (err){
+              console.log(err);
+            } } )
+        console.log("Update complete") 
+    } catch(error) {
+        console.log(error)
+    }
 }
 
 const User = mongoose.model("User", userSchema, "user") //create model
