@@ -43,20 +43,24 @@ exports.calculateCostchild = async (req, res) => {
 
 exports.calculateGrantschild = async (req, res) => {
     try {
-        const selectedchildcare = req.body.income
-        console.log(req.body.income)
-        const monthly_cost = selectedchildcare.cost_for_Singaporeans
-        console.log(monthly_cost)
+        const child = req.body.child
+        console.log(req.body.child)
 
-        const baby_bonus = await Grants.baby_bonus()
-        // const kafs 
-        // if (incomeOptions.value<) {
-        // }= await Grants.kafs()
+        var baby_bonus
+        if (child==1){
+            baby_bonus= await Grants.baby_bonus_1()}
+        else if (child==2){baby_bonus=await Grants.baby_bonus_2()}
+        else if (child==3){baby_bonus=await Grants.baby_bonus_3()}
 
-        const total_grants = baby_bonus
+        var baby_bonus_step
+        baby_bonus_step = child * await Grants.baby_bonus_step()
+
+        const total_grants = baby_bonus + baby_bonus_step
+        console.log(total_grants)
 
         var grant_object = {
             baby_bonus: baby_bonus, 
+            baby_bonus_step: baby_bonus_step,
             total_grants: total_grants
         }
 

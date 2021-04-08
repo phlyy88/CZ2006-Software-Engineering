@@ -15,12 +15,14 @@ export const getDetails = {
 }
 
 export const calculate = {
-    calculateCost: async function(that, type, calculateGrants) {
+    calculateCost: async function(that, type) {
         try {
             that.isCalculating = true
             that.showPreviousCost = false
             that.costBreakdown= await that.$http.post(type.concat("/costBreakdown"), that.selectedOption)
-            if (calculateGrants) {
+            if (type=="childcare") {
+                that.grantsBreakdown = await that.$http.post(type.concat("/grantsBreakdown"), that.selectedChild)
+            } else if (type=="housing") {
                 that.grantsBreakdown = await that.$http.post(type.concat("/grantsBreakdown"), that.selectedIncome)
             }
             that.showPreviousCost = true

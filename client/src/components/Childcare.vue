@@ -40,14 +40,14 @@
                     <br>
                 </b-card-text>  
                 <b-form-select
-                    v-if="displayIncome"
-                    v-model="selectedIncome.income"
-                    :options="incomeOptions"
+                    v-if="displayChild"
+                    v-model="selectedChild.child"
+                    :options="childOptions"
                 >
                     
                 </b-form-select>
                 <b-button
-                    v-if="displayCostBreakdown && displayIncome"
+                    v-if="displayCostBreakdown && displayChild"
                     v-b-toggle.sidebar-backdrop
                     variant="primary"
                     @click ="calculate">Cost Breakdown</b-button>
@@ -130,7 +130,7 @@
         isCalculating: false,
         showPreviousCost: true,
         displayCostBreakdown: false,
-        displayIncome: false,
+        displayChild: false,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -146,23 +146,19 @@
             "data": {
                 "grant_object": {
                     "baby_bonus": 0,
+                    "baby_bonus_step": 0,
                     "total_grants": 0,
                 }
             }
         },
-        selectedIncome: {
-            "income": 0
+        selectedChild: {
+            "child": 0
         },
-        incomeOptions: [
-          { value: null, text: "Please select an income range" },
-          { value: 1, text: "5,000 - 5,500" },
-          { value: 2, text: "5,500 - 6,000" },
-          { value: 3, text: "6,000 - 6,500" },
-          { value: 4, text: "6,500 - 7,000" },
-          { value: 5, text: "7,000 - 7,500" },
-          { value: 6, text: "7,500 - 8,000" },
-          { value: 7, text: "8,000 - 8,500" },
-          { value: 8, text: "8,500 - 9,000" },
+        childOptions: [
+          { value: null, text: "Please select number of children" },
+          { value: 1, text: "1" },
+          { value: 2, text: "2" },
+          { value: 3, text: "3 or more" },
         ],
         filterOptions: {
             type: 'Excel'
@@ -176,17 +172,17 @@
       }
     },
     watch: {
-        "selectedIncome.income": function(){
+        "selectedChild.child": function(){
             this.displayCostBreakdown = true
         }
     },
     methods: {
         onRowSelected(args) {
             this.selectedOption = args.data
-            this.displayIncome = true
+            this.displayChild = true
         },
         calculate(){
-            calculate.calculateCost(this,'childcare', true)
+            calculate.calculateCost(this,'childcare')
         }
 
     },

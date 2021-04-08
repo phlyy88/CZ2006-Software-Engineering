@@ -32,7 +32,7 @@ const grantSchema = new Schema({
     }
 })
 
-grantSchema.statics.baby_bonus = async function() {
+grantSchema.statics.baby_bonus_1 = async function() {
     const baby_bonus_1 = await Grants.findOne(
         { grant_name: "Baby Bonus 1" },
         { grant_amt: 1 }
@@ -40,6 +40,29 @@ grantSchema.statics.baby_bonus = async function() {
     return baby_bonus_1.grant_amt
 }
 
+grantSchema.statics.baby_bonus_2 = async function() {
+    const baby_bonus_2 = await Grants.findOne(
+        { grant_name: "Baby Bonus 2" },
+        { grant_amt: 1 }
+    )
+    return baby_bonus_2.grant_amt
+}
+
+grantSchema.statics.baby_bonus_3 = async function() {
+    const baby_bonus_3 = await Grants.findOne(
+        { grant_name: "Baby Bonus 3" },
+        { grant_amt: 1 }
+    )
+    return baby_bonus_3.grant_amt
+}
+
+grantSchema.statics.baby_bonus_step = async function() {
+    const baby_bonus_step = await Grants.findOne(
+        { grant_name: "Baby Bonus CDA" },
+        { grant_amt: 1 }
+    )
+    return baby_bonus_step.grant_amt
+}
 grantSchema.statics.ehg_9 = async function() {
     const ehg_9 = await Grants.findOne(
         { grant_name: "EHG 9" },

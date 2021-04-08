@@ -200,7 +200,7 @@ import { getDetails, calculate } from "../services/systems"
             this.displayIncome = true
         },
         calculate() {
-            calculate.calculateCost(this, 'housing', true) //pass in true because we want to calculate grants
+            calculate.calculateCost(this, 'housing')
         }
     },
     provide: {
