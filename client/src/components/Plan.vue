@@ -26,15 +26,64 @@
         <b-card no-body class="overflow-hidden">
           <b-row no-gutters>
             <b-col md="6">
-              <b-card-img
-                v-bind:src="VehiclePicURL"
+              <b-card-img v-if="this.plan == 1"
+                v-bind:src="this.userGet.data.user.v1.image_url"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+              <b-card-img v-if="this.plan == 2"
+                v-bind:src="this.userGet.data.user.v2.image_url"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+              <b-card-img v-if="this.plan == 3"
+                v-bind:src="this.userGet.data.user.v3.image_url"
                 alt="Image"
                 class="rounded-0"
               ></b-card-img>
             </b-col>
             <b-col md="6">
-              <b-card-body title="Vehicle">
-                <b-card-text> Include Vehicle calculation </b-card-text>
+              <b-card-body v-if="this.plan == 1">
+                <h5>{{this.userGet.data.user.v1.name}}</h5>
+                <b-card-text >
+                  Open Market Value: {{this.userGet.data.user.v1.cost.omv}} <br>
+                  Additional Registration Fee: {{this.userGet.data.user.v1.cost.arf}} <br>
+                  Excise Duty Fee: {{this.userGet.data.user.v1.cost.excise_duty}} <br> 
+                  GST: {{this.userGet.data.user.v1.cost.gst}} <br>
+                  Registration Fee: {{this.userGet.data.user.v1.cost.registration_fee}} <br>
+                  Road Tax: {{this.userGet.data.user.v1.cost.road_tax}} <br>
+                  Vehicle Emission Scheme: {{this.userGet.data.user.v1.cost.ves}} <br>
+                  _______________________________________________ <br>
+                  <h6>Total Cost: ${{this.userGet.data.user.v1.cost.total_cost.toFixed(2)}} <br> </h6>
+                </b-card-text>
+              </b-card-body>
+              <b-card-body v-if="this.plan == 2">
+                <h5>{{this.userGet.data.user.v2.name}}</h5>
+                <b-card-text >
+                  Open Market Value: {{this.userGet.data.user.v2.cost.omv}} <br>
+                  Additional Registration Fee: {{this.userGet.data.user.v2.cost.arf}} <br>
+                  Excise Duty Fee: {{this.userGet.data.user.v2.cost.excise_duty}} <br> 
+                  GST: {{this.userGet.data.user.v2.cost.gst}} <br>
+                  Registration Fee: {{this.userGet.data.user.v2.cost.registration_fee}} <br>
+                  Road Tax: {{this.userGet.data.user.v2.cost.road_tax}} <br>
+                  Vehicle Emission Scheme: {{this.userGet.data.user.v2.cost.ves}} <br>
+                  _______________________________________________ <br>
+                  <h6>Total Cost: ${{this.userGet.data.user.v2.cost.total_cost.toFixed(2)}} <br> </h6>
+                </b-card-text>
+              </b-card-body>
+              <b-card-body v-if="this.plan == 3">
+                <h5>{{this.userGet.data.user.v3.name}}</h5>
+                <b-card-text >
+                  Open Market Value: {{this.userGet.data.user.v3.cost.omv}} <br>
+                  Additional Registration Fee: {{this.userGet.data.user.v3.cost.arf}} <br>
+                  Excise Duty Fee: {{this.userGet.data.user.v3.cost.excise_duty}} <br> 
+                  GST: {{this.userGet.data.user.v3.cost.gst}} <br>
+                  Registration Fee: {{this.userGet.data.user.v3.cost.registration_fee}} <br>
+                  Road Tax: {{this.userGet.data.user.v3.cost.road_tax}} <br>
+                  Vehicle Emission Scheme: {{this.userGet.data.user.v3.cost.ves}} <br>
+                  _______________________________________________ <br>
+                  <h6>Total Cost: ${{this.userGet.data.user.v3.cost.total_cost.toFixed(2)}} <br> </h6>
+                </b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
@@ -89,7 +138,8 @@ export default {
       HousePicURL: "https://www.teoalida.com/world/9710488.jpg",
       ChildcarePicURL:
         "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
-      userGet: null
+      userGet: null,
+      
     };
   },
   props:{
@@ -111,7 +161,7 @@ export default {
     },
     async getUserPlans() {
       this.userGet = await this.$http.post('user', this.user)
-      console.log(this.userGet.data.user)
+      console.log(this.userGet.data.user.v1)
     },
     getHousingCost(){},
     getVehicleCost(){
