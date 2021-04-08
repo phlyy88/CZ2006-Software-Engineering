@@ -88,17 +88,27 @@
                                 <b-card-body>
                                     <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                     <b-card-text v-if="showPreviousCost">
-                                        Registration Fee:
-                                        <br>
-                                        $ {{ costBreakdown.data.cost_object.registration_cost.toFixed(2) }}
-                                        <br>
-                                        Monthly Cost:
-                                        <br>
-                                        $ {{ costBreakdown.data.cost_object.monthly_cost.toFixed(2) }}
-                                        <br> 
-                                        Total Annual Cost: ((Monthly Cost X 12) + registration_cost) x Number Of Children
-                                        <br>    
-                                        ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee.toFixed(2) }}) x {{ selectedOption.child }} = $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                        <b-list-group>
+                                            <b-list-group-item>
+                                                Registration Fee:
+                                                <br>
+                                                $ {{ costBreakdown.data.cost_object.registration_cost.toFixed(2) }}
+                                            </b-list-group-item>
+                                            <b-list-group-item>
+                                                Monthly Cost:
+                                                <br>
+                                                $ {{ costBreakdown.data.cost_object.monthly_cost.toFixed(2) }}
+                                            </b-list-group-item>
+                                            <b-list-group-item>
+                                                Total Annual Cost: ((Monthly Cost X 12) + registration_cost) x Number Of Children
+                                                <br>    
+                                                ($ {{ selectedOption.cost_for_Singaporeans }} x 12)
+                                                <br>
+                                                + $ {{ selectedOption.registration_fee.toFixed(2) }}) x {{ selectedOption.child }}
+                                                <br>
+                                                = $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                            </b-list-group-item>
+                                        </b-list-group>
                                     </b-card-text>
                                 </b-card-body>
                             </b-collapse>
@@ -111,8 +121,13 @@
                                 <b-card-body>
                                 <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                 <b-card-text v-if="showPreviousCost">
-                                    Total Grants:
-                                    $ {{ grantsBreakdown.data.grants_object.total_grants.toFixed(2) }}
+                                    <b-list-group>
+                                            <b-list-group-item>
+                                                Total Grants:
+                                                <br>
+                                                $ {{ grantsBreakdown.data.grants_object.total_grants.toFixed(2) }}
+                                            </b-list-group-item>
+                                        </b-list-group>
                                 </b-card-text>
                                 </b-card-body>
                             </b-collapse>
@@ -125,8 +140,14 @@
                                 <b-card-body>
                                 <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                 <b-card-text v-if="showPreviousCost">
-                                    Net Cost:
-                                    $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants.toFixed(2) }} = $ {{ netCost.toFixed(2) }}
+                                    <b-list-group>
+                                        <b-list-group-item>
+                                        Net Cost:
+                                        $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants.toFixed(2) }}
+                                        <br>
+                                        = $ {{ netCost.toFixed(2) }}
+                                        </b-list-group-item>
+                                    </b-list-group>
                                 </b-card-text>
                                 </b-card-body>
                             </b-collapse>
