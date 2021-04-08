@@ -58,13 +58,18 @@
                             <!-- <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text> -->
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
-                                Registration Cost:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.registration_fee }}
-                                <br>
-                                Ves Subsidy/Cost:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.ves }}
+                                <b-list-group>
+                                    <b-list-group-item>
+                                        Registration Cost:
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.registration_fee }}
+                                    </b-list-group-item>
+                                    <b-list-group-item>
+                                        Ves Subsidy/Cost:
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.ves }}
+                                    </b-list-group-item>
+                                </b-list-group>
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -108,8 +113,13 @@
                             <b-card-body>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
-                                Total Cost:
-                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                <b-list-group>
+                                    <b-list-group-item>
+                                        Total Cost:
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                    </b-list-group-item>
+                                </b-list-group>
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>

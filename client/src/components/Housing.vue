@@ -73,19 +73,24 @@
                             <b-card-body>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                 <b-card-text v-if="showPreviousCost">
-                                Option Fee:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.option_fee }}
-                                <br>
-                                Home Insurance Premium:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.home_insurance_premium }}
-                                <br>
-                                Caveat Registration Fee:
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.caveat_registration }}
-                                <br>                                
-                            </b-card-text>
+                                    <b-list-group>
+                                        <b-list-group-item>
+                                            Option Fee:
+                                            <br>
+                                            $ {{ costBreakdown.data.cost_object.option_fee }}
+                                        </b-list-group-item>
+                                        <b-list-group-item>
+                                            Home Insurance Premium:
+                                            <br>
+                                            $ {{ costBreakdown.data.cost_object.home_insurance_premium }}
+                                        </b-list-group-item>
+                                        <b-list-group-item>
+                                            Caveat Registration Fee:
+                                            <br>
+                                            $ {{ costBreakdown.data.cost_object.caveat_registration }}
+                                        </b-list-group-item>
+                                    </b-list-group>                              
+                                </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
@@ -98,20 +103,22 @@
                             <b-card-body>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
-                                Stamp duty:
-                                <br>
-                                {{ costBreakdown.data.cost_object.stamp_duty }}
-                                <br>
-                                Conveyance Fee:
-                                <br>
-                                {{ costBreakdown.data.cost_object.conveyancefee }}
-                                <br>
-
+                                <b-list-group>
+                                    <b-list-group-item>
+                                        Stamp duty:
+                                        <br>
+                                        {{ costBreakdown.data.cost_object.stamp_duty }}
+                                    </b-list-group-item>
+                                    <b-list-group-item>
+                                        Conveyance Fee:
+                                        <br>
+                                        {{ costBreakdown.data.cost_object.conveyancefee }}
+                                    </b-list-group-item>
+                                </b-list-group>
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
-
                     <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
                             <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
@@ -120,8 +127,15 @@
                             <b-card-body>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
-                                Total Cost:
-                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants }} = $ {{ netCost.toFixed(2) }}
+                                <b-list-group>
+                                    <b-list-group-item>
+                                        Total Cost:
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants }} 
+                                        <br>
+                                        = $ {{ netCost.toFixed(2) }}
+                                    </b-list-group-item>
+                                </b-list-group>
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
