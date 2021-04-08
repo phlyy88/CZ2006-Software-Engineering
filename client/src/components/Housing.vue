@@ -29,7 +29,9 @@
             >
                 <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
                 <b-card-text>
-                    block: {{ selectedOption.flat_name }}
+                    Town: {{ selectedOption.town }}
+                    <br>
+                    Flat name: {{ selectedOption.block }}
                     <br>
                     Price: {{ selectedOption.price }}
                     <br>
@@ -54,27 +56,66 @@
                     <div class="accordion" role="tablist">
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-1 variant="info">Fixed cost</b-button>
+                            <b-button block v-b-toggle.accordion-1 variant="info">Flat Costs</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
                             <b-card-body>
-                            <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">{{ hdbcostBreakdown.data }}</b-card-text>
+                                <b-card-text v-if="showPreviousCost">
+                                Option Fee:
+                                <br>
+                                $ {{ hdbcostBreakdown.data.cost_object.option_fee }}
+                                <br>
+                                Home Insurance Premium:
+                                <br>
+                                $ {{ hdbcostBreakdown.data.cost_object.home_insurance_premium }}
+                                <br>
+                                Caveat Registration Fee:
+                                <br>
+                                $ {{ hdbcostBreakdown.data.cost_object.caveat_registration }}
+                                <br>                                
+                            </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
 
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-2 variant="info">Variable cost</b-button>
+                            <b-button block v-b-toggle.accordion-2 variant="info">Percentage cost</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
-                            <b-card-text>{{ text }}</b-card-text>
+                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-text v-if="showPreviousCost">
+                                Stamp duty:
+                                <br>
+                                {{ hdbcostBreakdown.data.cost_object.stamp_duty }}
+                                <br>
+                                Conveyance Fee:
+                                <br>
+                                {{ hdbcostBreakdown.data.cost_object.conveyancefee }}
+                                <br>
+
+                            </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
+
+                    <b-card no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                            <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
+                        </b-card-header>
+                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+                            <b-card-body>
+                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-text v-if="showPreviousCost">
+                                Total Cost:
+                                $ {{ hdbcostBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                            </b-card-text>
+                            </b-card-body>
+                        </b-collapse>
+                        </b-card>
+
                     </div>
                 </b-sidebar>
 
@@ -95,7 +136,17 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
-        hdbcostBreakdown: {},
+        hdbcostBreakdown: {
+            "data" : {
+                "cost_object": {
+                    "option_fee": 0,
+                    "home_insurance_premium": 0,
+                    "caveat_registration": 0,
+                    "conveyancefee": 0,
+                    "stamp_duty": 0,
+                    "total_cost": 0
+                }}
+        },
         filterOptions: {
             type: 'Excel'
         },
