@@ -30,7 +30,7 @@
               </b-card-text>
 
               <b-button href="/housing" variant="outline-primary"
-                >View Listing</b-button
+                >View Housing Listing</b-button
               >
             </b-card>
           </div>
@@ -52,7 +52,7 @@
               <b-button 
               href="/vehicle" 
               variant="outline-primary"
-                >View Listing</b-button
+                >View Vehicle Listing</b-button
               >
             </b-card>
           </div>
@@ -70,7 +70,7 @@
               </b-card-text>
 
               <b-button href="/childcare" variant="outline-primary"
-                >View Listing</b-button
+                >View Childcare Listing</b-button
               >
             </b-card>
           </div>

@@ -62,7 +62,7 @@
             :href=" `/plan/1` " 
             variant="outline-primary"
             v-if="this.plan.data.user.h1||this.plan.data.user.v1||this.plan.data.user.c1"
-              >View Plan</b-button>
+              >View Plan 1</b-button>
           </b-card>
           <b-card title="Plan 2" style="width: 20rem" class="mb-2" image-top>
             <b-list-group flush>
@@ -84,7 +84,7 @@
             :href=" `/plan/2` " 
             variant="outline-primary"
             v-if="this.plan.data.user.h2||this.plan.data.user.v2||this.plan.data.user.c2"
-              >View Plan</b-button>
+              >View Plan 2</b-button>
           </b-card>
           <b-card title="Plan 3" style="width: 20rem" class="mb-2" image-top>
             <b-list-group flush>
@@ -106,7 +106,7 @@
             :href=" `/plan/3` " 
             variant="outline-primary"
             v-if="this.plan.data.user.h3||this.plan.data.user.v3||this.plan.data.user.c3"
-              >View Plan</b-button>
+              >View Plan 3</b-button>
           </b-card>
           
         </b-card-group>
