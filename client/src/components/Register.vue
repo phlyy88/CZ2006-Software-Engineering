@@ -97,7 +97,6 @@ export default {
           { value: 80000, text: ">80,000" },
         ],
       },
-      toPass:null,
     };
   },
   methods: {
@@ -109,7 +108,6 @@ export default {
         if (token) {
           localStorage.setItem("jwt", token);
           this.$router.push("/mainpage");
-          this.toPass = this.register.email 
           this.$swal("Success", "Registration was successful", "success");
         } else {
           this.$swal("Error", "Something went wrong", "error");

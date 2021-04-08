@@ -121,6 +121,8 @@
 
 <script>
   import { Filter, Page } from '@syncfusion/ej2-vue-grids'
+  import VueJwtDecode from "vue-jwt-decode";
+import NavBar from "./NavBar.vue"
   
   export default {
     data() {

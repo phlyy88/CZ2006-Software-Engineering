@@ -1,6 +1,6 @@
 <template>
     <div class="pageView">
-        <NavBar :user="details.data.user.email" />
+        <NavBar :user="user" />
         <div class="filter">
             <ejs-grid 
             ref="grid"
@@ -125,13 +125,15 @@
 </template>
 <script>
 import { Filter } from "@syncfusion/ej2-vue-grids";
+import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
-import { getDetails, calculateCost } from "../services/systems"
+import { getDetails, calculateCost } from "../services/systems.js"
 export default {
     data() {
       return {
         picURL: "https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png",
         details: {},
+        user:{},
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
@@ -177,13 +179,20 @@ export default {
         },
         calculateCost() {
             calculateCost.calculateCost(this, 'vehicle')
-        }
+        },
+        getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
+    },
+
     },
     provide: {
         grid: [Filter]
     },
     mounted() {
         getDetails.getDetails(this, 'vehicle');
+        this.getUserDetails();
     },
 };
 </script>

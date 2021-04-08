@@ -9,22 +9,6 @@ Vue.use(VueRouter)
     name: 'startPage',
     component: () => import('../components/StartPage.vue')
   },
-  /* {
-    path: '/editprofile',
-    name: 'editprofile',
-    component: () => import('../components/EditProfile.vue'),
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/forgot-password',
-    name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue'),
-    meta: {
-      requiresAuth: true
-    }
-  }, */
   {
     path: '/mainpage',
     name: 'mainpage',

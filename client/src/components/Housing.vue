@@ -131,6 +131,8 @@
 
 <script>
 import { Filter } from '@syncfusion/ej2-vue-grids'
+import VueJwtDecode from "vue-jwt-decode";
+import NavBar from "./NavBar.vue"
 import { getDetails, calculateCost } from "../services/systems"
   export default {
     data() {
@@ -178,7 +180,12 @@ import { getDetails, calculateCost } from "../services/systems"
         },
         calculateCost() {
             calculateCost.calculateCost(this, 'housing')
-        }
+        },
+         getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
+    },
     },
     provide: {
         grid: [Filter]
@@ -188,7 +195,8 @@ import { getDetails, calculateCost } from "../services/systems"
             this.picURL = args.data.image_url
         },
     mounted() {
-        getDetails.getDetails(this, 'housing')
+        getDetails.getDetails(this, 'housing');
+        this.getUserDetails();
     }
   }
 </script>
