@@ -32,7 +32,7 @@ const grantSchema = new Schema({
     }
 })
 
-grantSchema.statics.baby_bonus_1 = async function() {
+grantSchema.statics.baby_bonus = async function() {
     const baby_bonus_1 = await Grants.findOne(
         { grant_name: "Baby Bonus 1" },
         { grant_amt: 1 }
@@ -70,6 +70,22 @@ grantSchema.statics.proximity_grant = async function() {
         { grant_amt: 1 }
     )
     return proximity_grant.grant_amt
+}
+
+grantSchema.statics.kafs = async function() {
+    const kafs = await Grants.findOne(
+        { grant_name: "Kindergarten Fee Assistance Scheme" },
+        { grant_amt: 1 }
+    )
+    return kafs.grant_amt
+}
+
+grantSchema.statics.acs = async function() {
+    const acs = await Grants.findOne(
+        { grant_name: "Additional Childcare Subsidy" },
+        { grant_amt: 1 }
+    )
+    return acs.grant_amt
 }
 
 const Grants = mongoose.model("Grants", grantSchema, "grants") //create model

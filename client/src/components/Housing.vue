@@ -176,15 +176,13 @@ import { getDetails, calculate } from "../services/systems"
       }
     },
     watch: {
-        selectedOption: function (newSelectedOption) {
-            this.selectedOption = newSelectedOption
+        displayIncome: function() {this.displayCostBreakdown=true
         }
     },    
     methods: {
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayIncome = true
-            this.displayCostBreakdown = true
         },
         calculate() {
             calculate.calculateCost(this, 'housing')

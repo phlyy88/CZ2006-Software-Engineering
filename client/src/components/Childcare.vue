@@ -3,7 +3,7 @@
         <div class="filter">
             <ejs-grid 
                 ref="grid"
-                :dataSource="childcareArray.data"
+                :dataSource="details.data"
                 :allowFiltering="true"
                 :filterSettings='filterOptions'
                 :selectionSettings='selectionOptions'
@@ -27,7 +27,6 @@
                 style="max-width: 20rem; width: 100%"
                 class="mb-2"
             >
-                <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
                 <b-card-text>
                     Organisation: {{ selectedOption.childcare_organization }}
                     <br>
@@ -41,15 +40,17 @@
                     <br>
                 </b-card-text>  
                 <b-form-select
-                    v-model="selectedIncome"
+                    v-if="displayIncome"
+                    v-model="selectedIncome.income"
                     :options="incomeOptions"
                 >
                     
-                </b-form-select> <br>
+                </b-form-select>
                 <b-button
-                    v-if="picURL!=='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                    v-if="displayCostBreakdown && displayIncome"
                     v-b-toggle.sidebar-backdrop
-                    @click ="calculateCostchild">Cost Breakdown</b-button>
+                    variant="primary"
+                    @click ="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -68,11 +69,11 @@
                                 <b-card-text v-if="showPreviousCost">
                                 Registration Fee:
                                 <br>
-                                $ {{ childcostBreakdown.data.cost_object.registration_cost }}
+                                $ {{ costBreakdown.data.cost_object.registration_cost }}
                                 <br>
                                 Monthly Cost:
                                 <br>
-                                $ {{ childcostBreakdown.data.cost_object.monthly_cost }}
+                                $ {{ costBreakdown.data.cost_object.monthly_cost }}
                                 <br>                               
                             </b-card-text>
                             </b-card-body>
@@ -89,7 +90,7 @@
                             <b-card-text v-if="showPreviousCost">
                                 Total Annual Cost: (Monthly Cost X 12) + registration_cost
                                 <br>    
-                               ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }} = $ {{ childcostBreakdown.data.cost_object.total_cost_annual.toFixed(2) }}
+                               ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }} = $ {{ costBreakdown.data.cost_object.total_cost_annual.toFixed(2) }}
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -104,7 +105,7 @@
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
                                 Total Grants:
-                                $ {{ childcostBreakdown.data.cost_object.total_grants.toFixed(2) }}
+                                $ {{ grantsBreakdown.data.grant_object.total_grants.toFixed(2) }}
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -119,15 +120,18 @@
 
 <script>
   import { Filter, Page } from '@syncfusion/ej2-vue-grids'
-  
+  import {getDetails, calculate} from "../services/systems"
+
   export default {
     data() {
       return {
-        childcareArray: {},
+        details: {},
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
-        childcostBreakdown: {
+        displayCostBreakdown: false,
+        displayIncome: false,
+        costBreakdown: {
             "data" : {
                 "cost_object": {
                     "registration_cost": 0,
@@ -138,13 +142,27 @@
                     "total_grants": 0
                 }}
         },
-        selectedIncome: null,
+        grantsBreakdown: {
+            "data": {
+                "grant_object": {
+                    "baby_bonus": 0,
+                    "total_grants": 0,
+                }
+            }
+        },
+        selectedIncome: {
+            "income": 0
+        },
         incomeOptions: [
           { value: null, text: "Please select an income range" },
-          { value: 15000, text: "10,000 - 19,999" },
-          { value: 35000, text: "20,000 - 49,999" },
-          { value: 65000, text: "50,000 - 79,999" },
-          { value: 80000, text: ">80,000" },
+          { value: 1, text: "5,000 - 5,500" },
+          { value: 2, text: "5,500 - 6,000" },
+          { value: 3, text: "6,000 - 6,500" },
+          { value: 4, text: "6,500 - 7,000" },
+          { value: 5, text: "7,000 - 7,500" },
+          { value: 6, text: "7,500 - 8,000" },
+          { value: 7, text: "8,000 - 8,500" },
+          { value: 8, text: "8,500 - 9,000" },
         ],
         filterOptions: {
             type: 'Excel'
@@ -157,43 +175,19 @@
         }
       }
     },
+    watch: {
+        "selectedIncome.income": function(){
+            this.displayCostBreakdown = true
+        }
+    },
     methods: {
-        async getChildcareDetails() {
-            try {
-                this.childcareArray = await this.$http.get('childcare')
-                //await this.$http.get('childcare) means call the childcare.js in backend
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
         onRowSelected(args) {
             this.selectedOption = args.data
+            this.displayIncome = true
         },
-                async calculateCostchild() {
-            try {
-                this.isCalculating = true
-                this.showPreviousCost = false
-                this.childcostBreakdown= await this.$http.post('childcare/childcostBreakdown', this.selectedOption)
-                this.showPreviousCost = true
-                this.isCalculating = false
-                console.log(this.childcostBreakdown)
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
-        toggle () {
-        this.sharedState.active = !this.sharedState.active
-      }
+        calculate(){
+            calculate.calculateCost(this,'childcare', true)
+        }
 
     },
     name: 'AppDropdown',
@@ -201,7 +195,7 @@
         grid: [Filter, Page]
     },
     mounted() {
-        this.getChildcareDetails();
+        getDetails.getDetails(this,'childcare');
     },
 
   }

@@ -3,6 +3,6 @@ const router = express.Router()
 const childcareController = require("../controller/childcareController")
 
 router.get("/", childcareController.getChildcareDetails)
-router.post("/childcostBreakdown", childcareController.calculateCostchild)
-// router.post("/childgrantsBreakdown", childcareController.calculateGrantschild)
+router.post("/costBreakdown", childcareController.calculateCostchild)
+router.post("/grantsBreakdown", childcareController.calculateGrantschild)
 module.exports = router;
