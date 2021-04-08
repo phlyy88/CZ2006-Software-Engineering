@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -25,6 +24,18 @@ const userSchema = new Schema({
     dob: {
         type: String
     },
+    income: {
+        type: Number
+    },
+    h1: 0,
+    h2: 0,
+    h3: 0,
+    v1: 0,
+    v2: 0, 
+    v3: 0,
+    c1: 0,
+    c2: 0,
+    c3: 0,
     tokens: [
         {
             token: {
@@ -67,6 +78,61 @@ userSchema.statics.findByCredentials = async (email, password) => {
     }
     
     return user
+}
+
+userSchema.statics.findByEmail = async (email) => {
+    //console.log(req.body.email)
+    try {
+    const user = await User.findOne({email}, 
+    function(err){
+        if (err){
+          console.log(err);}
+        } )
+    console.log("Found by email")
+    return user
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+userSchema.statics.editProfile = async (req) => {
+    const filter = { email: req.email }
+    await User.updateOne(filter,
+        {
+            firstName: req.firstName,
+            lastName: req.lastName,
+            gender: req.gender,
+            dob: req.dob
+        })
+}
+
+userSchema.statics.updatePlan = async (req) => {
+    console.log("Before update")
+    console.log(req.body)
+    console.log(req.body.email)
+    // console.log(req.body.v1)
+    try {
+        User.findOneAndUpdate(
+        {"email":req.body.email},
+        {$set:{
+            "h1": req.body.h1, 
+            "h2": req.body.h2,
+            "h3": req.body.h3,
+            "v1": req.body.v1, 
+            "v2": req.body.v2,
+            "v3": req.body.v3,
+            "c1": req.body.c1, 
+            "c2": req.body.c2,
+            "c3": req.body.c3,
+            }},
+        {new: true}, function(err){
+            if (err){
+              console.log(err);
+            } } )
+        console.log("Update complete") 
+    } catch(error) {
+        console.log(error)
+    }
 }
 
 const User = mongoose.model("User", userSchema, "user") //create model

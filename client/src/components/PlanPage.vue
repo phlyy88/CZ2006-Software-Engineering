@@ -5,7 +5,7 @@
     <div id="plans">
       <b-container>
         <b-card-group deck>
-          <div v-for="planNo in planNo" 
+          <!-- <div v-for="planNo in planNo" 
           :key="planNo.plan">
 
           <b-card
@@ -18,8 +18,7 @@
               flush
           
           >
-                <b-list-group-item 
-                v-if="housing">Housing Choice</b-list-group-item>
+                <b-list-group-item v-if="true">Housing Choice</b-list-group-item>
                 <b-list-group style="margin-top: 20px" v-else >
                 <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
                 </b-list-group>
@@ -42,7 +41,74 @@
                 >View Plan</b-button
               >
             </b-card>
-          </div>
+          </div> -->
+          <b-card title="Plan 1" style="width: 20rem" class="mb-2" image-top>
+            <b-list-group flush>
+              <b-list-group-item v-if="this.plan.data.user.h1">{{this.plan.data.user.h1.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
+              </b-list-group>
+              <b-list-group-item v-if="this.plan.data.user.v1">{{this.plan.data.user.v1.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
+              </b-list-group>
+              <b-list-group-item v-if="this.plan.data.user.c1">{{this.plan.data.user.c1.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
+              </b-list-group>
+            </b-list-group>
+            <b-button 
+            style="margin-top: 20px" 
+            :href=" `/plan/1` " 
+            variant="outline-primary"
+            v-if="this.plan.data.user.h1||this.plan.data.user.v1||this.plan.data.user.c1"
+              >View Plan</b-button>
+          </b-card>
+          <b-card title="Plan 2" style="width: 20rem" class="mb-2" image-top>
+            <b-list-group flush>
+              <b-list-group-item v-if="this.plan.data.user.h2">{{this.plan.data.user.h2.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
+              </b-list-group>
+              <b-list-group-item v-if="this.plan.data.user.v2">{{this.plan.data.user.v2.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
+              </b-list-group>
+              <b-list-group-item v-if="this.plan.data.user.c2">{{this.plan.data.user.c2.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
+              </b-list-group>
+            </b-list-group>
+            <b-button 
+            style="margin-top: 20px" 
+            :href=" `/plan/2` " 
+            variant="outline-primary"
+            v-if="this.plan.data.user.h2||this.plan.data.user.v2||this.plan.data.user.c2"
+              >View Plan</b-button>
+          </b-card>
+          <b-card title="Plan 3" style="width: 20rem" class="mb-2" image-top>
+            <b-list-group flush>
+              <b-list-group-item v-if="this.plan.data.user.h3">{{this.plan.data.user.h3.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
+              </b-list-group>
+              <b-list-group-item v-if="this.plan.data.user.v3">{{this.plan.data.user.v3.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
+              </b-list-group>
+              <b-list-group-item v-if="this.plan.data.user.c3">{{this.plan.data.user.c3.name}}</b-list-group-item>
+              <b-list-group style="margin-top: 20px" v-else >
+              <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
+              </b-list-group>
+            </b-list-group>
+            <b-button 
+            style="margin-top: 20px" 
+            :href=" `/plan/3` " 
+            variant="outline-primary"
+            v-if="this.plan.data.user.h3||this.plan.data.user.v3||this.plan.data.user.c3"
+              >View Plan</b-button>
+          </b-card>
+          
         </b-card-group>
         </b-container>
     </div>
@@ -50,24 +116,28 @@
 </template>
 
 <script>
+//import User from '../../../server/src/models/User'
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
 export default {
     data(){
         return{
-          planNo:[
-            {plan:1,
-            name: "Plan 1"}, 
-            {plan:2,
-            name: "Plan 2"}, 
-            {plan:3,
-            name: "Plan 3"}],
+          // planNo:[
+          //   {plan:1,
+          //   name: "Plan 1"}, 
+          //   {plan:2,
+          //   name: "Plan 2"}, 
+          //   {plan:3,
+          //   name: "Plan 3"}],
             selectedPlan:null,
           plans: {},
-          user: null,
-            housing: ["hi"],
-            vehicle: null,
-            childcare: null
+          user: {},
+          email: String,
+          // user: null,
+          //   housing: ["hi"],
+          //   vehicle: null,
+          //   childcare: null,
+          plan:null
         }
     },
     components:{
@@ -79,18 +149,20 @@ export default {
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
     },
-        getPlansDetails() {
-      let token = localStorage.getItem("jwt");
-      let decoded = VueJwtDecode.decode(token);
-      this.plan = decoded;
+      async getUserPlans() {
+      this.plan = await this.$http.post('user', this.user)
+      console.log(this.plan.data.user)
+      console.log(this.plan.data.user.v1.name)
     },
-    goPlan(plan){
+      goPlan(plan){
       this.selectedPlan = plan
-    }
+    },
+    
     
     },
     mounted(){
       this.getUserDetails();
+      this.getUserPlans();
     }
 };
 </script>

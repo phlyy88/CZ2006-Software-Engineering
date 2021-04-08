@@ -23,7 +23,7 @@ exports.calculateCostVehicle = async (req, res) => {
         const category = selectedVehicle.category
         console.log(category)
         const ves_cost = selectedVehicle.ves_cost
-        
+        console.log(ves_cost)
         const engine_capacity = selectedVehicle.engine_capacity
 
         const registration_fee = await Tax.registration_fee()
@@ -39,29 +39,19 @@ exports.calculateCostVehicle = async (req, res) => {
             excise_duty_perc = await Tax.excise_duty()
             excise_duty = omv * excise_duty_perc
         }
-        console.log("excise duty passed")
-        console.log(ves_cost)
+
         var ves
         if (ves_cost=="A1") {
             ves = await Tax.ves_a1()
-        }
-        if (ves_cost=="A2") {
+        } else if (ves_cost=="A2") {
             ves = await Tax.ves_a2()
-        }
-        if (ves_cost=="B") {
+        } else if (ves_cost=='B') {
             ves = await Tax.ves_b()
-        }
-        if (ves_cost=="C1") {
+        } else if (ves_cost=="C1") {
             ves = await Tax.ves_c1()
+        } else if (ves_cost=="C2") {
+            ves = await Tax.ves_C2()
         }
-        if (ves_cost=="C2") {
-            ves = await Tax.ves_c2()
-        }
-        if (ves_cost=="-") {
-            ves = 0
-        }
-            
-        console.log("ves passed")
 
         var arf
         if (omv <= 20000) {
@@ -71,10 +61,9 @@ exports.calculateCostVehicle = async (req, res) => {
             arf = arf + await Tax.by_OMV_ARF_1() * 20000
         } else if (omv>50000) {
             arf = await Tax.by_OMV_ARF_3() * (omv-50000)
-            arf = arf + await Tax.by_OMV_ARF_2() * 30000
+            arf = arf + await Tax.by_OMV_ARF_2() * (omv-20000 - (omv-50000))
             arf = arf + await Tax.by_OMV_ARF_1() * 20000
         }
-        console.log(arf)
 
         var road_tax_percent, road_tax_flat
         if (category=='D') {

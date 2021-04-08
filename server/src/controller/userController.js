@@ -8,7 +8,12 @@ exports.registerNewUser = async (req, res) => {
         firstName,
         lastName,
         gender,
-        dob
+        dob,
+        income,
+        v1,
+        v2,
+        v3,
+        h1,h2,h3,c1,c2,c3
     } = req.body
     try {
         // console.log(isUser)
@@ -31,7 +36,12 @@ exports.registerNewUser = async (req, res) => {
             firstName,
             lastName,
             gender,
-            dob
+            dob,
+            income,
+            v1,
+            v2,
+            v3,
+            h1,h2,h3,c1,c2,c3
         })
         let data = await user.save()
         const token = await user.generateAuthToken() // here it is calling the method that we created in the model
@@ -45,7 +55,6 @@ exports.loginUser = async (req, res) => {
     try {
         const email = req.body.email
         const password = req.body.password
-        console.log(req)
         const user = await User.findByCredentials(email, password)
         if (!user) {
             return res.status(401).json({ error: "Login failed! Check authentication credentials" })
@@ -55,4 +64,39 @@ exports.loginUser = async (req, res) => {
     } catch (err) {
         res.status(400).json({ err: err })
     }
+}
+
+exports.getUserDetails = async (req, res) => {
+    try {
+        const email = req.body.email
+        console.log(email)
+        const user = await User.findByEmail(email)
+        console.log("At controller")
+        console.log(user)
+        res.status(201).json({user})
+        //res.send(user)
+        //return user
+    } catch (err) {
+        console.log("Controller error")
+        res.status(400).json({err : err})
+    }
+}
+
+// exports.getUserDetails = async (req, res) => {
+//     User.find()
+//         .then(data => {
+//             res.send(data)
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message:
+//                     err.message || "Some error occured while retrieving user info"
+//             })
+//         })
+// }
+
+exports.updateUserPlan = async (req) => {
+    console.log("in controller")
+    User.updatePlan(req)
+    console.log("back to controller")
 }
