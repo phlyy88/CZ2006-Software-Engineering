@@ -1,5 +1,6 @@
 <template>
     <div class="vertical-center">
+        <NavBar/>
         <div class="filter">
             <ejs-grid 
                 ref="grid"
@@ -35,6 +36,14 @@
                     <br>
                     Price: {{ selectedOption.omv }}
                 </b-card-text>
+                <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
+                    <b-dropdown-item>First Action</b-dropdown-item>
+                    <b-dropdown-item>Second Action</b-dropdown-item>
+                    <b-dropdown-item>Third Action</b-dropdown-item>
+                    <b-dropdown-divider></b-dropdown-divider>
+                    <b-dropdown-item active>Active action</b-dropdown-item>
+                    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+                </b-dropdown>
                 <b-button
                     variant="primary"
                     v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
@@ -118,6 +127,8 @@
 </template>
 <script>
 import { Filter } from "@syncfusion/ej2-vue-grids";
+import NavBar from "./NavBar.vue"
+import { getDetails, calculateCost } from "../services/systems"
 export default {
     data() {
       return {
@@ -152,51 +163,28 @@ export default {
         }
       }
     },
+    components:{
+        NavBar
+    },
     watch: {
         selectedOption: function (newSelectedOption) {
             this.selectedOption = newSelectedOption
         }
     },
     methods: {
-       async getVehicleDetails() {
-            try {
-                this.vehicleArray = await this.$http.get('vehicle')
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
         },
-        async calculateCost() {
-            try {
-                this.isCalculating = true
-                this.showPreviousCost = false
-                this.costBreakdown= await this.$http.post('vehicle/costBreakdown', this.selectedOption)
-                this.showPreviousCost = true
-                this.isCalculating = false
-                console.log(this.costBreakdown)
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
+        calculateCost() {
+            calculateCost.calculateCost(this, 'vehicle')
         }
     },
     provide: {
         grid: [Filter]
     },
     mounted() {
-        this.getVehicleDetails();
+        getDetails.getDetails(this, 'vehicle');
     },
 };
 </script>

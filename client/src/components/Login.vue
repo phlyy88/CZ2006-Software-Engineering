@@ -1,53 +1,36 @@
 <template>
-    <div class="vue-template">
-        <div class="vertical-center">
-            <div class="inner-block">
-                <form @submit.prevent="loginUser">
-                    <h3>Sign In</h3>
+  <b-modal ref="login-modal" hide-footer>
+    <div class="modal-body">
+      <form @submit.prevent="loginUser">
+        <h3>Sign In</h3>
 
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input
-                            type="email"
-                            class="form-control form-control-lg" 
-                            v-model="login.email"
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input
-                            type="password"
-                            class="form-control form-control-lg"
-                            v-model="login.password"
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        class="btn btn-dark btn-lg btn-block"
-                    >Sign In
-                    </button> <!-- on click, call method "login" -->
-
-                    <p class="forgot-password text-right mt-2 mb-4">
-                        <router-link to="/forgot-password">Forgot password?</router-link>
-                        <br>
-                        New User? 
-                        <router-link to="/register">Register an Account</router-link>
-                    </p>
-
-
-                    <div class="social-icons">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-google"></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        </ul>
-                    </div>
-                </form>
-            </div>    
+        <div class="form-group">
+          <label>Email Address</label>
+          <input
+            type="email"
+            class="form-control form-control-lg"
+            v-model="login.email"
+          />
         </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            class="form-control form-control-lg"
+            v-model="login.password"
+          />
+        </div>
+
+        <b-button 
+        type="submit" 
+        variant="info"
+        >
+          <p1 style="color: white">Sign In</p1>
+        </b-button>
+      </form>
     </div>
+  </b-modal>
 </template>
 
 <script>
@@ -74,7 +57,11 @@
                     this.$swal("Error", "Invalid login credentials", "error")
                     console.log(err.response)
                 }
+            },
+            showModal() {
+                this.$refs["login-modal"].show();
             }
         }
-    }
+
+};
 </script>
