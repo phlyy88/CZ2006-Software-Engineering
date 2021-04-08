@@ -175,7 +175,7 @@
             {plan: 2}, 
             {plan: 3}
             ],
-      selectedPlan: 1,
+        selectedPlan: 1,
         details: {},
         selectedOption: {
             "cost_for_singaporeans": 0,
