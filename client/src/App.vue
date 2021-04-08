@@ -92,14 +92,18 @@ export default {
 
 <style>
 nav{
-  height:60px;
+  max-width: fluid;
+  height:fluid;
 }
 
 header{
+   max-width: fluid;
   align-items: center;
 }
 
 footer{
+   max-width: fluid;
+   max-height: fluid;
   position: static;
 }
 </style>
