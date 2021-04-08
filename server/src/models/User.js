@@ -65,12 +65,12 @@ const userSchema = new Schema({
     v1: {type: Array},
     v2: {type: Array},
     v3: {type: Array},
-    // h1: {type: Array},
-    // h2: {type: Array},
-    // h3: {type: Array},
-    // c1: {type: Array},
-    // c2: {type: Array},
-    // c3: {type: Array},
+    h1: {type: Array},
+    h2: {type: Array},
+    h3: {type: Array},
+    c1: {type: Array},
+    c2: {type: Array},
+    c3: {type: Array},
     tokens: [
         {
             token: {
