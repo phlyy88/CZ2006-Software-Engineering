@@ -107,10 +107,6 @@ userSchema.statics.editProfile = async (req) => {
 }
 
 userSchema.statics.updatePlan = async (req) => {
-    console.log("Before update")
-    console.log(req.body)
-    console.log(req.body.email)
-    // console.log(req.body.v1)
     try {
         User.findOneAndUpdate(
         {"email":req.body.email},
@@ -129,7 +125,6 @@ userSchema.statics.updatePlan = async (req) => {
             if (err){
               console.log(err);
             } } )
-        console.log("Update complete") 
     } catch(error) {
         console.log(error)
     }

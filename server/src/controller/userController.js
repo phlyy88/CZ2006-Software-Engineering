@@ -96,7 +96,5 @@ exports.getUserDetails = async (req, res) => {
 // }
 
 exports.updateUserPlan = async (req) => {
-    console.log("in controller")
     User.updatePlan(req)
-    console.log("back to controller")
 }
