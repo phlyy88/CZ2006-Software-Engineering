@@ -3,7 +3,7 @@
     <b-navbar toggleable="lg" type="light" variant="light" id = "navbar">
       <b-navbar-brand href="/mainpage">
         <strong style="text-decoration: underline">
-          Home
+          Plan for Your Future
         </strong>
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

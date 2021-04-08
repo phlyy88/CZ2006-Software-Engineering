@@ -3,67 +3,46 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
 const housingSchema = new Schema({
-    location: {
+    month: {
         type: String
     },
-    district: {
+    town: {
         type: String
     },
-    image_url: {
+    flat_room: {
         type: String
     },
-    flat_name: {
+    block: {
         type: String
     },
-    launch_date: {
-        type: Date
-    },
-    expected_year_of_completion: {
+    street_name: {
         type: String
     },
-    facilities: {
+    storey_range: {
         type: String
     },
-    room_types: {
-        type: String
-    },
-    no_of_blocks: {
+    floor_area_sqm: {
         type: Number
     },
-    no_of_units: {
-        type: Number
-    },
-    no_of_2_room_flexi_units: {
-        type: Number
-    },
-    two_room_flexi_39_to_40sqm_price_before_grants: {
+    flat_model: {
         type: String
     },
-    two_room_flexi_47_to_48sqm_price_before_grants: {
+    flat_type: {
         type: String
     },
-    no_of_3_room_units: {
-        type: Number
-    },
-    three_room_price_before_grants: {
+    lease_commence_date: {
         type: String
     },
-    no_of_4_room_units: {
-        type: Number
-    },
-    four_room_price_before_grants: {
+    remaining_lease: {
         type: String
     },
-    no_of_5_room_units: {
+    price: {
         type: Number
     },
-    five_room_price_before_grants: {
+    Image_URL: {
         type: String
     },
-    no_of_3_gen_units: {
-        type: Number
-    },
-    third_gen_price_before_grants: {
+    Facilities: {
         type: String
     }
 })

@@ -1,23 +1,12 @@
 <template>
     <div class="vertical-center">
-        <div>
         <NavBar/>
-        <h3>Selected Plan: {{selectedPlan}}</h3>
-        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
-          <b-dropdown-item 
-          v-for="plan in plan" 
-          :key="plan.plan"
-          @click="selectedPlan => doPlan(plan.plan)"
-           >Plan {{plan.plan}}</b-dropdown-item>
-           
-        </b-dropdown>
-      </div>
         <div class="filter">
             <ejs-grid 
                 ref="grid"
                 height='100%'
                 width='100%'
-                :dataSource="vehicleArray.data" 
+                :dataSource="details.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
                 :selectionSettings='selectionOptions'
@@ -61,6 +50,11 @@
                         </button> 
                     </div>
                 </div>
+                <b-button
+                    variant="primary"
+                    v-if="displayCostBreakdown"
+                    v-b-toggle.sidebar-backdrop
+                    @click="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -98,20 +92,23 @@
                             <b-card-body>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
-                                Additional Registration Fee (ARF):
-                                <br>
-                                {{ costBreakdown.data.cost_object.arf }}
-                                <br>
-                                GST (Flat price x GST rate):
-                                <br>
-                                $ {{ selectedOption.omv }} x {{ costBreakdown.data.cost_object.gst_perc }} = $ {{ costBreakdown.data.cost_object.gst.toFixed(2) }}
-                                <br>
-                                Road Tax (Flat road tax +  (Road tax rate x Flat price)):
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
-                                <br>
-
-                                {{ costBreakdown.data }}
+                                <b-list-group>
+                                    <b-list-group-item>
+                                        Additional Registration Fee (ARF):
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.arf }}
+                                    </b-list-group-item>
+                                    <b-list-group-item>
+                                        GST (Flat price x GST rate):
+                                        <br>
+                                        $ {{ selectedOption.omv }} x {{ costBreakdown.data.cost_object.gst_perc }} = $ {{ costBreakdown.data.cost_object.gst.toFixed(2) }}
+                                    </b-list-group-item>
+                                    <b-list-group-item>
+                                        Road Tax (Flat road tax +  (Road tax rate x Flat price)):
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
+                                    </b-list-group-item>
+                                </b-list-group>
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -142,16 +139,16 @@ import User from '../../../server/src/models/User'
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import NavBar from "./NavBar.vue"
 import VueJwtDecode from "vue-jwt-decode";
-
+import { getDetails, calculate } from "../services/systems"
 export default {
     data() {
       return {
-        text: "hello",
         picURL: "https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png",
-        vehicleArray: {},
+        details: {},
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
+        displayCostBreakdown: false,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -184,8 +181,7 @@ export default {
       }
     },
     components:{
-        NavBar,
-        // favBtn
+        NavBar
     },
     watch: {
         selectedOption: function (newSelectedOption) {
@@ -213,88 +209,17 @@ export default {
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
+            this.displayCostBreakdown = true
         },
-        async calculateCost() {
-            try {
-                this.isCalculating = true
-                this.showPreviousCost = false
-                this.costBreakdown= await this.$http.post('vehicle/costBreakdown', this.selectedOption)
-                this.showPreviousCost = true
-                this.isCalculating = false
-                console.log(this.costBreakdown)
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
-        doPlan(plan){
-            console.log(plan)
-            this.selectedPlan = plan
-        },
-        async addFav() {
-            //this.getUserDetails();
-            console.log(this.user.v1)
-            console.log(this.user.v2)
-            console.log(this.user.v3)
-            if (this.selectedPlan == 1){
-                this.$set(this.user, 'v1', this.selectedOption)
-                console.log(this.user)
-                console.log(this.user.email)
-                console.log(this.user.v1)
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'user edited',
-                    text: this.user.v1
-                    });
-                // .then (response => 
-                // {this.user = response.user}, 
-                // error => {console.log(error);})
-                console.log("put done")
-                console.log(this.user)
-            }
-            if (this.selectedPlan == 2) {
-                this.$set(this.user, 'v2', this.selectedOption)
-                console.log(this.user)
-                // console.log(this.user.email)
-                // console.log(this.user.v2)
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 2',
-                    text: this.user.v2.name
-                    });
-                console.log("put done")
-            }
-            if (this.selectedPlan == 3) {
-                console.log(this.user.email)
-                console.log(this.user.v1)
-                console.log(this.user.v2)
-                this.$set(this.user, 'v3', this.selectedOption)
-                // console.log(this.user)
-                // console.log(this.user.email)
-                // console.log(this.user.v3)
-                console.log(this.user.v1)
-                console.log(this.user.v2)
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 3',
-                    text: this.user.v3.name
-                    });
-                console.log("put done")
-            }
+        calculate() {
+            calculate.calculateCost(this, 'vehicle', false)
         }
     },
     provide: {
         grid: [Filter]
     },
     mounted() {
-        this.getVehicleDetails();
+        getDetails.getDetails(this, 'vehicle');
         this.getUserDetails();
     },
 

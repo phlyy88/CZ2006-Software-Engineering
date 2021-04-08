@@ -6,16 +6,13 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'startPage',
+    name: 'startpage',
     component: () => import('../components/StartPage.vue')
   },
   {
-    path: '/editprofile',
-    name: 'editprofile',
-    component: () => import('../components/EditProfile.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    path: '/register',
+    name: 'register',
+    component: () => import('../components/Register.vue')
   },
   {
     path: '/forgot-password',
@@ -60,20 +57,18 @@ Vue.use(VueRouter)
   {
     path: '/plan',
     name: 'plan',
-    component: () => import('../components/PlanPage.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    component: () => import('../components/PlanPage.vue')
   },
-  {
-    path: '/plan/:index',
-    name: 'plan_index',
-    component: () => import('../components/Plan.vue'),
-    meta: {
-      requiresAuth: true
-    },
-    props: true
-  },
+  // {
+  //   path: '/plan/1',
+  //   name: 'plan1',
+  //   component: () => import('../components/Plan1.vue')
+  // },
+  // {
+  //   path: '/plan/2',
+  //   name: 'plan2',
+  //   component: () => import('../components/Plan2.vue')
+  // },
 ]
 
 const router = new VueRouter({
