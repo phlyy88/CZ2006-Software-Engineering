@@ -58,17 +58,6 @@ exports.calculateCost = async (req, res) => {
             ves = await Tax.ves_c2()
         }
             
-        // if (ves_cost=="A1") {
-        //     ves = await Tax.ves_a1()
-        // } else if (ves_cost=="A2") {
-        //     ves = await Tax.ves_a2()
-        // } else if (ves_cost=="B") {
-        //     ves = await Tax.ves_b()
-        // } else if (ves_cost=="C1") {
-        //     ves = await Tax.ves_c1()
-        // } else if (ves_cost=="C2") {
-        //     ves = await Tax.ves_C2()
-        // }
         console.log("ves passed")
 
         var arf
