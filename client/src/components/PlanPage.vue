@@ -52,7 +52,7 @@
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
               </b-list-group>
-              <b-list-group-item v-if="this.plan.data.user.c1">{{this.plan.data.user.c1.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.c1">{{this.plan.data.user.c1.childcare_organization}}</b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
               </b-list-group>
@@ -74,7 +74,7 @@
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
               </b-list-group>
-              <b-list-group-item v-if="this.plan.data.user.c2">{{this.plan.data.user.c2.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.c2">{{this.plan.data.user.c2.childcare_organization}}</b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
               </b-list-group>
@@ -96,7 +96,7 @@
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
               </b-list-group>
-              <b-list-group-item v-if="this.plan.data.user.c3">{{this.plan.data.user.c3.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.c3">{{this.plan.data.user.c3.childcare_organization}}</b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
               </b-list-group>

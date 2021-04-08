@@ -194,6 +194,9 @@ export default {
             this.selectedOption = newSelectedOption
         }
     },
+    // created() {
+    //         this.selectedPlan = this.$route.params.index;
+    //     },
     methods: {
         getUserDetails() {
             let token = localStorage.getItem("jwt");

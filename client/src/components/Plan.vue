@@ -101,8 +101,47 @@
               ></b-card-img>
             </b-col>
             <b-col md="6">
-              <b-card-body title="Childcare">
-                <b-card-text> {{this.userGet.data.user.v1.costBreakdown}} </b-card-text>
+              <b-card-body v-if="this.plan == 1">
+                <h5>{{this.userGet.data.user.c1.childcare_organization}}</h5>
+                <b-card-text> 
+                  Number of Children: {{this.userGet.data.user.c1.cost.child}} <br>
+                  Monthly Cost: {{this.userGet.data.user.c1.cost.monthly_cost}} <br>
+                  Registration Cost : {{this.userGet.data.user.c1.cost.registration_fee}} <br>
+                  Total Annual Cost: {{this.userGet.data.user.c1.cost.total_cost}} <br>
+                  _______________________________________________ <br>
+                  Minus Total Grants : {{this.userGet.data.user.c1.grants_object.total_grants}} <br>
+                  _______________________________________________ <br>
+                  <h6>Net Cost After 1 Year: $ {{this.userGet.data.user.c1.netCost.toFixed(2)}} <br> </h6>
+
+                  </b-card-text>
+              </b-card-body>
+              <b-card-body v-if="this.plan == 2">
+                <h5>{{this.userGet.data.user.c2.childcare_organization}}</h5>
+                <b-card-text> 
+                  Number of Children: {{this.userGet.data.user.c2.cost.child}} <br>
+                  Monthly Cost: {{this.userGet.data.user.c2.cost.monthly_cost}} <br>
+                  Registration Cost : {{this.userGet.data.user.c2.cost.registration_fee}} <br>
+                  Total Annual Cost: {{this.userGet.data.user.c2.cost.total_cost}} <br>
+                  _______________________________________________ <br>
+                  Minus Total Grants : {{this.userGet.data.user.c2.grants_object.total_grants}} <br>
+                  _______________________________________________ <br>
+                  <h6>Net Cost After 1 Year: $ {{this.userGet.data.user.c2.netCost.toFixed(2)}} <br> </h6>
+
+                  </b-card-text>
+              </b-card-body>
+              <b-card-body v-if="this.plan == 3">
+                <h5>{{this.userGet.data.user.c3.childcare_organization}}</h5>
+                <b-card-text> 
+                  Number of Children: {{this.userGet.data.user.c3.cost.child}} <br>
+                  Monthly Cost: {{this.userGet.data.user.c3.cost.monthly_cost}} <br>
+                  Registration Cost : {{this.userGet.data.user.c3.cost.registration_fee}} <br>
+                  Total Annual Cost: {{this.userGet.data.user.c3.cost.total_cost}} <br>
+                  _______________________________________________ <br>
+                  Minus Total Grants : {{this.userGet.data.user.c3.grants_object.total_grants}} <br>
+                  _______________________________________________ <br>
+                  <h6>Net Cost After 1 Year: $ {{this.userGet.data.user.c3.netCost.toFixed(2)}} <br> </h6>
+
+                  </b-card-text>
               </b-card-body>
             </b-col>
           </b-row>

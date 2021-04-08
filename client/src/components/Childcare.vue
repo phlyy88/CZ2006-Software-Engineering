@@ -139,7 +139,7 @@
 </template>
 
 <script>
-  import Navbar from './NavBar'
+  import NavBar from './NavBar'
   import User from '../../../server/src/models/User'
   import { Filter, Page } from '@syncfusion/ej2-vue-grids'
   import {getDetails, calculate} from "../services/systems"
@@ -203,6 +203,9 @@
             type: 'Single'
         }
       }
+    },
+    components: {
+        NavBar
     },
     watch: {
         "selectedOption.child": function(){
