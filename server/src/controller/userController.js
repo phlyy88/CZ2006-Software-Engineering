@@ -8,8 +8,7 @@ exports.registerNewUser = async (req, res) => {
         firstName,
         lastName,
         gender,
-        dob,
-        income
+        dob
     } = req.body
     try {
         // console.log(isUser)
@@ -32,8 +31,7 @@ exports.registerNewUser = async (req, res) => {
             firstName,
             lastName,
             gender,
-            dob,
-            income
+            dob
         })
         let data = await user.save()
         const token = await user.generateAuthToken() // here it is calling the method that we created in the model

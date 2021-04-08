@@ -36,14 +36,6 @@
                     <br>
                     Price: {{ selectedOption.omv }}
                 </b-card-text>
-                <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
-                    <b-dropdown-item>First Action</b-dropdown-item>
-                    <b-dropdown-item>Second Action</b-dropdown-item>
-                    <b-dropdown-item>Third Action</b-dropdown-item>
-                    <b-dropdown-divider></b-dropdown-divider>
-                    <b-dropdown-item active>Active action</b-dropdown-item>
-                    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-                </b-dropdown>
                 <b-button
                     variant="primary"
                     v-if="displayCostBreakdown"
@@ -90,27 +82,19 @@
                                     <b-list-group-item>
                                         Additional Registration Fee (ARF):
                                         <br>
-                                        {{ costBreakdown.data.cost_object.arf }}
+                                        $ {{ costBreakdown.data.cost_object.arf }}
                                     </b-list-group-item>
-                                    <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
-                                    <b-list-group-item>Morbi leo risus</b-list-group-item>
-                                    <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
-                                    <b-list-group-item>Vestibulum at eros</b-list-group-item>
+                                    <b-list-group-item>
+                                        GST (Flat price x GST rate):
+                                        <br>
+                                        $ {{ selectedOption.omv }} x {{ costBreakdown.data.cost_object.gst_perc }} = $ {{ costBreakdown.data.cost_object.gst.toFixed(2) }}
+                                    </b-list-group-item>
+                                    <b-list-group-item>
+                                        Road Tax (Flat road tax +  (Road tax rate x Flat price)):
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
+                                    </b-list-group-item>
                                 </b-list-group>
-                                Additional Registration Fee (ARF):
-                                <br>
-                                {{ costBreakdown.data.cost_object.arf }}
-                                <br>
-                                GST (Flat price x GST rate):
-                                <br>
-                                $ {{ selectedOption.omv }} x {{ costBreakdown.data.cost_object.gst_perc }} = $ {{ costBreakdown.data.cost_object.gst.toFixed(2) }}
-                                <br>
-                                Road Tax (Flat road tax +  (Road tax rate x Flat price)):
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
-                                <br>
-
-                                {{ costBreakdown.data }}
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>

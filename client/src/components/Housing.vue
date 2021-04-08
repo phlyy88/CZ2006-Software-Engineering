@@ -153,7 +153,8 @@ import { getDetails, calculate } from "../services/systems"
                     "conveyancefee": 0,
                     "stamp_duty": 0,
                     "total_cost": 0
-                }}
+                }
+            }
         },
         selectedIncome: null,
         incomeOptions: [

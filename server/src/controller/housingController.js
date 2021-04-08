@@ -62,6 +62,7 @@ exports.calculateCost = async (req, res) => {
         const total_cost = home_insurance_premium + caveat_registration + option_fee + stamp_duty + conveyancefee + price
 
         var cost_object = {
+            price: price,
             option_fee: option_fee,
             caveat_registration: caveat_registration,
             home_insurance_premium: home_insurance_premium,
