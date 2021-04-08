@@ -21,11 +21,14 @@ export const calculate = {
             that.showPreviousCost = false
             const costBreakdown = await that.$http.post(type.concat("/costBreakdown"), that.selectedOption)
             that.costBreakdown= costBreakdown
+            that.selectedOption.cost_object = costBreakdown.data.cost_object 
             if (type=="childcare" || type=="housing") {
                 const grantsBreakdown = await that.$http.post(type.concat("/grantsBreakdown"), that.selectedOption)
                 that.grantsBreakdown = grantsBreakdown
+                that.selectedOption.netCost = costBreakdown.data.cost_object.total_cost - grantsBreakdown.data.grants_object.total_grants
                 that.netCost = costBreakdown.data.cost_object.total_cost - grantsBreakdown.data.grants_object.total_grants
-            }
+                that.selectedOption.grants_object = grantsBreakdown.data.grants_object
+            }         
             // } else if (type=="housing") {
             //     const grantsBreakdown = await that.$http.post(type.concat("/grantsBreakdown"), that.selectedIncome)
             //     that.grantsBreakdown = grantsBreakdown
@@ -33,7 +36,6 @@ export const calculate = {
             // }
             that.showPreviousCost = true
             that.isCalculating = false
-            console.log(that.costBreakdown)
         } catch (err) {
             let error = err.response
             if (error.status == 409) {

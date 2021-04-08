@@ -73,15 +73,15 @@
                                     <b-card-text v-if="showPreviousCost">
                                         Registration Fee:
                                         <br>
-                                        $ {{ costBreakdown.data.cost_object.registration_cost }}
+                                        $ {{ costBreakdown.data.cost_object.registration_cost.toFixed(2) }}
                                         <br>
                                         Monthly Cost:
                                         <br>
-                                        $ {{ costBreakdown.data.cost_object.monthly_cost }}
+                                        $ {{ costBreakdown.data.cost_object.monthly_cost.toFixed(2) }}
                                         <br> 
                                         Total Annual Cost: ((Monthly Cost X 12) + registration_cost) x Number Of Children
                                         <br>    
-                                        ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }}) x {{ selectedOption.child }} = $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                        ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee.toFixed(2) }}) x {{ selectedOption.child }} = $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
                                     </b-card-text>
                                 </b-card-body>
                             </b-collapse>
@@ -136,7 +136,8 @@ import NavBar from "./NavBar.vue"
         selectedOption: {
             "cost_for_singaporeans": 0,
             "registration_fee": 0,
-            "child": 0
+            "child": 0,
+            "netCost": 0
         },
         isCalculating: false,
         showPreviousCost: true,
@@ -161,13 +162,12 @@ import NavBar from "./NavBar.vue"
                 }
             }
         },
-        selectedChild: {
-            "child": 0
-        },
         childOptions: [
           { value: 1, text: "1" },
           { value: 2, text: "2" },
-          { value: 3, text: "3 or more" },
+          { value: 3, text: "3" },
+          { value: 4, text: "4" },
+          { value: 5, text: "5" },
         ],
         filterOptions: {
             type: 'CheckBox'

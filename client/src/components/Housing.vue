@@ -124,7 +124,7 @@
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
                                 Total Cost:
-                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants }} = $ {{ netCost }}
+                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants }} = $ {{ netCost.toFixed(2) }}
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -201,9 +201,6 @@ import { getDetails, calculate } from "../services/systems"
         NavBar
     },
     watch: {
-        // selectedOption: function (newSelectedOption) {
-        //     this.selectedOption = newSelectedOption
-        // },
         'selectedOption.income': function () {
             this.displayCostBreakdown = true
         }
