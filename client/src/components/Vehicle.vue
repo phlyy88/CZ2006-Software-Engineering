@@ -86,6 +86,17 @@
                             <b-card-body>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
+                                <b-list-group>
+                                    <b-list-group-item>
+                                        Additional Registration Fee (ARF):
+                                        <br>
+                                        {{ costBreakdown.data.cost_object.arf }}
+                                    </b-list-group-item>
+                                    <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+                                    <b-list-group-item>Morbi leo risus</b-list-group-item>
+                                    <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
+                                    <b-list-group-item>Vestibulum at eros</b-list-group-item>
+                                </b-list-group>
                                 Additional Registration Fee (ARF):
                                 <br>
                                 {{ costBreakdown.data.cost_object.arf }}
