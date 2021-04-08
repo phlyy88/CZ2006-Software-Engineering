@@ -53,7 +53,7 @@
             </b-col>
             <b-col md="6">
               <b-card-body title="Childcare">
-                <b-card-text> Include Childcare calculation </b-card-text>
+                <b-card-text> {{this.userGet.data.user.v1.costBreakdown}} </b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
@@ -115,15 +115,7 @@ export default {
     },
     getHousingCost(){},
     getVehicleCost(){
-      // if (this.plan == 1) {
-      //   calculate.calculateCost(this, 'vehicle')
-      // }
-      // if (this.plan == 2) {
 
-      // }
-      // if (this.plan == 3) {
-
-      // }
     },
     getChilcareCost(){},
     sumCosts() {

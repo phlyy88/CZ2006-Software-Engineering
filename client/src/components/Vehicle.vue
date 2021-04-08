@@ -54,7 +54,7 @@
                     v-b-toggle.sidebar-backdrop
                     @click="calculate">Cost Breakdown</b-button>
                     <div class="button-div" > 
-                        <button class="fav-button" @click="addFav"> 
+                        <button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
                             <i class="fa fa-star"></i> 
                             <span>Favorites</span> 
                         </button> 
@@ -155,6 +155,7 @@ export default {
         isCalculating: false,
         showPreviousCost: true,
         displayCostBreakdown: false,
+        displayFavBtn: false,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -199,6 +200,7 @@ export default {
             let token = localStorage.getItem("jwt");
             let decoded = VueJwtDecode.decode(token);
             this.user = decoded;
+            console.log(this.costBreakdown.data.cost_object)
         },
         
         onRowSelected(args) {
@@ -211,11 +213,12 @@ export default {
             this.selectedPlan = plan
         },
         async addFav() {
-            console.log(this.user.v1)
-            console.log(this.user.v2)
-            console.log(this.user.v3)
+            this.selectedOption.cost = this.costBreakdown.data.cost_object
+            console.log(this.selectedOption)
             if (this.selectedPlan == 1){
                 this.$set(this.user, 'v1', this.selectedOption)
+                this.user.type = 'v1'
+                console.log(this.user.type)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
@@ -226,6 +229,8 @@ export default {
             }
             if (this.selectedPlan == 2) {
                 this.$set(this.user, 'v2', this.selectedOption)
+                this.user.type = 'v2'
+                console.log(this.user.type)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
@@ -236,6 +241,8 @@ export default {
             }
             if (this.selectedPlan == 3) {
                 this.$set(this.user, 'v3', this.selectedOption)
+                this.user.type = 'v3'
+                console.log(this.user.type)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
@@ -247,6 +254,7 @@ export default {
         },
         calculate() {
             calculate.calculateCost(this, 'vehicle', false)
+            this.displayFavBtn = true
         }
     },
     provide: {

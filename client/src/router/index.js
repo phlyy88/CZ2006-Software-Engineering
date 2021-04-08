@@ -15,14 +15,6 @@ Vue.use(VueRouter)
     component: () => import('../components/Register.vue')
   },
   {
-    path: '/forgot-password',
-    name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue'),
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
     path: '/mainpage',
     name: 'mainpage',
     component: () => import('../components/MainPage.vue'),
