@@ -83,5 +83,12 @@ label {
   color: #2554FF;
 }
 
+.carousel-caption{
+  transform: translateY(-50%);
+  bottom: initial;
+  top:50%;
+}
 
-
+.footer{
+  transform: translateY(-50%);
+}
