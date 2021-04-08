@@ -5,7 +5,7 @@
             <ejs-grid 
                 ref="grid"
                 class = "e-resizable"
-                :dataSource="childcareArray.data"
+                :dataSource="details.data"
                 :allowFiltering="true"
                 :filterSettings='filterOptions'
                 :selectionSettings='selectionOptions'
@@ -28,7 +28,6 @@
                 style="max-width: 20rem; width: 100%"
                 class="mb-2"
             >
-                <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
                 <b-card-text>
                     Organisation: {{ selectedOption.childcare_organization }}
                     <br>
@@ -40,19 +39,22 @@
                     <br>                    
                     Sector: {{ selectedOption.type }}
                     <br>
+                    Number of Children:
                 </b-card-text>  
-                <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
-                    <b-dropdown-item>First Action</b-dropdown-item>
-                    <b-dropdown-item>Second Action</b-dropdown-item>
-                    <b-dropdown-item>Third Action</b-dropdown-item>
-                    <b-dropdown-divider></b-dropdown-divider>
-                    <b-dropdown-item active>Active action</b-dropdown-item>
-                    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-                </b-dropdown> <br>
+                <b-form-select
+                    v-if="displayChild"
+                    v-model="selectedOption.child"
+                    :options="childOptions"
+                >
+                   <template #first>
+                        <b-form-select-option :value="null" disabled>-- Please select number of children --</b-form-select-option>
+                    </template> 
+                </b-form-select>
                 <b-button
-                    v-if="picURL!=='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                    v-if="displayCostBreakdown && displayChild"
                     v-b-toggle.sidebar-backdrop
-                    @click ="calculateCostchild">Cost Breakdown</b-button>
+                    variant="primary"
+                    @click ="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -62,56 +64,56 @@
                     shadow>
                     <div class="accordion" role="tablist">
                         <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-1 variant="info">Flat Costs</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-header header-tag="header" class="p-1" role="tab">
+                                <b-button block v-b-toggle.accordion-2 variant="info">Total Costs</b-button>
+                            </b-card-header>
+                            <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
+                                <b-card-body>
+                                    <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                                    <b-card-text v-if="showPreviousCost">
+                                        Registration Fee:
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.registration_cost }}
+                                        <br>
+                                        Monthly Cost:
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.monthly_cost }}
+                                        <br> 
+                                        Total Annual Cost: ((Monthly Cost X 12) + registration_cost) x Number Of Children
+                                        <br>    
+                                        ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }}) x {{ selectedOption.child }} = $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                    </b-card-text>
+                                </b-card-body>
+                            </b-collapse>
+                        </b-card>
+                        <b-card no-body class="mb-1">
+                            <b-card-header header-tag="header" class="p-1" role="tab">
+                                <b-button block v-b-toggle.accordion-3 variant="info">Total Grants</b-button>
+                            </b-card-header>
+                            <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+                                <b-card-body>
+                                <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                 <b-card-text v-if="showPreviousCost">
-                                Registration Fee:
-                                <br>
-                                $ {{ childcostBreakdown.data.cost_object.registration_cost }}
-                                <br>
-                                Monthly Cost:
-                                <br>
-                                $ {{ childcostBreakdown.data.cost_object.monthly_cost }}
-                                <br>                               
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
+                                    Total Grants:
+                                    $ {{ grantsBreakdown.data.grants_object.total_grants.toFixed(2) }}
+                                </b-card-text>
+                                </b-card-body>
+                            </b-collapse>
                         </b-card>
-
-                    <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">
-                                Total Cost:
-                                $ {{ childcostBreakdown.data.cost_object.total_cost.toFixed(2) }}
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
+                        <b-card no-body class="mb-1">
+                            <b-card-header header-tag="header" class="p-1" role="tab">
+                                <b-button block v-b-toggle.accordion-4 variant="info">Net Cost</b-button>
+                            </b-card-header>
+                            <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
+                                <b-card-body>
+                                <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                                <b-card-text v-if="showPreviousCost">
+                                    Net Cost:
+                                    $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants.toFixed(2) }} = $ {{ netCost.toFixed(2) }}
+                                </b-card-text>
+                                </b-card-body>
+                            </b-collapse>
                         </b-card>
-
-                    <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-3 variant="info">Total Grants</b-button>
-                        </b-card-header>
-                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
-                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">
-                                Total Grants:
-                                $ {{ childcostBreakdown.data.cost_object.total_grants.toFixed(2) }}
-                            </b-card-text>
-                            </b-card-body>
-                        </b-collapse>
-                        </b-card>
-
                     </div>
                 </b-sidebar>
             </b-card>
@@ -121,6 +123,7 @@
 
 <script>
   import { Filter, Page } from '@syncfusion/ej2-vue-grids'
+    import {getDetails, calculate} from "../services/systems"
   import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
   
@@ -129,19 +132,43 @@ import NavBar from "./NavBar.vue"
       return {
           user:{},
         childcareArray: {},
-        selectedOption: {},
+        details: {},
+        selectedOption: {
+            "cost_for_singaporeans": 0,
+            "registration_fee": 0,
+            "child": 0
+        },
         isCalculating: false,
         showPreviousCost: true,
-        childcostBreakdown: {
+        displayCostBreakdown: false,
+        displayChild: false,
+        netCost: 0,
+        costBreakdown: {
             "data" : {
                 "cost_object": {
                     "registration_cost": 0,
                     "monthly_cost": 0,
-                    "total_cost": 0,
-                    "baby_bonus": 0,
-                    "total_grants": 0
-                }}
+                    "total_cost": 0
+                }
+            }
         },
+        grantsBreakdown: {
+            "data": {
+                "grants_object": {
+                    "baby_bonus": 0,
+                    "baby_bonus_step": 0,
+                    "total_grants": 0,
+                }
+            }
+        },
+        selectedChild: {
+            "child": 0
+        },
+        childOptions: [
+          { value: 1, text: "1" },
+          { value: 2, text: "2" },
+          { value: 3, text: "3 or more" },
+        ],
         filterOptions: {
             type: 'CheckBox'
         },
@@ -153,8 +180,13 @@ import NavBar from "./NavBar.vue"
         }
       }
     },
-    components:{
+       components:{
         NavBar
+    },
+    watch: {
+        "selectedOption.child": function(){
+            this.displayCostBreakdown = true
+        }
     },
     methods: {
         getUserDetails() {
@@ -177,27 +209,11 @@ import NavBar from "./NavBar.vue"
         },
         onRowSelected(args) {
             this.selectedOption = args.data
+            this.displayChild = true
         },
-                async calculateCostchild() {
-            try {
-                this.isCalculating = true
-                this.showPreviousCost = false
-                this.childcostBreakdown= await this.$http.post('childcare/childcostBreakdown', this.selectedOption)
-                this.showPreviousCost = true
-                this.isCalculating = false
-                console.log(this.childcostBreakdown)
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
-        toggle () {
-        this.sharedState.active = !this.sharedState.active
-      }
+        calculate(){
+            calculate.calculateCost(this,'childcare')
+        }
 
     },
     name: 'AppDropdown',
@@ -205,7 +221,7 @@ import NavBar from "./NavBar.vue"
         grid: [Filter, Page]
     },
     mounted() {
-        this.getChildcareDetails();
+        getDetails.getDetails(this,'childcare');
         this.getUserDetails();
     },
   }

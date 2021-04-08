@@ -52,14 +52,6 @@
             ></b-form-datepicker>
           </div>
 
-          <div class="form-group">
-            <label>Annual Income</label>
-            <b-form-select
-              v-model="register.income"
-              :options="register.incomeOptions"
-            ></b-form-select>
-          </div>
-
           <b-button 
           type="submit" 
           variant="info"
@@ -87,15 +79,7 @@ export default {
           { value: "male", text: "Male" },
           { value: "female", text: "Female" },
         ],
-        dob: "",
-        income: null,
-        incomeOptions: [
-          { value: null, text: "Please select an income range" },
-          { value: 15000, text: "10,000 - 19,999" },
-          { value: 35000, text: "20,000 - 49,999" },
-          { value: 65000, text: "50,000 - 79,999" },
-          { value: 80000, text: ">80,000" },
-        ],
+        dob: ""
       },
     };
   },

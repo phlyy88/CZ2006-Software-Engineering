@@ -14,7 +14,7 @@ exports.getVehicleDetails = async (req, res) => {
         })
 }
 
-exports.calculateCost = async (req, res) => {
+exports.calculateCostVehicle = async (req, res) => {
     try {
         const selectedVehicle = req.body
         console.log(req.body)
@@ -56,6 +56,9 @@ exports.calculateCost = async (req, res) => {
         }
         if (ves_cost=="C2") {
             ves = await Tax.ves_c2()
+        }
+        if (ves_cost=="-") {
+            ves = 0
         }
             
         console.log("ves passed")
@@ -100,9 +103,10 @@ exports.calculateCost = async (req, res) => {
 
         const road_tax = omv * road_tax_percent + road_tax_flat
 
-        const total_cost = registration_fee + gst + excise_duty + ves + arf + road_tax
+        const total_cost = registration_fee + gst + excise_duty + ves + arf + road_tax + omv
 
         var cost_object = {
+            omv: omv,
             registration_fee: registration_fee, 
             gst: gst,
             gst_perc: gst_perc,

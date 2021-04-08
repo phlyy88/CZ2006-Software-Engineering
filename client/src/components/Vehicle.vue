@@ -35,19 +35,11 @@
                     <br>
                     Price: {{ selectedOption.omv }}
                 </b-card-text>
-                <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
-                    <b-dropdown-item>First Action</b-dropdown-item>
-                    <b-dropdown-item>Second Action</b-dropdown-item>
-                    <b-dropdown-item>Third Action</b-dropdown-item>
-                    <b-dropdown-divider></b-dropdown-divider>
-                    <b-dropdown-item active>Active action</b-dropdown-item>
-                    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-                </b-dropdown>
                 <b-button
                     variant="primary"
                     v-if="displayCostBreakdown"
                     v-b-toggle.sidebar-backdrop
-                    @click="calculateCost">Cost Breakdown</b-button>
+                    @click="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -84,20 +76,23 @@
                             <b-card-body>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
-                                Additional Registration Fee (ARF):
-                                <br>
-                                {{ costBreakdown.data.cost_object.arf }}
-                                <br>
-                                GST (Flat price x GST rate):
-                                <br>
-                                $ {{ selectedOption.omv }} x {{ costBreakdown.data.cost_object.gst_perc }} = $ {{ costBreakdown.data.cost_object.gst.toFixed(2) }}
-                                <br>
-                                Road Tax (Flat road tax +  (Road tax rate x Flat price)):
-                                <br>
-                                $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
-                                <br>
-
-                                {{ costBreakdown.data }}
+                                <b-list-group>
+                                    <b-list-group-item>
+                                        Additional Registration Fee (ARF):
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.arf }}
+                                    </b-list-group-item>
+                                    <b-list-group-item>
+                                        GST (Flat price x GST rate):
+                                        <br>
+                                        $ {{ selectedOption.omv }} x {{ costBreakdown.data.cost_object.gst_perc }} = $ {{ costBreakdown.data.cost_object.gst.toFixed(2) }}
+                                    </b-list-group-item>
+                                    <b-list-group-item>
+                                        Road Tax (Flat road tax +  (Road tax rate x Flat price)):
+                                        <br>
+                                        $ {{ costBreakdown.data.cost_object.road_tax_flat }} + {{ costBreakdown.data.cost_object.road_tax_perc }} x {{ selectedOption.omv }}= $ {{ costBreakdown.data.cost_object.road_tax.toFixed(2) }}
+                                    </b-list-group-item>
+                                </b-list-group>
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -127,7 +122,7 @@
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
-import { getDetails, calculateCost } from "../services/systems.js"
+import { getDetails, calculate } from "../services/systems"
 export default {
     data() {
       return {
@@ -177,15 +172,14 @@ export default {
             this.picURL = args.data.image_url
             this.displayCostBreakdown = true
         },
-        calculateCost() {
-            calculateCost.calculateCost(this, 'vehicle')
+        calculate() {
+            calculate.calculateCost(this, 'vehicle', false)
         },
         getUserDetails() {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
     },
-
     },
     provide: {
         grid: [Filter]

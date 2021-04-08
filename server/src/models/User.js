@@ -25,9 +25,6 @@ const userSchema = new Schema({
     dob: {
         type: String
     },
-    income: {
-        type: Number
-    },
     tokens: [
         {
             token: {
