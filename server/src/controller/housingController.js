@@ -56,9 +56,10 @@ exports.calculateCost = async (req, res) => {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * 30) + (await Tax.conveyance_fee_remain() * (price-60000)/1000)
         }
 
-        const total_cost = home_insurance_premium + caveat_registration + option_fee + stamp_duty + conveyancefee 
+        const total_cost = home_insurance_premium + caveat_registration + option_fee + stamp_duty + conveyancefee + price
 
         var cost_object = {
+            price: price,
             option_fee: option_fee,
             caveat_registration: caveat_registration,
             home_insurance_premium: home_insurance_premium,
