@@ -12,12 +12,12 @@
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="town" headerText="Town" textAlign="Right" filter="columnFilterOptions"></e-column>
-                    <e-column field="flat_type" headerText="Flat type" filter="columnFilterOptions"></e-column>
-                    <e-column field="flat_room" headerText="Number of rooms" filter="columnFilterOptions"></e-column>                    
-                    <e-column field="block" headerText="Flat name" filter="columnFilterOptions"></e-column>
-                    <e-column field="remaining_lease" headerText="Remaining lease" filter="columnFilterOptions"></e-column>
-                    <e-column field="price" headerText="Price" filter="columnFilterOptions"></e-column>
+                    <e-column field="town" headerText="Town" textAlign="Right" ></e-column>
+                    <e-column field="flat_type" headerText="Flat type"></e-column>
+                    <e-column field="flat_room" headerText="Number of rooms"></e-column>                    
+                    <e-column field="block" headerText="Flat name/Block" :filter="columnFilterOptions"></e-column>
+                    <e-column field="remaining_lease" headerText="Remaining lease" :filter="columnFilterOptions"></e-column>
+                    <e-column field="price" headerText="Price" :filter="columnFilterOptions"></e-column>
                 </e-columns>
             </ejs-grid>
 
@@ -103,7 +103,7 @@ import NavBar from "./NavBar.vue"
         showPreviousCost: true,
         hdbcostBreakdown: {},
         filterOptions: {
-            type: 'Checkbox'
+            type: 'CheckBox'
         },
         columnFilterOptions: {
             type: 'Menu'
@@ -174,12 +174,3 @@ import NavBar from "./NavBar.vue"
     }
   }
 </script>
-
-<style>
-@import url("https://cdn.syncfusion.com/ej2/material.css");
-.e-resizable {
-    overflow: scroll;
-    padding: 10px;
-    height: 500px;
-}
-</style>

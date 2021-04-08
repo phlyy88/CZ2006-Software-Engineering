@@ -12,12 +12,11 @@
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" filter="columnFilterOptions"></e-column>-->
-                    <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
-                    <e-column field="level" headerText="Level" filter="columnFilterOptions"></e-column>
-                    <e-column field="child_age" headerText="Age of Child" filter="columnFilterOptions"></e-column>
-                    <e-column field="full_half_day" headerText="Full or Half Day" filter="columnFilterOptions"></e-column>
-                    <e-column field="type" headerText="Type" filter="columnFilterOptions"></e-column>
+                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" :filter="columnFilterOptions"></e-column>-->
+                    <e-column field="level" headerText="Level"></e-column> -->
+                    <e-column field="child_age" headerText="Age of Child"></e-column>
+                    <e-column field="full_half_day" headerText="Full or Half Day"></e-column>
+                    <e-column field="type" headerText="Type"></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
@@ -53,10 +52,10 @@
         childcareArray: {},
         selectedOption: null,
         filterOptions: {
-            type: 'Excel'
+            type: 'CheckBox'
         },
         columnFilterOptions: {
-            type: 'Checkbox'
+            type: 'Menu'
         },
         selectionOptions: {
             type: 'Single'
@@ -98,13 +97,3 @@
     },
   }
 </script>
-
-<style>
-@import url("https://cdn.syncfusion.com/ej2/material.css");
-.e-resizable {
-    overflow: scroll;
-    padding: 10px;
-    height: 500px;
-}
-
-</style>

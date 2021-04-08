@@ -31,7 +31,7 @@ html,
 
 .filter {
   display: flex;
-  width:53%;
+  width:71%;
   margin: 2%;
   margin-right: 2%;
     float: left;
@@ -39,8 +39,15 @@ html,
 }
 
 .info-side {
-  width:42%;
+  width:25%;
     float: left;
+}
+
+@import url("https://cdn.syncfusion.com/ej2/material.css");
+.e-resizable {
+  overflow: scroll;
+  padding: 10px;
+  height: 500px;
 }
 
 

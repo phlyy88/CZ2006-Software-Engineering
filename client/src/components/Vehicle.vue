@@ -3,8 +3,8 @@
         <NavBar :user="user" />
         <div class="filter">
             <ejs-grid 
-            class = "e-resizable"
-                ref="grid"
+            ref="grid"
+                class = "e-resizable"
                 :dataSource="vehicleArray.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
@@ -211,13 +211,3 @@ export default {
     },
 };
 </script>
-
-<style>
-@import url("https://cdn.syncfusion.com/ej2/material.css");
-.e-resizable {
-  overflow: scroll;
-  padding: 10px;
-  height: 500px;
-}
-
-</style>
