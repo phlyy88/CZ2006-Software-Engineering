@@ -32,7 +32,7 @@ const grantSchema = new Schema({
     }
 })
 
-grantSchema.statics.baby_bonus_1 = async function() {
+grantSchema.statics.baby_bonus = async function() {
     const baby_bonus_1 = await Grants.findOne(
         { grant_name: "Baby Bonus 1" },
         { grant_amt: 1 }
