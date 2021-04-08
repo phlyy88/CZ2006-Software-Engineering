@@ -25,6 +25,7 @@
             <b-button
                 type="submit"
                 variant = "info"
+                style="margin-top: 10px"
             ><p1 style = "color:white">Sign In</p1>
             </b-button> <!-- on click, call method "login" -->
         </form>
@@ -39,7 +40,8 @@
                 login: {
                     email: '',
                     password: ''
-                }
+                },
+                //toPass:null,
             }
         },
         methods: {
@@ -50,6 +52,7 @@
                     localStorage.setItem("jwt", token)
                     if (token) {
                         this.$swal("Success", "Login Successful", "success")
+                        //this.toPass = this.login.email
                         this.$router.push("/mainpage")
                     }
                 } catch (err) {

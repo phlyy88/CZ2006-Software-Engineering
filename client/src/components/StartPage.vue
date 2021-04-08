@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class = "pageView">
     <main>
       <b-carousel
         id="carousel-1"
@@ -26,7 +26,7 @@
               @click="showRegModal()"
               data-toggle="modal"
               data-target="#RegForm"
-              variant="primary"
+              variant="info"
             >
               <p1>Not registered yet? Create an account!</p1>
             </b-button>
@@ -40,7 +40,7 @@
             data-toggle="modal"
             data-target="#LoginForm"
             style="margin-top: 10px"
-            variant="primary"
+            variant="info"
           >
             <p1>Already have one? Login now!</p1>
           </b-button>
@@ -60,7 +60,7 @@
               @click="showRegModal()"
               data-toggle="modal"
               data-target="#RegForm"
-              variant="primary"
+              variant="info"
             >
               <p1>Not registered yet? Create an account!</p1>
             </b-button>
@@ -71,7 +71,7 @@
           style="margin-top: 10px"
             align="right"
             ref="login-button"
-            variant = "primary"
+            variant = "info"
             @click="loginModal()"
             data-toggle="modal"
             data-target="#LoginForm"
@@ -94,7 +94,7 @@
               @click="showRegModal()"
               data-toggle="modal"
               data-target="#RegForm"
-              variant="primary"
+              variant="info"
             >
               <p1>Not registered yet? Create an account!</p1>
             </b-button>
@@ -108,7 +108,7 @@
             @click="loginModal()"
             data-toggle="modal"
             data-target="#LoginForm"
-            variant="primary"
+            variant="info"
           >
             <p1>Already have one?</p1>
             <h>Login</h>

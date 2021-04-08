@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <NavBar />
-    <h1 style = "text-align:center;">Plan {{plan}}</h1>
+  <div class = "pageView">
+    <NavBar :user="user" />
     <b-container>
+    <h1 style = "text-align:center;">Plan {{plan}}</h1>
       <div>
         <b-card no-body class="overflow-hidden">
           <b-row no-gutters>
@@ -72,7 +72,7 @@
           </b-card>
         </b-card-group>
       </div>
-    </b-container>
+      </b-container>
   </div>
 </template>
 
@@ -102,6 +102,11 @@ export default {
     NavBar
   },
   methods: {
+    getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
+    },
     getPlanDetails() {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
@@ -116,5 +121,8 @@ export default {
     },
 
   },
+  mounted(){
+    this.getUserDetails();
+  }
 };
 </script>

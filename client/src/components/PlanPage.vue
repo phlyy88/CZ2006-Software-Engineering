@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <NavBar />
+  <div class = "pageView">
+    <NavBar :user="user" />
     <h1 style = "text-align:center">View your plans</h1>
     <div id="plans">
       <b-container>
@@ -44,7 +44,7 @@
             </b-card>
           </div>
         </b-card-group>
-      </b-container>
+        </b-container>
     </div>
   </div>
 </template>
@@ -90,7 +90,7 @@ export default {
     
     },
     mounted(){
-      
+      this.getUserDetails();
     }
 };
 </script>

@@ -1,11 +1,10 @@
 <template>
-    <div class="vertical-center">
-        <NavBar/>
+    <div class="pageView">
+        <NavBar :user="user" />
         <div class="filter">
             <ejs-grid 
                 ref="grid"
-                height='100%'
-                width='100%'
+                class = "e-resizable"
                 :dataSource="childcareArray.data"
                 :allowFiltering="true"
                 :filterSettings='filterOptions'
@@ -13,12 +12,11 @@
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" filter="columnFilterOptions"></e-column>-->
-                    <e-column field="level" headerText="Level" filterTemplate="customTemplate" filter="columnFilterOptions"></e-column> -->
-                    <e-column field="level" headerText="Level" filter="columnFilterOptions"></e-column>
-                    <e-column field="child_age" headerText="Age of Child" filter="columnFilterOptions"></e-column>
-                    <e-column field="full_half_day" headerText="Full or Half Day" filter="columnFilterOptions"></e-column>
-                    <e-column field="type" headerText="Type" filter="columnFilterOptions"></e-column>
+                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" :filter="columnFilterOptions"></e-column>-->
+                    <e-column field="level" headerText="Level"></e-column> -->
+                    <e-column field="child_age" headerText="Age of Child"></e-column>
+                    <e-column field="full_half_day" headerText="Full or Half Day"></e-column>
+                    <e-column field="type" headerText="Type"></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
@@ -45,17 +43,19 @@
 
 <script>
   import { Filter, Page } from '@syncfusion/ej2-vue-grids'
+  import VueJwtDecode from "vue-jwt-decode";
   import NavBar from './NavBar.vue'
   export default {
     data() {
       return {
+          user:{},
         childcareArray: {},
         selectedOption: null,
         filterOptions: {
-            type: 'Excel'
+            type: 'CheckBox'
         },
         columnFilterOptions: {
-            type: 'Checkbox'
+            type: 'Menu'
         },
         selectionOptions: {
             type: 'Single'
@@ -66,6 +66,11 @@
         NavBar
     },
     methods: {
+        getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
+    },
         async getChildcareDetails() {
             try {
                 this.childcareArray = await this.$http.get('childcare')
@@ -88,17 +93,7 @@
     },
     mounted() {
         this.getChildcareDetails();
+        this.getUserDetails();
     },
   }
 </script>
-
-<style>
-@import url("https://cdn.syncfusion.com/ej2/material.css");
-.e-resizable {
-    resize: both;
-    overflow: auto;
-    padding: 10px;
-    height: 500px;
-}
-
-</style>

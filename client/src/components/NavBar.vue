@@ -3,7 +3,7 @@
     <b-navbar toggleable="lg" type="light" variant="light" id = "navbar">
       <b-navbar-brand href="/mainpage">
         <strong style="text-decoration: underline">
-          Plan for Your Future
+          Home
         </strong>
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -16,9 +16,8 @@
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template #button-content>
-              <em>User</em>
+              <em style="color: black">{{user.email}}</em>
             </template>
-            <b-dropdown-item href="/editprofile">Edit Profile</b-dropdown-item>
             <b-dropdown-item href="/plan">My Saved Plans</b-dropdown-item>
             <b-dropdown-item @click="logUserOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -31,13 +30,19 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+    };
+  },
+  props:{
+    user:{
+      type:Object
+    }
   },
   methods: {
     logUserOut() {
       localStorage.removeItem("jwt");
       this.$router.push("/");
     },
-  },
+  }
 };
 </script>
