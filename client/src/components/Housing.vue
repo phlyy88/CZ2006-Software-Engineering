@@ -121,7 +121,7 @@
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
                                 Total Cost:
-                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants }} = $ {{ netCost }}
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -148,6 +148,7 @@ import { getDetails, calculate } from "../services/systems"
         showPreviousCost: true,
         displayCostBreakdown: false,
         displayIncome: false,
+        netCost: null,
         costBreakdown: {
             "data" : {
                 "cost_object": {

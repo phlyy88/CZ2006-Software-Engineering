@@ -22,15 +22,13 @@ exports.calculateCostchild = async (req, res) => {
         console.log(registration_cost)
         const monthly_cost = selectedchildcare.cost_for_Singaporeans
         console.log(monthly_cost)
-
-        const total_cost = registration_cost + monthly_cost
-        const total_cost_annual = (12 * monthly_cost) + registration_cost
+        const numberOfChildren = selectedchildcare.child
+        const total_cost = ((12 * monthly_cost) + registration_cost) * numberOfChildren 
 
         var cost_object = {
             registration_cost: registration_cost, 
             monthly_cost: monthly_cost,
-            total_cost: total_cost,
-            total_cost_annual: total_cost_annual,
+            total_cost: total_cost
         }
 
 
@@ -58,13 +56,13 @@ exports.calculateGrantschild = async (req, res) => {
         const total_grants = baby_bonus + baby_bonus_step
         console.log(total_grants)
 
-        var grant_object = {
+        var grants_object = {
             baby_bonus: baby_bonus, 
             baby_bonus_step: baby_bonus_step,
             total_grants: total_grants
         }
 
-        res.status(201).json({ grant_object })
+        res.status(201).json({ grants_object })
     } catch (err) {
         res.status(400).json({ err: err })
     }
