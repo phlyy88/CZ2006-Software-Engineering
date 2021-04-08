@@ -15,7 +15,7 @@ exports.getHousingDetails = async (req, res) => {
 }
 
 
-exports.calculateCosthdb = async (req, res) => {
+exports.calculateCost = async (req, res) => {
     try {
         const selectedhdb = req.body
         console.log(req.body)

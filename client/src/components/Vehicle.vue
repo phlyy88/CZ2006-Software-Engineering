@@ -6,7 +6,7 @@
                 ref="grid"
                 height='100%'
                 width='100%'
-                :dataSource="vehicleArray.data" 
+                :dataSource="details.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
                 :selectionSettings='selectionOptions'
@@ -46,7 +46,7 @@
                 </b-dropdown>
                 <b-button
                     variant="primary"
-                    v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                    v-if="displayCostBreakdown"
                     v-b-toggle.sidebar-backdrop
                     @click="calculateCost">Cost Breakdown</b-button>
                 <b-sidebar
@@ -132,12 +132,12 @@ import { getDetails, calculateCost } from "../services/systems"
 export default {
     data() {
       return {
-        text: "hello",
         picURL: "https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png",
-        vehicleArray: {},
+        details: {},
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
+        displayCostBreakdown: false,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -175,6 +175,7 @@ export default {
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
+            this.displayCostBreakdown = true
         },
         calculateCost() {
             calculateCost.calculateCost(this, 'vehicle')

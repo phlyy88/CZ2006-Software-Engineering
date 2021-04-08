@@ -2,7 +2,7 @@ export const getDetails = {
     getDetails: async function(that, type) {
         try {
             let details = await that.$http.get(type)
-            that.vehicleArray = details;
+            that.details = details;
         } catch (err) {
             let error = err.response
             if (error.status == 409) {

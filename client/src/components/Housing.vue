@@ -3,7 +3,7 @@
         <div id="filter-container" class="e-resizable">
             <ejs-grid 
                 ref="grid"
-                :dataSource="housingArray.data" 
+                :dataSource="details.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
                 :selectionSettings='selectionOptions'
@@ -27,7 +27,6 @@
                 style="max-width: 20rem; width: 100%"
                 class="mb-2"
             >
-                <b-img v-bind:src="picURL" fluid alt="Responsive image"></b-img>
                 <b-card-text>
                     Town: {{ selectedOption.town }}
                     <br>
@@ -43,9 +42,9 @@
                     <br>
                 </b-card-text>
                 <b-button
-                    v-if="picURL!=='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                    v-if="displayCostBreakdown"
                     v-b-toggle.sidebar-backdrop
-                    @click ="calculateCosthdb">Cost Breakdown</b-button>
+                    @click ="calculateCost">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -64,15 +63,15 @@
                                 <b-card-text v-if="showPreviousCost">
                                 Option Fee:
                                 <br>
-                                $ {{ hdbcostBreakdown.data.cost_object.option_fee }}
+                                $ {{ costBreakdown.data.cost_object.option_fee }}
                                 <br>
                                 Home Insurance Premium:
                                 <br>
-                                $ {{ hdbcostBreakdown.data.cost_object.home_insurance_premium }}
+                                $ {{ costBreakdown.data.cost_object.home_insurance_premium }}
                                 <br>
                                 Caveat Registration Fee:
                                 <br>
-                                $ {{ hdbcostBreakdown.data.cost_object.caveat_registration }}
+                                $ {{ costBreakdown.data.cost_object.caveat_registration }}
                                 <br>                                
                             </b-card-text>
                             </b-card-body>
@@ -89,11 +88,11 @@
                             <b-card-text v-if="showPreviousCost">
                                 Stamp duty:
                                 <br>
-                                {{ hdbcostBreakdown.data.cost_object.stamp_duty }}
+                                {{ costBreakdown.data.cost_object.stamp_duty }}
                                 <br>
                                 Conveyance Fee:
                                 <br>
-                                {{ hdbcostBreakdown.data.cost_object.conveyancefee }}
+                                {{ costBreakdown.data.cost_object.conveyancefee }}
                                 <br>
 
                             </b-card-text>
@@ -110,7 +109,7 @@
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
                                 Total Cost:
-                                $ {{ hdbcostBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
                             </b-card-text>
                             </b-card-body>
                         </b-collapse>
@@ -129,14 +128,16 @@
 
 <script>
 import { Filter } from '@syncfusion/ej2-vue-grids'
+import { getDetails, calculateCost } from "../services/systems"
   export default {
     data() {
       return {
-        housingArray: {},
+        details: {},
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
-        hdbcostBreakdown: {
+        displayCostBreakdown: false,
+        costBreakdown: {
             "data" : {
                 "cost_object": {
                     "option_fee": 0,
@@ -164,44 +165,19 @@ import { Filter } from '@syncfusion/ej2-vue-grids'
         }
     },    
     methods: {
-       async getHousingDetails() {
-            try {
-                this.housingArray = await this.$http.get('housing')
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
         onRowSelected(args) {
             this.selectedOption = args.data
-            this.picURL = args.data.image_url}
-    ,
-        async calculateCosthdb() {
-            try {
-                this.isCalculating = true
-                this.showPreviousCost = false
-                this.hdbcostBreakdown= await this.$http.post('housing/hdbcostBreakdown', this.selectedOption)
-                this.showPreviousCost = true
-                this.isCalculating = false
-                console.log(this.hdbcostBreakdown)
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },},
+            this.displayCostBreakdown = true
+        },
+        calculateCost() {
+            calculateCost.calculateCost(this, 'housing')
+        }
+    },
     provide: {
         grid: [Filter]
     },
     mounted() {
-        this.getHousingDetails();
+        getDetails.getDetails(this, 'housing')
     }
   }
 </script>
