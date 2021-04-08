@@ -107,12 +107,12 @@
                                     <b-list-group-item>
                                         Stamp duty:
                                         <br>
-                                        {{ costBreakdown.data.cost_object.stamp_duty }}
+                                        $ {{ costBreakdown.data.cost_object.stamp_duty }}
                                     </b-list-group-item>
                                     <b-list-group-item>
                                         Conveyance Fee:
                                         <br>
-                                        {{ costBreakdown.data.cost_object.conveyancefee }}
+                                        $ {{ costBreakdown.data.cost_object.conveyancefee }}
                                     </b-list-group-item>
                                 </b-list-group>
                             </b-card-text>
