@@ -68,23 +68,32 @@ exports.loginUser = async (req, res) => {
 
 exports.getUserDetails = async (req, res) => {
     try {
-        // console.log("at controller")
-        // console.log(req)
-        // const email = req.email
-        // console.log(email)
-        // const user = await User.findByEmail(email)
-        //console.log(req)
         const email = req.body.email
+        console.log(email)
         const user = await User.findByEmail(email)
         console.log("At controller")
         console.log(user)
-        //res.status(201).json({user})
-        res.send(user)
+        res.status(201).json({user})
+        //res.send(user)
+        //return user
     } catch (err) {
         console.log("Controller error")
         res.status(400).json({err : err})
     }
 }
+
+// exports.getUserDetails = async (req, res) => {
+//     User.find()
+//         .then(data => {
+//             res.send(data)
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message:
+//                     err.message || "Some error occured while retrieving user info"
+//             })
+//         })
+// }
 
 exports.updateUserPlan = async (req) => {
     console.log("in controller")

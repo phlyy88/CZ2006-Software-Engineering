@@ -65,6 +65,8 @@ export default {
             selectedPlan:null,
           plans: {},
           user: {},
+          email: String,
+          allUsers: {},
           // user: null,
           //   housing: ["hi"],
           //   vehicle: null,
@@ -79,18 +81,20 @@ export default {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
-      console.log(this.user.email)
-      this.getUserPlans();
+      //console.log(this.user.email)
     },
       async getUserPlans() {
       console.log("before get me")
-      this.plan = JSON.parse(JSON.stringify(this.$http.post('user', this.user)))
-      //this.plan = response.data.user
-      console.log(this.plans)
-      console.log("after get me")
-      //console.log(this.plans)
-      //console.log(this.plans.v1)
+      // this.email = this.user.email
+      // console.log(this.email)
+      this.plan = await this.$http.post('user', this.user)
+      console.log(this.plan.data)
+      // this.allUsers = this.$http.get('user/me')
+      // console.log(this.allUsers)
 
+      // this.user = this.allUsers.query({
+      //   this.user.email : this.allUsers.email
+      // })
     },
       goPlan(plan){
       this.selectedPlan = plan
@@ -100,7 +104,7 @@ export default {
     },
     mounted(){
       this.getUserDetails();
-      //this.getUserPlans();
+      this.getUserPlans();
     }
 };
 </script>
