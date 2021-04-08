@@ -88,6 +88,7 @@ export default {
       VehiclePicURL: null,
       ChildcarePicURL:
         "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
+      userGet: null
     };
   },
   props:{
@@ -102,19 +103,36 @@ export default {
     NavBar
   },
   methods: {
-    getPlanDetails() {
+    getUserDetails() {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
-      //Get user Plan1 
+    },
+    async getUserPlans() {
+      this.userGet = await this.$http.post('user', this.user)
+      console.log(this.userGet.data.user)
     },
     getHousingCost(){},
-    getVehicleCost(){},
+    getVehicleCost(){
+      // if (this.plan == 1) {
+
+      // }
+      // if (this.plan == 2) {
+
+      // }
+      // if (this.plan == 3) {
+
+      // }
+    },
     getChilcareCost(){},
     sumCosts() {
       this.totalCosts = 1000;
     },
 
   },
+  mounted() {
+    this.getUserDetails();
+    this.getUserPlans();
+  }
 };
 </script>
