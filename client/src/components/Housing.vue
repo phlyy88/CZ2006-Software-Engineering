@@ -4,8 +4,8 @@
         <div class="filter">
             <ejs-grid 
                 ref="grid"
-                class = "e-resizable"
-                :dataSource="housingArray.data" 
+                class="e-resizable"
+                :dataSource="details.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
                 :selectionSettings='selectionOptions'
@@ -30,9 +30,10 @@
                 style="max-width: 20rem; width: 100%"
                 class="mb-2"
             >
-                
                 <b-card-text>
-                    Flat Name: {{ selectedOption.block }}
+                    Town: {{ selectedOption.town }}
+                    <br>
+                    Flat name: {{ selectedOption.block }}
                     <br>
                     Price: {{ selectedOption.price }}
                     <br>
@@ -44,9 +45,9 @@
                     <br>
                 </b-card-text>
                 <b-button
-                    v-if="picURL!=='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                    v-if="displayCostBreakdown"
                     v-b-toggle.sidebar-backdrop
-                    @click ="calculateCosthdb">Cost Breakdown</b-button>
+                    @click ="calculateCost">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -57,27 +58,66 @@
                     <div class="accordion" role="tablist">
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-1 variant="info">Fixed cost</b-button>
+                            <b-button block v-b-toggle.accordion-1 variant="info">Flat Costs</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
                             <b-card-body>
-                            <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
-                            <b-card-text v-if="showPreviousCost">{{ hdbcostBreakdown.data }}</b-card-text>
+                                <b-card-text v-if="showPreviousCost">
+                                Option Fee:
+                                <br>
+                                $ {{ costBreakdown.data.cost_object.option_fee }}
+                                <br>
+                                Home Insurance Premium:
+                                <br>
+                                $ {{ costBreakdown.data.cost_object.home_insurance_premium }}
+                                <br>
+                                Caveat Registration Fee:
+                                <br>
+                                $ {{ costBreakdown.data.cost_object.caveat_registration }}
+                                <br>                                
+                            </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
 
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block v-b-toggle.accordion-2 variant="info">Variable cost</b-button>
+                            <b-button block v-b-toggle.accordion-2 variant="info">Percentage cost</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
-                            <b-card-text>{{ text }}</b-card-text>
+                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-text v-if="showPreviousCost">
+                                Stamp duty:
+                                <br>
+                                {{ costBreakdown.data.cost_object.stamp_duty }}
+                                <br>
+                                Conveyance Fee:
+                                <br>
+                                {{ costBreakdown.data.cost_object.conveyancefee }}
+                                <br>
+
+                            </b-card-text>
                             </b-card-body>
                         </b-collapse>
                         </b-card>
+
+                    <b-card no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                            <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
+                        </b-card-header>
+                        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+                            <b-card-body>
+                            <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
+                            <b-card-text v-if="showPreviousCost">
+                                Total Cost:
+                                $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
+                            </b-card-text>
+                            </b-card-body>
+                        </b-collapse>
+                        </b-card>
+
                     </div>
                 </b-sidebar>
 
@@ -91,17 +131,26 @@
 
 <script>
 import { Filter } from '@syncfusion/ej2-vue-grids'
-import VueJwtDecode from "vue-jwt-decode";
-import NavBar from "./NavBar.vue"
+import { getDetails, calculateCost } from "../services/systems"
   export default {
     data() {
       return {
-          user:{},
-        housingArray: {},
+        details: {},
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
-        hdbcostBreakdown: {},
+        displayCostBreakdown: false,
+        costBreakdown: {
+            "data" : {
+                "cost_object": {
+                    "option_fee": 0,
+                    "home_insurance_premium": 0,
+                    "caveat_registration": 0,
+                    "conveyancefee": 0,
+                    "stamp_duty": 0,
+                    "total_cost": 0
+                }}
+        },
         filterOptions: {
             type: 'CheckBox'
         },
@@ -123,44 +172,14 @@ import NavBar from "./NavBar.vue"
         }
     },    
     methods: {
-        getUserDetails() {
-      let token = localStorage.getItem("jwt");
-      let decoded = VueJwtDecode.decode(token);
-      this.user = decoded;
-    },
-       async getHousingDetails() {
-            try {
-                this.housingArray = await this.$http.get('housing')
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
         onRowSelected(args) {
             this.selectedOption = args.data
-            this.picURL = args.data.image_url}
-    ,
-        async calculateCosthdb() {
-            try {
-                this.isCalculating = true
-                this.showPreviousCost = false
-                this.hdbcostBreakdown= await this.$http.post('housing/hdbcostBreakdown', this.selectedOption)
-                this.showPreviousCost = true
-                this.isCalculating = false
-                console.log(this.hdbcostBreakdown)
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },},
+            this.displayCostBreakdown = true
+        },
+        calculateCost() {
+            calculateCost.calculateCost(this, 'housing')
+        }
+    },
     provide: {
         grid: [Filter]
     },
@@ -169,8 +188,7 @@ import NavBar from "./NavBar.vue"
             this.picURL = args.data.image_url
         },
     mounted() {
-        this.getHousingDetails();
-        this.getUserDetails();
+        getDetails.getDetails(this, 'housing')
     }
   }
 </script>

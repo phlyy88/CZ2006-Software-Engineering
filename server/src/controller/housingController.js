@@ -15,7 +15,7 @@ exports.getHousingDetails = async (req, res) => {
 }
 
 
-exports.calculateCosthdb = async (req, res) => {
+exports.calculateCost = async (req, res) => {
     try {
         const selectedhdb = req.body
         console.log(req.body)
@@ -56,13 +56,15 @@ exports.calculateCosthdb = async (req, res) => {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * 30) + (await Tax.conveyance_fee_remain() * (price-60000)/1000)
         }
 
+        const total_cost = home_insurance_premium + caveat_registration + option_fee + stamp_duty + conveyancefee 
 
         var cost_object = {
             option_fee: option_fee,
             caveat_registration: caveat_registration,
             home_insurance_premium: home_insurance_premium,
             stamp_duty: stamp_duty,
-            conveyancefee: conveyancefee
+            conveyancefee: conveyancefee,
+            total_cost: total_cost
         }
 
         res.status(201).json({ cost_object })

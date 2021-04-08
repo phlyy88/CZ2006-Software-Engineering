@@ -64,5 +64,6 @@
                 this.$refs['login-modal'].show();
             }
         }
-    }
+
+};
 </script>

@@ -1,11 +1,11 @@
 <template>
     <div class="pageView">
-        <NavBar :user="user" />
+        <NavBar :user="details.data.user.email" />
         <div class="filter">
             <ejs-grid 
             ref="grid"
                 class = "e-resizable"
-                :dataSource="vehicleArray.data" 
+                :dataSource="details.data" 
                 :allowFiltering='true' 
                 :filterSettings='filterOptions' 
                 :selectionSettings='selectionOptions'
@@ -35,9 +35,17 @@
                     <br>
                     Price: {{ selectedOption.omv }}
                 </b-card-text>
+                <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
+                    <b-dropdown-item>First Action</b-dropdown-item>
+                    <b-dropdown-item>Second Action</b-dropdown-item>
+                    <b-dropdown-item>Third Action</b-dropdown-item>
+                    <b-dropdown-divider></b-dropdown-divider>
+                    <b-dropdown-item active>Active action</b-dropdown-item>
+                    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+                </b-dropdown>
                 <b-button
                     variant="primary"
-                    v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
+                    v-if="displayCostBreakdown"
                     v-b-toggle.sidebar-backdrop
                     @click="calculateCost">Cost Breakdown</b-button>
                 <b-sidebar
@@ -117,18 +125,17 @@
 </template>
 <script>
 import { Filter } from "@syncfusion/ej2-vue-grids";
-import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
+import { getDetails, calculateCost } from "../services/systems"
 export default {
     data() {
       return {
-        text: "hello",
         picURL: "https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png",
-        user:{},
-        vehicleArray: {},
+        details: {},
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
+        displayCostBreakdown: false,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -163,51 +170,20 @@ export default {
         }
     },
     methods: {
-        getUserDetails() {
-      let token = localStorage.getItem("jwt");
-      let decoded = VueJwtDecode.decode(token);
-      this.user = decoded;
-    },
-       async getVehicleDetails() {
-            try {
-                this.vehicleArray = await this.$http.get('vehicle')
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
+            this.displayCostBreakdown = true
         },
-        async calculateCost() {
-            try {
-                this.isCalculating = true
-                this.showPreviousCost = false
-                this.costBreakdown= await this.$http.post('vehicle/costBreakdown', this.selectedOption)
-                this.showPreviousCost = true
-                this.isCalculating = false
-                console.log(this.costBreakdown)
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
+        calculateCost() {
+            calculateCost.calculateCost(this, 'vehicle')
         }
     },
     provide: {
         grid: [Filter]
     },
     mounted() {
-        this.getVehicleDetails();
-        this.getUserDetails();
+        getDetails.getDetails(this, 'vehicle');
     },
 };
 </script>

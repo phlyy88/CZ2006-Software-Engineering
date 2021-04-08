@@ -72,22 +72,6 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user
 }
 
-userSchema.statics.findByEmail = async (email) => {
-    const user = await User.findOne({ email })
-    return user
-}
-
-userSchema.statics.editProfile = async (req) => {
-    const filter = { email: req.email }
-    await User.updateOne(filter,
-        {
-            firstName: req.firstName,
-            lastName: req.lastName,
-            gender: req.gender,
-            dob: req.dob
-        })
-}
-
 const User = mongoose.model("User", userSchema, "user") //create model
 
 module.exports = User
