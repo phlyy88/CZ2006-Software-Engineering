@@ -138,12 +138,10 @@
     </div>
 </template>
 <script>
-// import favBtn from './FavBtn'
 import User from '../../../server/src/models/User'
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import NavBar from "./NavBar.vue"
 import VueJwtDecode from "vue-jwt-decode";
-//import axios from 'axios'
 
 export default {
     data() {
@@ -238,21 +236,26 @@ export default {
             this.selectedPlan = plan
         },
         async addFav() {
+            //this.getUserDetails();
+            console.log(this.user.v1)
+            console.log(this.user.v2)
+            console.log(this.user.v3)
             if (this.selectedPlan == 1){
                 this.$set(this.user, 'v1', this.selectedOption)
                 console.log(this.user)
                 console.log(this.user.email)
                 console.log(this.user.v1)
+                this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
                     title: 'user edited',
                     text: this.user.v1
                     });
-                this.$http.put('user/update', this.user)
                 // .then (response => 
                 // {this.user = response.user}, 
                 // error => {console.log(error);})
                 console.log("put done")
+                console.log(this.user)
             }
             if (this.selectedPlan == 2) {
                 this.$set(this.user, 'v2', this.selectedOption)
@@ -268,6 +271,7 @@ export default {
                 console.log("put done")
             }
             if (this.selectedPlan == 3) {
+                console.log(this.user.email)
                 console.log(this.user.v1)
                 console.log(this.user.v2)
                 this.$set(this.user, 'v3', this.selectedOption)

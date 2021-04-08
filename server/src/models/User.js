@@ -116,8 +116,18 @@ userSchema.statics.findByCredentials = async (email, password) => {
 }
 
 userSchema.statics.findByEmail = async (email) => {
-    const user = await User.findOne({ email })
+    //console.log(req.body.email)
+    try {
+    const user = await User.findOne({email}, 
+    function(err){
+        if (err){
+          console.log(err);}
+        } )
+    console.log("Found by email")
     return user
+    } catch(error) {
+        console.log(error)
+    }
 }
 
 userSchema.statics.editProfile = async (req) => {

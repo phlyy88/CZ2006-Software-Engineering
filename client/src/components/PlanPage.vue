@@ -18,8 +18,7 @@
               flush
           
           >
-                <b-list-group-item 
-                v-if="housing">Housing Choice</b-list-group-item>
+                <b-list-group-item v-if="true">Housing Choice</b-list-group-item>
                 <b-list-group style="margin-top: 20px" v-else >
                 <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
                 </b-list-group>
@@ -50,6 +49,7 @@
 </template>
 
 <script>
+//import User from '../../../server/src/models/User'
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
 export default {
@@ -64,10 +64,11 @@ export default {
             name: "Plan 3"}],
             selectedPlan:null,
           plans: {},
-          user: null,
-            housing: ["hi"],
-            vehicle: null,
-            childcare: null
+          user: {},
+          // user: null,
+          //   housing: ["hi"],
+          //   vehicle: null,
+          //   childcare: null
         }
     },
     components:{
@@ -78,19 +79,31 @@ export default {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
+      console.log(this.user.email)
+      this.getUserPlans();
     },
-        getPlansDetails() {
-      let token = localStorage.getItem("jwt");
-      let decoded = VueJwtDecode.decode(token);
-      this.plan = decoded;
+      async getUserPlans() {
+      console.log("before get me")
+      this.plan = JSON.parse(JSON.stringify(this.$http.post('user', this.user)))
+      //this.plan = response.data.user
+      console.log(this.plans)
+      console.log("after get me")
+      //console.log(this.plans)
+      //console.log(this.plans.v1)
+
     },
-    goPlan(plan){
+      goPlan(plan){
       this.selectedPlan = plan
-    }
+    },
+    
     
     },
     mounted(){
-      
+      this.getUserDetails();
+      //this.getUserPlans();
     }
 };
 </script>
+
+
+v-if="user.v{planNo.plan}"
