@@ -57,18 +57,20 @@ Vue.use(VueRouter)
   {
     path: '/plan',
     name: 'plan',
-    component: () => import('../components/PlanPage.vue')
+    component: () => import('../components/PlanPage.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
-  // {
-  //   path: '/plan/1',
-  //   name: 'plan1',
-  //   component: () => import('../components/Plan1.vue')
-  // },
-  // {
-  //   path: '/plan/2',
-  //   name: 'plan2',
-  //   component: () => import('../components/Plan2.vue')
-  // },
+  {
+    path: '/plan/:index',
+    name: 'plan_index',
+    component: () => import('../components/Plan.vue'),
+    meta: {
+      requiresAuth: true
+    },
+    props: true
+  },
 ]
 
 const router = new VueRouter({

@@ -42,7 +42,7 @@
                 </b-card-text>  
                 <b-form-select
                     v-if="displayChild"
-                    v-model="selectedChild.child"
+                    v-model="selectedOption.child"
                     :options="childOptions"
                 >
                    <template #first>
@@ -78,9 +78,9 @@
                                         <br>
                                         $ {{ costBreakdown.data.cost_object.monthly_cost }}
                                         <br> 
-                                        Total Annual Cost: (Monthly Cost X 12) + registration_cost
+                                        Total Annual Cost: ((Monthly Cost X 12) + registration_cost) x Number Of Children
                                         <br>    
-                                        ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }} = $ {{ costBreakdown.data.cost_object.total_cost_annual.toFixed(2) }}
+                                        ($ {{ selectedOption.cost_for_Singaporeans }} x 12) + $ {{ selectedOption.registration_fee }}) x {{ selectedOption.child }} = $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }}
                                     </b-card-text>
                                 </b-card-body>
                             </b-collapse>
@@ -94,7 +94,7 @@
                                 <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                 <b-card-text v-if="showPreviousCost">
                                     Total Grants:
-                                    $ {{ grantsBreakdown.data.grant_object.total_grants.toFixed(2) }}
+                                    $ {{ grantsBreakdown.data.grants_object.total_grants.toFixed(2) }}
                                 </b-card-text>
                                 </b-card-body>
                             </b-collapse>
@@ -108,7 +108,7 @@
                                 <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                 <b-card-text v-if="showPreviousCost">
                                     Net Cost:
-                                    $ {{ grantsBreakdown.data.grant_object.total_grants.toFixed(2) }}
+                                    $ {{ costBreakdown.data.cost_object.total_cost.toFixed(2) }} - {{ grantsBreakdown.data.grants_object.total_grants.toFixed(2) }} = $ {{ netCost.toFixed(2) }}
                                 </b-card-text>
                                 </b-card-body>
                             </b-collapse>
@@ -128,25 +128,28 @@
     data() {
       return {
         details: {},
-        selectedOption: {},
+        selectedOption: {
+            "cost_for_singaporeans": 0,
+            "registration_fee": 0,
+            "child": 0
+        },
         isCalculating: false,
         showPreviousCost: true,
         displayCostBreakdown: false,
         displayChild: false,
+        netCost: 0,
         costBreakdown: {
             "data" : {
                 "cost_object": {
                     "registration_cost": 0,
                     "monthly_cost": 0,
-                    "total_cost": 0,
-                    "total_cost_annual": 0,
-                    "baby_bonus": 0,
-                    "total_grants": 0
-                }}
+                    "total_cost": 0
+                }
+            }
         },
         grantsBreakdown: {
             "data": {
-                "grant_object": {
+                "grants_object": {
                     "baby_bonus": 0,
                     "baby_bonus_step": 0,
                     "total_grants": 0,
@@ -173,7 +176,7 @@
       }
     },
     watch: {
-        "selectedChild.child": function(){
+        "selectedOption.child": function(){
             this.displayCostBreakdown = true
         }
     },

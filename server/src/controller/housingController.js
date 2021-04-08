@@ -78,7 +78,6 @@ exports.calculateCostHousing = async (req, res) => {
 exports.calculateGrantsHousing = async (req, res) => {
     try {
         const income = req.body.income
-        console.log(income)
 
         var ehg
         if (income==1)
@@ -101,7 +100,7 @@ exports.calculateGrantsHousing = async (req, res) => {
         var total_grants = ehg
 
         var grants_object = {
-            total_grants: total_grants,
+            total_grants: total_grants
         }
         
 

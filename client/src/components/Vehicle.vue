@@ -1,6 +1,17 @@
 <template>
     <div class="vertical-center">
+        <div>
         <NavBar/>
+        <h3>Selected Plan: {{selectedPlan}}</h3>
+        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
+          <b-dropdown-item 
+          v-for="plan in plan" 
+          :key="plan.plan"
+          @click="selectedPlan => doPlan(plan.plan)"
+           >Plan {{plan.plan}}</b-dropdown-item>
+           
+        </b-dropdown>
+      </div>
         <div class="filter">
             <ejs-grid 
                 ref="grid"
@@ -38,11 +49,10 @@
                 </b-card-text>
                 <div class="wrapper">
                     <b-button
-                        variant="primary"
-                        v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
-                        v-b-toggle.sidebar-backdrop
-                        @click="calculateCost">Cost Breakdown</b-button>
-                    <!-- <favBtn/> -->
+                    variant="primary"
+                    v-if="displayCostBreakdown"
+                    v-b-toggle.sidebar-backdrop
+                    @click="calculate">Cost Breakdown</b-button>
                     <div class="button-div" > 
                         <button class="fav-button" @click="addFav"> 
                             <i class="fa fa-star"></i> 
@@ -50,11 +60,6 @@
                         </button> 
                     </div>
                 </div>
-                <b-button
-                    variant="primary"
-                    v-if="displayCostBreakdown"
-                    v-b-toggle.sidebar-backdrop
-                    @click="calculate">Cost Breakdown</b-button>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -139,6 +144,7 @@ import User from '../../../server/src/models/User'
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import NavBar from "./NavBar.vue"
 import VueJwtDecode from "vue-jwt-decode";
+
 import { getDetails, calculate } from "../services/systems"
 export default {
     data() {
@@ -194,22 +200,69 @@ export default {
             let decoded = VueJwtDecode.decode(token);
             this.user = decoded;
         },
-        async getVehicleDetails() {
-            try {
-                this.vehicleArray = await this.$http.get('vehicle')
-            } catch (err) {
-                let error = err.response
-                if (error.status == 409) {
-                    this.$swal("Error", error.data.message, "error")
-                } else {
-                    this.$swal("Error", error.data.err.message, "error")
-                }
-            }
-        },
+        
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
             this.displayCostBreakdown = true
+        },
+        doPlan(plan){
+            console.log(plan)
+            this.selectedPlan = plan
+        },
+        async addFav() {
+            //this.getUserDetails();
+            console.log(this.user.v1)
+            console.log(this.user.v2)
+            console.log(this.user.v3)
+            if (this.selectedPlan == 1){
+                this.$set(this.user, 'v1', this.selectedOption)
+                console.log(this.user)
+                console.log(this.user.email)
+                console.log(this.user.v1)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'user edited',
+                    text: this.user.v1
+                    });
+                // .then (response => 
+                // {this.user = response.user}, 
+                // error => {console.log(error);})
+                console.log("put done")
+                console.log(this.user)
+            }
+            if (this.selectedPlan == 2) {
+                this.$set(this.user, 'v2', this.selectedOption)
+                console.log(this.user)
+                // console.log(this.user.email)
+                // console.log(this.user.v2)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 2',
+                    text: this.user.v2.name
+                    });
+                console.log("put done")
+            }
+            if (this.selectedPlan == 3) {
+                console.log(this.user.email)
+                console.log(this.user.v1)
+                console.log(this.user.v2)
+                this.$set(this.user, 'v3', this.selectedOption)
+                // console.log(this.user)
+                // console.log(this.user.email)
+                // console.log(this.user.v3)
+                console.log(this.user.v1)
+                console.log(this.user.v2)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 3',
+                    text: this.user.v3.name
+                    });
+                console.log("put done")
+            }
         },
         calculate() {
             calculate.calculateCost(this, 'vehicle', false)
@@ -219,8 +272,8 @@ export default {
         grid: [Filter]
     },
     mounted() {
-        getDetails.getDetails(this, 'vehicle');
         this.getUserDetails();
+        getDetails.getDetails(this, 'vehicle');
     },
 
 };
