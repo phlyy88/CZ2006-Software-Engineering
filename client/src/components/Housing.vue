@@ -25,9 +25,9 @@
                     <e-column field="town" headerText="Town" textAlign="Right" ></e-column>
                     <e-column field="flat_type" headerText="Flat type"></e-column>
                     <e-column field="flat_room" headerText="Number of rooms"></e-column>                    
-                    <e-column field="block" headerText="Flat name/Block" :filter="columnFilterOptions"></e-column>
-                    <e-column field="remaining_lease" headerText="Remaining lease" :filter="columnFilterOptions"></e-column>
-                    <e-column field="price" headerText="Price" :filter="columnFilterOptions"></e-column>
+                    <e-column field="block" headerText="Flat name/Block" ></e-column>
+                    <e-column field="remaining_lease" headerText="Remaining lease" ></e-column>
+                    <e-column field="price" headerText="Price" ></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
@@ -167,8 +167,9 @@
                         </b-card>
                     </div>
                 </b-sidebar>
-                <b-card-text v-if="cost!==null">
-                    Cost: {{ cost }}
+                <b-card-text>
+                    <br>
+                    <h3> Cost: $ {{ netCost.toFixed(2) }} </h3>
                 </b-card-text>
             </b-card>
         </div>
@@ -252,6 +253,7 @@ import { getDetails, calculate } from "../services/systems"
                 this.displayFavBtn = false
             }
         }
+
     },
     methods: {
         getUserDetails() {
@@ -264,6 +266,7 @@ import { getDetails, calculate } from "../services/systems"
             this.selectedOption = args.data
             this.displayIncome = true
             this.displayFavBtn = false
+            this.netCost = 0
         },
         calculate() {
             calculate.calculateCost(this, 'housing')

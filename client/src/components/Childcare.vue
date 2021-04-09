@@ -22,7 +22,7 @@
                 :rowSelecting='rowSelecting'
                 :rowSelected='onRowSelected'>
                 <e-columns>
-                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right" :filter="columnFilterOptions"></e-column>-->
+                    <e-column field="childcare_organization" headerText="Organization" textAlign="Right"></e-column>-->
                     <e-column field="level" headerText="Level"></e-column> -->
                     <e-column field="child_age" headerText="Age of Child"></e-column>
                     <e-column field="full_half_day" headerText="Full or Half Day"></e-column>
@@ -158,6 +158,10 @@
                         </b-card>
                     </div>
                 </b-sidebar>
+                <b-card-text>
+                    <br>
+                    <h3> Cost: $ {{ netCost.toFixed(2) }} </h3>
+                </b-card-text>
             </b-card>
         </div>
     </div>
@@ -243,14 +247,15 @@
     },
     methods: {
         getUserDetails() {
-      let token = localStorage.getItem("jwt");
-      let decoded = VueJwtDecode.decode(token);
-      this.user = decoded;
-    },
+            let token = localStorage.getItem("jwt");
+            let decoded = VueJwtDecode.decode(token);
+            this.user = decoded;
+        },
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayChild = true
             this.displayFavBtn = false
+            this.netCost = 0
         },
         calculate(){
             calculate.calculateCost(this,'childcare')

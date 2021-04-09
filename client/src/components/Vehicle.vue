@@ -24,9 +24,9 @@
                 <e-columns>
                     <e-column field="category" headerText="Category" textAlign="Right" ></e-column>
                     <e-column field="brand" headerText="Brand" filterTemplate="customTemplate" ></e-column>
-                    <e-column field="name" headerText="Model" :filter="columnFilterOptions"></e-column>
+                    <e-column field="name" headerText="Model" ></e-column>
                     <e-column field="passenger_capacity" headerText="Capacity" ></e-column>
-                    <e-column field="omv" headerText="Price (SGD)" :filter="columnFilterOptions"></e-column>
+                    <e-column field="omv" headerText="Price (SGD)" ></e-column>
                 </e-columns>
             </ejs-grid>
         </div>
@@ -144,6 +144,10 @@
                         </b-card>
                     </div>
                 </b-sidebar>
+                <b-card-text>
+                    <br>
+                    <h3> Cost: $ {{ netCost.toFixed(2) }} </h3>
+                </b-card-text>
             </b-card>
         </div>
     </div>
@@ -164,6 +168,7 @@ export default {
         showPreviousCost: true,
         displayCostBreakdown: false,
         displayFavBtn: false,
+        netCost: 0,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -211,6 +216,7 @@ export default {
             this.picURL = args.data.image_url
             this.displayCostBreakdown = true
             this.displayFavBtn = false
+            this.netCost = 0
         },
         getUserDetails() {
       let token = localStorage.getItem("jwt");

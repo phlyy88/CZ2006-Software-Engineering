@@ -28,7 +28,9 @@ export const calculate = {
                 that.selectedOption.netCost = costBreakdown.data.cost_object.total_cost - grantsBreakdown.data.grants_object.total_grants
                 that.netCost = costBreakdown.data.cost_object.total_cost - grantsBreakdown.data.grants_object.total_grants
                 that.selectedOption.grants_object = grantsBreakdown.data.grants_object
-            }         
+            } else {
+                that.netCost = costBreakdown.data.cost_object.total_cost
+            }  
             // } else if (type=="housing") {
             //     const grantsBreakdown = await that.$http.post(type.concat("/grantsBreakdown"), that.selectedIncome)
             //     that.grantsBreakdown = grantsBreakdown

@@ -65,6 +65,7 @@
       <div style="margin-top: 20px">
         <b-card no-body class="overflow-hidden">
           <b-row no-gutters>
+
             <b-col md="6">
               <b-card-img v-if="this.plan == 1 && this.userGet.data.user.v1"
                 v-bind:src="this.userGet.data.user.v1.image_url"
@@ -81,7 +82,7 @@
                 alt="Image"
                 class="rounded-0"
               ></b-card-img>
-              <!-- <b-card-img v-else  src="https://www.shareicon.net/data/128x128/2015/10/21/659397_car_512x512.png"></b-card-img> -->
+              <b-card-img v-else  v-bind:src="VehiclePicURL"></b-card-img>
             </b-col>
             <b-col md="6">
               <b-card-body v-if="this.plan == 1 && this.userGet.data.user.v1">
@@ -159,7 +160,7 @@
 
                   </b-card-text>
               </b-card-body>
-              <b-card-body v-if="this.plan == 2 && this.userGet.data.user.c2">
+              <b-card-body v-else-if="this.plan == 2 && this.userGet.data.user.c2">
                 <h5>{{this.userGet.data.user.c2.childcare_organization}}</h5>
                 <b-card-text> 
                   Number of Children: {{this.userGet.data.user.c2.cost.child}} <br>
@@ -173,7 +174,7 @@
 
                   </b-card-text>
               </b-card-body>
-              <b-card-body v-if="this.plan == 3 && this.userGet.data.user.c3">
+              <b-card-body v-else-if="this.plan == 3 && this.userGet.data.user.c3">
                 <h5>{{this.userGet.data.user.c3.childcare_organization}}</h5>
                 <b-card-text> 
                   Number of Children: {{this.userGet.data.user.c3.cost.child}} <br>
@@ -187,6 +188,7 @@
 
                   </b-card-text>
               </b-card-body>
+              <b-card-body v-else> Add new childcare </b-card-body>
             </b-col>
           </b-row>
         </b-card>
@@ -226,8 +228,8 @@ export default {
     return {
       user: {},
       totalCosts: null,
-      VehiclePicURL: null,
-      HousePicURL: "http://www.gov.sg/-/media/gov/faqs/housing/eip.jpg",
+      VehiclePicURL: "https://cdn.motor1.com/images/mgl/MQWXX/s1/2020-honda-civic-si-coupe.jpg",
+      HousingPicURL: "http://www.gov.sg/-/media/gov/faqs/housing/eip.jpg",
       ChildcarePicURL:
         "https://www.expatica.com/app/uploads/sites/6/2014/05/german-preschool-1920x1080.jpg",
       userGet: null,
