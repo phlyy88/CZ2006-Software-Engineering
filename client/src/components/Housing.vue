@@ -245,7 +245,12 @@ import { getDetails, calculate } from "../services/systems"
     },
     watch: {
         'selectedOption.income': function () {
-            this.displayCostBreakdown = true
+            if(this.selectedOption.income == undefined) {
+                this.displayCostBreakdown = false
+            } else {
+                this.displayCostBreakdown = true
+                this.displayFavBtn = false
+            }
         }
     },
     methods: {
@@ -258,6 +263,7 @@ import { getDetails, calculate } from "../services/systems"
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayIncome = true
+            this.displayFavBtn = false
         },
         calculate() {
             calculate.calculateCost(this, 'housing')

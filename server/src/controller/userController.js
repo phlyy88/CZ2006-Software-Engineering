@@ -22,9 +22,22 @@ exports.registerNewUser = async (req, res) => {
         //         message: "email already in use"
         //     })
         // }
+
+        var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{10,100}$/
+        if (req.body.password.match(passw)) {
+            console.log(req.body.password)
+        } else {
+            return res.status(409).json({
+                message: "Password requirements not met."
+            })
+        }
+        console.log("after password check")
+
         let user = await User.findOne({
             email
         })
+        
+        
         if (user) {
             return res.status(409).json({
                 message: "User is already registered."

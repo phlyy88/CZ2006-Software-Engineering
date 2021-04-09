@@ -210,6 +210,7 @@ export default {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
             this.displayCostBreakdown = true
+            this.displayFavBtn = false
         },
         getUserDetails() {
       let token = localStorage.getItem("jwt");

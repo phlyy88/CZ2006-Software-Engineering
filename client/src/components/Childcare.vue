@@ -232,8 +232,13 @@
         NavBar
     },
     watch: {
-        "selectedOption.child": function(){
-            this.displayCostBreakdown = true
+        "selectedOption.child": function() {
+            if(this.selectedOption.child == undefined) {
+                this.displayCostBreakdown = false
+            } else {
+                this.displayCostBreakdown = true
+                this.displayFavBtn = false
+            }
         }
     },
     methods: {
@@ -245,6 +250,7 @@
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayChild = true
+            this.displayFavBtn = false
         },
         calculate(){
             calculate.calculateCost(this,'childcare')
