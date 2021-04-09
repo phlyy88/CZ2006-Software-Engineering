@@ -1,15 +1,17 @@
 <template>
     <div class="pageView">
         <NavBar :user="user" />
-        <div class="filter">
         <h3>Selected Plan: {{selectedPlan}}</h3>
-        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
+        <div>
+            <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
           <b-dropdown-item 
           v-for="plan in plan" 
           :key="plan.plan"
           @click="selectedPlan => doPlan(plan.plan)"
            >Plan {{plan.plan}}</b-dropdown-item>
         </b-dropdown>
+        </div>
+        <div class="filter">
             <ejs-grid 
                 ref="grid"
                 class = "e-resizable"
