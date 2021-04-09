@@ -19,6 +19,7 @@
       </nav>
     </header>
 
+    <notifications group="foo" />
     <router-view/>
 
     <!-- Footer -->

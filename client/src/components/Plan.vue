@@ -199,7 +199,10 @@
             header-tag="header">
             <h4>Total cost for plan {{this.plan}}: ${{this.totalCosts}}</h4>
             <h4 v-if="this.displayMonthlySaving">You should save ${{this.monthlySavings}} monthly!</h4>
-            <b-button @click="sumCosts()" variant="primary">Calculate</b-button>
+            <b-button
+            @click="sumCosts()" 
+            variant="primary"
+            style="margin-right:10px">Calculate</b-button>
             
               <b-dropdown v-if="displaySavingBtn" text="Select number of years to save" >
               <b-dropdown-item v-for="year in year" :key="year"
@@ -287,7 +290,7 @@ export default {
       this.displaySavingBtn = true
     },
     calculateSaving(year) {
-     this.monthlySavings = this.totalCosts / 12 / year.year
+     this.monthlySavings = Math.ceil(this.totalCosts / 12 / year.year)
      this.displayMonthlySaving = true
     }
 

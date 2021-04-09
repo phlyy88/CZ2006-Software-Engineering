@@ -1,7 +1,7 @@
 <template>
     <div class="pageView">
         <NavBar :user="user" />
-        <h3>Selected Plan: {{selectedPlan}}</h3>
+        <h3>Please select a plan: Plan {{selectedPlan}}</h3>
         <div>
             <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
           <b-dropdown-item 
@@ -65,13 +65,15 @@
                         v-if="displayCostBreakdown && displayChild"
                         v-b-toggle.sidebar-backdrop
                         variant="primary"
-                        @click ="calculate">Cost Breakdown
+                        @click ="calculate"
+                        style="margin-top:10px">Cost Breakdown
                     </b-button>
-                    <div class="button-div" > 
-                        <button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
+                    <div class="button-div" 
+                    style="margin-top:10px"> 
+                        <b-button v-if="displayFavBtn" @click="addFav"> 
                             <i class="fa fa-star"></i> 
-                            <span>Favorites</span> 
-                        </button> 
+                            <span>Add to Favorites</span> 
+                        </b-button> 
                     </div>
                 </div>
                 <b-sidebar
@@ -250,18 +252,15 @@
         },
         async addFav() {
             this.selectedOption.cost = this.costBreakdown.data.cost_object
-            console.log(this.selectedOption)
             if (this.selectedPlan == 1){
                 this.$set(this.user, 'c1', this.selectedOption)
                 this.user.type = 'c1'
-                console.log(this.user.c1)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
                     title: 'Added to plan 1!',
                     text: this.user.c1.child + ' child for ' + this.user.c1.childcare_organization
                     });
-                console.log("put done")
             }
             if (this.selectedPlan == 2) {
                 this.$set(this.user, 'c2', this.selectedOption)

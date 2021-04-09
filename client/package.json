@@ -17,6 +17,7 @@
     "core-js": "^3.6.4",
     "mdi-vue": "^2.2.3",
     "splitpanes": "^3.0.4",
+    "vt-notifications": "^0.4.1",
     "vue": "^2.6.12",
     "vue-dynamic-dropdown": "^1.0.12",
     "vue-jwt-decode": "^0.1.0",

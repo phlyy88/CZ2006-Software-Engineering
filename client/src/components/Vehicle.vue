@@ -2,7 +2,7 @@
     <div class="pageView">
         <NavBar :user="user" />
         <div>
-        <h3>Selected Plan: {{selectedPlan}}</h3>
+        <h3>Please select a plan: Plan {{selectedPlan}}</h3>
         <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
           <b-dropdown-item 
           v-for="plan in plan" 
@@ -50,12 +50,14 @@
                     variant="primary"
                     v-if="displayCostBreakdown"
                     v-b-toggle.sidebar-backdrop
-                    @click="calculate">Cost Breakdown</b-button>
-                    <div class="button-div" > 
-                        <button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
+                    @click="calculate"
+                    style="margin-top:10px">Cost Breakdown</b-button>
+                    <div class="button-div"
+                    style="margin-top:10px"> 
+                        <b-button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
                             <i class="fa fa-star"></i> 
-                            <span>Favorites</span> 
-                        </button> 
+                            <span>Add to Favorites</span> 
+                        </b-button> 
                     </div>
                 </div>
                 <b-sidebar

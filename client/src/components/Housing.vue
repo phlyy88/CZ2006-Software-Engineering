@@ -1,7 +1,7 @@
 <template>
     <div class="pageView">
         <NavBar :user="user" />
-        <h3>Selected Plan: {{selectedPlan}}</h3>
+        <h3>Please select a plan: Plan {{selectedPlan}}</h3>
         <div>
             <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
           <b-dropdown-item 
@@ -12,7 +12,6 @@
         </b-dropdown>
         </div>
         <div class="filter">
-            <h3>Selected Plan: {{selectedPlan}}</h3>
             <ejs-grid 
                 ref="grid"
                 class="e-resizable"
@@ -71,12 +70,17 @@
                         v-if="displayCostBreakdown && displayIncome"
                         v-b-toggle.sidebar-backdrop
                         variant="primary"
-                        @click ="calculate">Cost Breakdown
+                        @click ="calculate"
+                        style="margin-top:10px">Cost Breakdown
                     </b-button>
-                    <button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
+                    <b-button 
+                    class="button-div" 
+                    v-if="displayFavBtn" 
+                    @click="addFav"
+                    style="margin-top:10px"> 
                         <i class="fa fa-star"></i> 
-                        <span>Favorites</span> 
-                    </button> 
+                        <span>Add to Favorites</span> 
+                    </b-button> 
                 </div>
                 <b-sidebar
                     id="sidebar-backdrop"
