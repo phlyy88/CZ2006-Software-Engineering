@@ -251,6 +251,7 @@ import { getDetails, calculate } from "../services/systems"
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayIncome = true
+            this.displayFavBtn = false
         },
         calculate() {
             calculate.calculateCost(this, 'housing')

@@ -243,6 +243,7 @@
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayChild = true
+            this.displayFavBtn = false
         },
         calculate(){
             calculate.calculateCost(this,'childcare')
