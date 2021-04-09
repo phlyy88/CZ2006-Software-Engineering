@@ -156,7 +156,7 @@
 import { Filter } from "@syncfusion/ej2-vue-grids";
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
-import { getDetails, calculate } from "../services/systems"
+import { getDetails, calculate, addFavourites } from "../services/systems"
 export default {
     data() {
       return {
@@ -219,52 +219,15 @@ export default {
             this.netCost = 0
         },
         getUserDetails() {
-      let token = localStorage.getItem("jwt");
-      let decoded = VueJwtDecode.decode(token);
-      this.user = decoded;
-    },
+            let token = localStorage.getItem("jwt");
+            let decoded = VueJwtDecode.decode(token);
+            this.user = decoded;
+        },
         doPlan(plan){
             this.selectedPlan = plan
         },
-        async addFav() {
-            this.selectedOption.cost = this.costBreakdown.data.cost_object
-            console.log(this.selectedOption)
-            if (this.selectedPlan == 1){
-                this.$set(this.user, 'v1', this.selectedOption)
-                this.user.type = 'v1'
-                console.log(this.user.type)
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 1!',
-                    text: this.user.v1.name
-                    });
-                console.log("put done")
-            }
-            if (this.selectedPlan == 2) {
-                this.$set(this.user, 'v2', this.selectedOption)
-                this.user.type = 'v2'
-                console.log(this.user.type)
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 2!',
-                    text: this.user.v2.name
-                    });
-                console.log("put done")
-            }
-            if (this.selectedPlan == 3) {
-                this.$set(this.user, 'v3', this.selectedOption)
-                this.user.type = 'v3'
-                console.log(this.user.type)
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 3!',
-                    text: this.user.v3.name
-                    });
-                console.log("put done")
-            }
+        addFav() {
+            addFavourites.addFavourites(this)
         },
         calculate() {
             this.displayFavBtn = true

@@ -6,35 +6,21 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import Notifications from 'vue-notification'
-
-//import 'bootstrap/dist/css/bootstrap.min.css'
-
 import '@/assets/css/main.css'
-
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'vue-mdi/dist/mdi.css';
-
-// main.js
- 
 import store from "./store";
- 
 import { GridPlugin } from "@syncfusion/ej2-vue-grids"
 import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns'
-// import vuetify from './plugins/vuetify';
-// import { VueMdi, library } from 'vue-mdi'
-// import { mdiAccount } from '@mdi/js'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-// library.add({ mdiAccount })
- 
-// Vue.component('vue-mdi', VueMdi)
  
 Vue.config.productionTip = false
 
-//import { RouterLinkStub, shallowMount } from '@vue/test-utils';
-//import NavFilter from '/NavFilter.vue';
-//VueSplitPane from 'vue-split-pane';
 
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Vue.use(GridPlugin)
 Vue.use(DropDownListPlugin)
 Vue.use(VueSweetalert2)

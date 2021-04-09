@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
  state: {
      user: {
-         previousPlan: 3
+         previousPlan: 1
      }
  },
  getters: {},

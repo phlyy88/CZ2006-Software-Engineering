@@ -1,17 +1,8 @@
 <template>
   <div class= "pageView">
     <NavBar :user="user" />
-    <div>
-        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
-          <b-dropdown-item 
-          v-for="plan in plan" 
-          :key="plan.plan"
-          @click="selectedPlan => doPlan(plan.plan)"
-           >Plan {{plan.plan}}</b-dropdown-item>
-        </b-dropdown>
-      </div>
 
-    <h1 style = "text-align:center">Start doing Plan {{selectedPlan}}</h1>
+    <h1 style = "text-align:center">Start Planning</h1>
     <div id="plans">
       <b-container>
         <b-card-group deck>
@@ -88,10 +79,6 @@ import NavBar from "./NavBar.vue"
 export default {
   data() {
     return {
-      plan: [
-        {plan: 1}, 
-        {plan: 2}, 
-        {plan: 3}],
       selectedPlan:1,
       user: {},
       HousePicURL: "https://lifestyle2.prod.content.iproperty.com/news/wp-content/uploads/sites/2/2017/08/25112917/HDB-house.jpg",
@@ -113,9 +100,6 @@ export default {
     logUserOut() {
       localStorage.removeItem("jwt");
       this.$router.push("/");
-    },
-    doPlan(plan){
-      this.selectedPlan = plan
     },
   },
   mounted(){

@@ -48,3 +48,46 @@ export const calculate = {
         }
     },
 }
+
+export const addFavourites = {
+    addFavourites: async function(that) {
+        that.selectedOption.cost = that.costBreakdown.data.cost_object
+        console.log(that.selectedOption)
+        if (that.selectedPlan == 1){
+            that.$set(that.user, 'v1', that.selectedOption)
+            that.user.type = 'v1'
+            console.log(that.user.type)
+            that.$http.put('user/update', that.user)
+            that.$notify({
+                group: 'foo',
+                title: 'Added to plan 1!',
+                text: that.user.v1.name
+                });
+            console.log("put done")
+        }
+        if (that.selectedPlan == 2) {
+            that.$set(that.user, 'v2', that.selectedOption)
+            that.user.type = 'v2'
+            console.log(that.user.type)
+            that.$http.put('user/update', that.user)
+            that.$notify({
+                group: 'foo',
+                title: 'Added to plan 2!',
+                text: that.user.v2.name
+                });
+            console.log("put done")
+        }
+        if (that.selectedPlan == 3) {
+            that.$set(that.user, 'v3', that.selectedOption)
+            that.user.type = 'v3'
+            console.log(that.user.type)
+            that.$http.put('user/update', that.user)
+            that.$notify({
+                group: 'foo',
+                title: 'Added to plan 3!',
+                text: that.user.v3.name
+                });
+            console.log("put done")
+        }
+    }
+}
