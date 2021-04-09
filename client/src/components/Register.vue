@@ -7,34 +7,46 @@
 
           <div class="form-group">
             <label>Email Address</label>
-            <input v-model="register.email" type="email" class="form-control" />
+            <b-form-input v-model="register.email" type="email" class="form-control"></b-form-input>
           </div>
-
           <div class="form-group">
             <label>Password</label>
-            <input
+            <b-form-input
               v-model="register.password"
               type="password"
+              :state="passwordState"
+              aria-describedby="password-live-help password-live-feedback"
               class="form-control"
-            />
+            ></b-form-input>
+            <b-form-invalid-feedback id="password-live-feedback">
+              Password requires:
+              <br>
+              1. At least 10 characters
+              <br>
+              2. At least 1 uppercase and lowercase character
+              <br>
+              3. At least 1 numeric character
+              <br>
+              4. At least 1 special character 
+            </b-form-invalid-feedback>
           </div>
 
           <div class="form-group">
             <label>First Name</label>
-            <input
+            <b-form-input
               v-model="register.firstName"
               type="text"
               class="form-control"
-            />
+            ></b-form-input>
           </div>
 
           <div class="form-group">
             <label>Last Name</label>
-            <input
+            <b-form-input
               v-model="register.lastName"
               type="text"
               class="form-control"
-            />
+            ></b-form-input>
           </div>
 
           <div class="form-group">
@@ -84,6 +96,21 @@ export default {
         dob: ""
       },
     };
+  },
+  //hello@gmail.comA4
+  computed: {
+    passwordState() {
+      if (this.register.password=="") {
+        return null
+      }
+      var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{10,100}$/
+      if (this.register.password.match(passw)) {
+        return true
+      } else {
+        return false
+      }
+      
+    }
   },
   methods: {
     async registerUser() {
