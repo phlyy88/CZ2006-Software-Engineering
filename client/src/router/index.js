@@ -6,23 +6,70 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'login',
-    component: () => import('../components/Login.vue')
+    name: 'startpage',
+    component: () => import('../components/StartPage.vue')
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('../components/Signup.vue')
+    path: '/register',
+    name: 'register',
+    component: () => import('../components/Register.vue')
   },
   {
     path: '/forgot-password',
     name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue')
+    component: () => import('../components/ForgotPassword.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/mainpage',
     name: 'mainpage',
-    component: () => import('../components/MainPage.vue')
+    component: () => import('../components/MainPage.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/childcare',
+    name: 'childcare',
+    component: () => import('../components/Childcare.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/vehicle',
+    name: 'vehicle',
+    component: () => import('../components/Vehicle.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/housing',
+    name: 'housing',
+    component: () => import('../components/Housing.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/plan',
+    name: 'plan',
+    component: () => import('../components/PlanPage.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/plan/:index',
+    name: 'plan_index',
+    component: () => import('../components/Plan.vue'),
+    meta: {
+      requiresAuth: true
+    },
+    props: true
   },
 ]
 
@@ -31,5 +78,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") == null) {
+      next({
+        path: "/"
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 
 export default router
