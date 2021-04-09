@@ -94,11 +94,11 @@ export default {
         {plan: 3}],
       selectedPlan:1,
       user: {},
-      HousePicURL: "http://m1.sdimgs.com/sd_static/u/201312/52ac736ba8caa.jpg",
+      HousePicURL: "https://lifestyle2.prod.content.iproperty.com/news/wp-content/uploads/sites/2/2017/08/25112917/HDB-house.jpg",
       VehiclePicURL:
-        "https://www.topteny.com/wp-content/uploads/2015/09/Ciprian-Mihai-3.jpg",
+        "https://cdn.motor1.com/images/mgl/MQWXX/s1/2020-honda-civic-si-coupe.jpg",
       ChildcarePicURL:
-        "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
+        "https://www.ourxplor.com/wp-content/uploads/2020/03/CCS-software-for-your-childcare-2.png",
     };
   },
   components:{
