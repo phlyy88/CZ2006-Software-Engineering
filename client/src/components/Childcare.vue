@@ -304,9 +304,9 @@
         grid: [Filter, Page]
     },
     mounted() {
+        this.selectedPlan = this.$store.state.user.previousPlan
         this.getUserDetails();
         getDetails.getDetails(this,'childcare');
-        this.getUserDetails();
     },
   }
 </script>

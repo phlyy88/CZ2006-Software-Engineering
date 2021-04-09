@@ -15,8 +15,10 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'vue-mdi/dist/mdi.css';
 
-
-
+// main.js
+ 
+import store from "./store";
+ 
 import { GridPlugin } from "@syncfusion/ej2-vue-grids"
 import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns'
 // import vuetify from './plugins/vuetify';
@@ -46,6 +48,7 @@ Vue.prototype.$http = base;
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   render: h => h(App)
 }).$mount('#app')

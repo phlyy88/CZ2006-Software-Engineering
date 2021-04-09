@@ -316,6 +316,7 @@ import { getDetails, calculate } from "../services/systems"
         grid: [Filter]
     },
     mounted() {
+        this.selectedPlan = this.$store.state.user.previousPlan
         getDetails.getDetails(this, 'housing');
         this.getUserDetails();
     }

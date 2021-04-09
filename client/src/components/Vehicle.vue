@@ -275,6 +275,7 @@ export default {
         grid: [Filter]
     },
     mounted() {
+        this.selectedPlan = this.$store.state.user.previousPlan
         this.getUserDetails();
         getDetails.getDetails(this, 'vehicle');
     },
