@@ -147,7 +147,7 @@ userSchema.statics.updatePlan = async (req) => {
     console.log(req.body.email)
     // console.log(req.body.v1)
     try {
-        User.findOneAndUpdate(
+        await User.findOneAndUpdate(
         {"email":req.body.email},
         {$set:{
             "h1": req.body.h1, 
