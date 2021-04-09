@@ -224,9 +224,9 @@ export default {
       user: {},
       totalCosts: null,
       VehiclePicURL: null,
-      HousePicURL: "https://www.teoalida.com/world/9710488.jpg",
+      HousePicURL: "http://www.gov.sg/-/media/gov/faqs/housing/eip.jpg",
       ChildcarePicURL:
-        "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
+        "https://www.expatica.com/app/uploads/sites/6/2014/05/german-preschool-1920x1080.jpg",
       userGet: null,
       year: [
         {year: 1}, 

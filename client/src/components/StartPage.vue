@@ -17,7 +17,7 @@
         <b-carousel-slide
           caption="Plan for your dream home"
           text="From resales to HDB. Get more information now :)"
-          img-src="http://m1.sdimgs.com/sd_static/u/201312/52ac736ba8caa.jpg"
+          img-src="https://lifestyle2.prod.content.iproperty.com/news/wp-content/uploads/sites/2/2017/08/25112917/HDB-house.jpg"
         >
           <div>
             <b-button
@@ -51,7 +51,7 @@
         <b-carousel-slide
           caption="Plan for your dream vehicle"
           text="Find out cost breakdowns for your vehicle - including ARF, OMV etc. now :)"
-          img-src="https://www.topteny.com/wp-content/uploads/2015/09/Ciprian-Mihai-3.jpg"
+          img-src="https://cdn.motor1.com/images/mgl/MQWXX/s1/2020-honda-civic-si-coupe.jpg"
         >
           <div>
             <b-button
@@ -85,7 +85,7 @@
         <b-carousel-slide
           caption="Plan for your child's future"
           text="Find out cost and subsidies available at this one-stop destination"
-          img-src="https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg"
+          img-src="https://www.ourxplor.com/wp-content/uploads/2020/03/CCS-software-for-your-childcare-2.png"
         >
           <div>
             <b-button
