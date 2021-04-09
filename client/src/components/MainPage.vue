@@ -99,7 +99,6 @@ export default {
         "https://www.topteny.com/wp-content/uploads/2015/09/Ciprian-Mihai-3.jpg",
       ChildcarePicURL:
         "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
-      //populatePlansCheck: false,     
     };
   },
   components:{
@@ -118,14 +117,6 @@ export default {
     doPlan(plan){
       this.selectedPlan = plan
     },
-    // populatePlans(populatePlansCheck) {
-    //   if (!populatePlansCheck) {
-    //     console.log("Before populate")
-    //     this.$http.put('user/update', this.user)
-    //     populatePlansCheck = true
-    //     console.log("Plans are populated with null")}
-    //     else {console.log("Plan not populated")}
-    // }
   },
   mounted(){
     this.getUserDetails()

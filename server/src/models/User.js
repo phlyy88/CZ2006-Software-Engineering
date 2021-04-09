@@ -107,24 +107,29 @@ userSchema.statics.editProfile = async (req) => {
 }
 
 userSchema.statics.updatePlan = async (req) => {
+    const planType = req.body.type
     try {
-        User.findOneAndUpdate(
-        {"email":req.body.email},
-        {$set:{
-            "h1": req.body.h1, 
-            "h2": req.body.h2,
-            "h3": req.body.h3,
-            "v1": req.body.v1, 
-            "v2": req.body.v2,
-            "v3": req.body.v3,
-            "c1": req.body.c1, 
-            "c2": req.body.c2,
-            "c3": req.body.c3,
-            }},
-        {new: true}, function(err){
-            if (err){
-              console.log(err);
-            } } )
+        switch(planType) {
+            case 'h1': await User.findOneAndUpdate({"email":req.body.email},{$set:{"h1": req.body.h1}});
+            break;
+            case 'h2': await User.findOneAndUpdate({"email":req.body.email},{$set:{"h2": req.body.h2}});
+            break;
+            case 'h3': await User.findOneAndUpdate({"email":req.body.email},{$set:{"h3": req.body.h3}});
+            break;
+            case 'v1': await User.findOneAndUpdate({"email":req.body.email},{$set:{"v1": req.body.v1}});
+            break;
+            case 'v2': await User.findOneAndUpdate({"email":req.body.email},{$set:{"v2": req.body.v2}});
+            break;
+            case 'v3': await User.findOneAndUpdate({"email":req.body.email},{$set:{"v3": req.body.v3}});
+            break;
+            case 'c1': await User.findOneAndUpdate({"email":req.body.email},{$set:{"c1": req.body.c1}});
+            break;
+            case 'c2': await User.findOneAndUpdate({"email":req.body.email},{$set:{"c2": req.body.c2}});
+            break;
+            case 'c3': await User.findOneAndUpdate({"email":req.body.email},{$set:{"c3": req.body.c3}});
+            break;
+        }
+        console.log("Update complete") 
     } catch(error) {
         console.log(error)
     }

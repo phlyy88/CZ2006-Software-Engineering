@@ -9,7 +9,6 @@
           :key="plan.plan"
           @click="selectedPlan => doPlan(plan.plan)"
            >Plan {{plan.plan}}</b-dropdown-item>
-           
         </b-dropdown>
       </div>
         <div class="filter">
@@ -48,12 +47,12 @@
                 </b-card-text>
                 <div class="wrapper">
                     <b-button
-                        variant="primary"
-                        v-if="picURL!='https://wsa1.pakwheels.com/assets/default-display-image-car-638815e7606c67291ff77fd17e1dbb16.png'"
-                        v-b-toggle.sidebar-backdrop
-                        @click="calculate">Cost Breakdown</b-button>
+                    variant="primary"
+                    v-if="displayCostBreakdown"
+                    v-b-toggle.sidebar-backdrop
+                    @click="calculate">Cost Breakdown</b-button>
                     <div class="button-div" > 
-                        <button class="fav-button" @click="addFav"> 
+                        <button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
                             <i class="fa fa-star"></i> 
                             <span>Favorites</span> 
                         </button> 
@@ -162,6 +161,7 @@ export default {
         isCalculating: false,
         showPreviousCost: true,
         displayCostBreakdown: false,
+        displayFavBtn: false,
         costBreakdown: {
             "data" : {
                 "cost_object": {
@@ -194,21 +194,20 @@ export default {
     },
     components:{
         NavBar,
-
     },
     watch: {
         selectedOption: function (newSelectedOption) {
             this.selectedOption = newSelectedOption
         }
     },
+    // created() {
+    //         this.selectedPlan = this.$route.params.index;
+    //     },
     methods: {
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
             this.displayCostBreakdown = true
-        },
-        calculate() {
-            calculate.calculateCost(this, 'vehicle', false)
         },
         getUserDetails() {
       let token = localStorage.getItem("jwt");
@@ -219,44 +218,56 @@ export default {
             this.selectedPlan = plan
         },
         async addFav() {
+            this.selectedOption.cost = this.costBreakdown.data.cost_object
+            console.log(this.selectedOption)
             if (this.selectedPlan == 1){
                 this.$set(this.user, 'v1', this.selectedOption)
+                this.user.type = 'v1'
+                console.log(this.user.type)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
-                    title: 'user edited',
-                    text: this.user.v1
+                    title: 'Added to plan 1!',
+                    text: this.user.v1.name
                     });
-
+                console.log("put done")
             }
             if (this.selectedPlan == 2) {
                 this.$set(this.user, 'v2', this.selectedOption)
+                this.user.type = 'v2'
+                console.log(this.user.type)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
-                    title: 'Added to plan 2',
+                    title: 'Added to plan 2!',
                     text: this.user.v2.name
                     });
                 console.log("put done")
             }
             if (this.selectedPlan == 3) {
                 this.$set(this.user, 'v3', this.selectedOption)
+                this.user.type = 'v3'
+                console.log(this.user.type)
                 this.$http.put('user/update', this.user)
                 this.$notify({
                     group: 'foo',
-                    title: 'Added to plan 3',
+                    title: 'Added to plan 3!',
                     text: this.user.v3.name
                     });
                 console.log("put done")
             }
+        },
+        calculate() {
+            this.displayFavBtn = true
+            calculate.calculateCost(this, 'vehicle')
         }
     },
     provide: {
         grid: [Filter]
     },
     mounted() {
-        getDetails.getDetails(this, 'vehicle');
         this.getUserDetails();
+        getDetails.getDetails(this, 'vehicle');
     },
 
 };

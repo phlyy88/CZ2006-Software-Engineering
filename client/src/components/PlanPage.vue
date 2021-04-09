@@ -44,7 +44,9 @@
           </div> -->
           <b-card title="Plan 1" style="width: 20rem" class="mb-2" image-top>
             <b-list-group flush>
-              <b-list-group-item v-if="this.plan.data.user.h1">{{this.plan.data.user.h1.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.h1">
+                {{this.plan.data.user.h1.flat_type}} {{this.plan.data.user.h1.flat_room}} at {{this.plan.data.user.h1.town}}
+                </b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
               </b-list-group>
@@ -52,7 +54,7 @@
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
               </b-list-group>
-              <b-list-group-item v-if="this.plan.data.user.c1">{{this.plan.data.user.c1.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.c1">{{this.plan.data.user.c1.childcare_organization}}</b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
               </b-list-group>
@@ -66,7 +68,9 @@
           </b-card>
           <b-card title="Plan 2" style="width: 20rem" class="mb-2" image-top>
             <b-list-group flush>
-              <b-list-group-item v-if="this.plan.data.user.h2">{{this.plan.data.user.h2.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.h2">
+                {{this.plan.data.user.h2.flat_type}} {{this.plan.data.user.h2.flat_room}} at {{this.plan.data.user.h2.town}}
+                </b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
               </b-list-group>
@@ -74,7 +78,7 @@
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
               </b-list-group>
-              <b-list-group-item v-if="this.plan.data.user.c2">{{this.plan.data.user.c2.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.c2">{{this.plan.data.user.c2.childcare_organization}}</b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
               </b-list-group>
@@ -88,7 +92,9 @@
           </b-card>
           <b-card title="Plan 3" style="width: 20rem" class="mb-2" image-top>
             <b-list-group flush>
-              <b-list-group-item v-if="this.plan.data.user.h3">{{this.plan.data.user.h3.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.h3">
+                {{this.plan.data.user.h3.flat_type}} {{this.plan.data.user.h3.flat_room}} at {{this.plan.data.user.h3.town}}
+                </b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/housing" variant = "outline-primary"> Add a Housing </b-button>
               </b-list-group>
@@ -96,7 +102,7 @@
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/vehicle" variant = "outline-primary"> Add a Vehicle </b-button>
               </b-list-group>
-              <b-list-group-item v-if="this.plan.data.user.c3">{{this.plan.data.user.c3.name}}</b-list-group-item>
+              <b-list-group-item v-if="this.plan.data.user.c3">{{this.plan.data.user.c3.childcare_organization}}</b-list-group-item>
               <b-list-group style="margin-top: 20px" v-else >
               <b-button href = "/childcare" variant = "outline-primary"> Add a Childcare </b-button>
               </b-list-group>
@@ -152,7 +158,7 @@ export default {
       async getUserPlans() {
       this.plan = await this.$http.post('user', this.user)
       console.log(this.plan.data.user)
-      console.log(this.plan.data.user.v1.name)
+      console.log(this.plan.data.user.h1.street_name)
     },
       goPlan(plan){
       this.selectedPlan = plan

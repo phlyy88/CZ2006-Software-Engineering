@@ -2,6 +2,14 @@
     <div class="pageView">
         <NavBar :user="user" />
         <div class="filter">
+            <h3>Selected Plan: {{selectedPlan}}</h3>
+            <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
+            <b-dropdown-item 
+            v-for="plan in plan" 
+            :key="plan.plan"
+            @click="selectedPlan => doPlan(plan.plan)"
+            >Plan {{plan.plan}}</b-dropdown-item>
+            </b-dropdown>
             <ejs-grid 
                 ref="grid"
                 class="e-resizable"
@@ -20,7 +28,6 @@
                     <e-column field="price" headerText="Price" :filter="columnFilterOptions"></e-column>
                 </e-columns>
             </ejs-grid>
-
         </div>
                 <div class="info-side">
             <h3>Selected:</h3>
@@ -55,11 +62,19 @@
                     </template>
                 </b-form-select>
                 
-                <b-button
-                    v-if="displayCostBreakdown && displayIncome"
-                    v-b-toggle.sidebar-backdrop
-                    variant="primary"
-                    @click ="calculate">Cost Breakdown</b-button>
+                
+                <div class="wrapper" > 
+                    <b-button
+                        v-if="displayCostBreakdown && displayIncome"
+                        v-b-toggle.sidebar-backdrop
+                        variant="primary"
+                        @click ="calculate">Cost Breakdown
+                    </b-button>
+                    <button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
+                        <i class="fa fa-star"></i> 
+                        <span>Favorites</span> 
+                    </button> 
+                </div>
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -110,12 +125,12 @@
                                     <b-list-group-item>
                                         Stamp duty:
                                         <br>
-                                        {{ costBreakdown.data.cost_object.stamp_duty }}
+                                        $ {{ costBreakdown.data.cost_object.stamp_duty }}
                                     </b-list-group-item>
                                     <b-list-group-item>
                                         Conveyance Fee:
                                         <br>
-                                        {{ costBreakdown.data.cost_object.conveyancefee }}
+                                        $ {{ costBreakdown.data.cost_object.conveyancefee }}
                                     </b-list-group-item>
                                 </b-list-group>
                             </b-card-text>
@@ -154,19 +169,27 @@
 </template>
 
 <script>
+import NavBar from './NavBar'
+import VueJwtDecode from 'vue-jwt-decode'
 import { Filter } from '@syncfusion/ej2-vue-grids'
-import VueJwtDecode from "vue-jwt-decode";
-import NavBar from "./NavBar.vue"
 import { getDetails, calculate } from "../services/systems"
   export default {
     data() {
       return {
+        user: {},
+        plan: [
+            {plan: 1}, 
+            {plan: 2}, 
+            {plan: 3}
+            ],
+        selectedPlan: 1,
         details: {},
         selectedOption: {},
         isCalculating: false,
         showPreviousCost: true,
         displayCostBreakdown: false,
         displayIncome: false,
+        displayFavBtn: false,
         netCost: 0,
         costBreakdown: {
             "data" : {
@@ -203,11 +226,10 @@ import { getDetails, calculate } from "../services/systems"
             type: 'CheckBox'
         },
         columnFilterOptions: {
-            type: 'Menu'
+            type: 'Checkbox'
         },
         selectionOptions: {
-            type: 'Single',
-            enableToggle: true
+            type: 'Single'
         },
       }
     },
@@ -220,6 +242,12 @@ import { getDetails, calculate } from "../services/systems"
         }
     },
     methods: {
+        getUserDetails() {
+            let token = localStorage.getItem("jwt");
+            let decoded = VueJwtDecode.decode(token);
+            this.user = decoded;
+            console.log(this.costBreakdown.data.cost_object)
+        },
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayIncome = true
@@ -231,15 +259,51 @@ import { getDetails, calculate } from "../services/systems"
     },
         calculate() {
             calculate.calculateCost(this, 'housing')
+            this.displayFavBtn = true
+        },
+        doPlan(plan) {
+            this.selectedPlan = plan
+        },
+        async addFav() {
+            this.selectedOption.cost = this.costBreakdown.data.cost_object
+            console.log(this.selectedOption)
+            if (this.selectedPlan == 1){
+                this.$set(this.user, 'h1', this.selectedOption)
+                this.user.type = 'h1'
+                console.log(this.user)
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 1!',
+                    text: this.user.h1.flat_type + ' ' + this.user.h1.flat_room + ' at ' + this.user.h1.town 
+                    });
+                console.log("put done")
+            }
+            if (this.selectedPlan == 2) {
+                this.$set(this.user, 'h2', this.selectedOption)
+                this.user.type = 'h2'
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Added to plan 2!',
+                    text: this.user.h2.flat_type + ' ' + this.user.h2.flat_room + ' at ' + this.user.h2.town
+                    });
+            }
+            if (this.selectedPlan == 3) {
+                this.$set(this.user, 'h3', this.selectedOption)
+                this.user.type = 'h3'
+                this.$http.put('user/update', this.user)
+                this.$notify({
+                group: 'foo',
+                title: 'Added to plan 3!',
+                text: this.user.h3.flat_type + ' ' + this.user.h3.flat_room + ' at ' + this.user.h3.town 
+                });
+            }
         }
     },
     provide: {
         grid: [Filter]
     },
-    onRowSelected(args) {
-            this.selectedOption = args.data
-            this.picURL = args.data.image_url
-        },
     mounted() {
         getDetails.getDetails(this, 'housing');
         this.getUserDetails();
