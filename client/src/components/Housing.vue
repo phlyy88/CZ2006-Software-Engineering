@@ -3,7 +3,7 @@
         <NavBar :user="user" />
         <h3>Please select a plan: Plan {{selectedPlan}}</h3>
         <div>
-            <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
+            <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="light">
           <b-dropdown-item 
           v-for="plan in plan" 
           :key="plan.plan"
