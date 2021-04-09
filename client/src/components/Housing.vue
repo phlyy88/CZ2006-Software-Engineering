@@ -235,7 +235,12 @@ import { getDetails, calculate } from "../services/systems"
     },
     watch: {
         'selectedOption.income': function () {
-            this.displayCostBreakdown = true
+            if(this.selectedOption.income == undefined) {
+                this.displayCostBreakdown = false
+            } else {
+                this.displayCostBreakdown = true
+                this.displayFavBtn = false
+            }
         }
     },
     components: {

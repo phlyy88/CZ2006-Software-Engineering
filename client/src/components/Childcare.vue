@@ -229,8 +229,13 @@
         NavBar
     },
     watch: {
-        "selectedOption.child": function(){
-            this.displayCostBreakdown = true
+        "selectedOption.child": function() {
+            if(this.selectedOption.child == undefined) {
+                this.displayCostBreakdown = false
+            } else {
+                this.displayCostBreakdown = true
+                this.displayFavBtn = false
+            }
         }
     },
     methods: {
