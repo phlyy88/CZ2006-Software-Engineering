@@ -6,7 +6,7 @@
 
           <div class="form-group">
             <label>Email Address</label>
-            <b-form-input v-model="register.email" type="email" class="form-control"></b-form-input>
+            <b-form-input v-model="register.email" type="email" class="form-control" required></b-form-input>
           </div>
           <div class="form-group">
             <label>Password</label>
@@ -16,6 +16,7 @@
               :state="passwordState"
               aria-describedby="password-live-help password-live-feedback"
               class="form-control"
+              required
             ></b-form-input>
             <b-form-invalid-feedback id="password-live-feedback">
               Password requires:
@@ -36,6 +37,7 @@
               v-model="register.firstName"
               type="text"
               class="form-control"
+              required
             ></b-form-input>
           </div>
 
@@ -45,6 +47,7 @@
               v-model="register.lastName"
               type="text"
               class="form-control"
+              required
             ></b-form-input>
           </div>
 
@@ -53,6 +56,7 @@
             <b-form-select
               v-model="register.gender"
               :options="register.genderOptions"
+              required
             ></b-form-select>
           </div>
 <!-- 
