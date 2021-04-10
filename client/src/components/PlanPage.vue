@@ -122,27 +122,15 @@
 </template>
 
 <script>
-//import User from '../../../server/src/models/User'
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
 export default {
     data(){
         return{
-          // planNo:[
-          //   {plan:1,
-          //   name: "Plan 1"}, 
-          //   {plan:2,
-          //   name: "Plan 2"}, 
-          //   {plan:3,
-          //   name: "Plan 3"}],
             selectedPlan:null,
           plans: {},
           user: {},
           email: String,
-          // user: null,
-          //   housing: ["hi"],
-          //   vehicle: null,
-          //   childcare: null,
           plan:null
         }
     },

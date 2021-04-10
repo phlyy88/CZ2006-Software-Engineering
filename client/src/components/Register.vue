@@ -55,14 +55,6 @@
               :options="register.genderOptions"
             ></b-form-select>
           </div>
-<!-- 
-          <div class="form-group">
-            <label for="example-datepicker">Date of Birth</label>
-            <b-form-datepicker
-              v-model="register.dob"
-              class="mb-2"
-            ></b-form-datepicker>
-          </div> -->
 
           <b-button 
           type="submit" 
