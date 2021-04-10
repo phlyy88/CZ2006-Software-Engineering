@@ -24,15 +24,11 @@ exports.calculateCostchild = async (req, res) => {
         console.log(monthly_cost)
         const numberOfChildren = selectedchildcare.child
         const total_cost = ((12 * monthly_cost) + registration_cost) * numberOfChildren 
-
         var cost_object = {
             registration_cost: registration_cost, 
             monthly_cost: monthly_cost,
             total_cost: total_cost
         }
-
-
-        
         res.status(201).json({ cost_object })
     } catch (err) {
         res.status(400).json({ err: err })
@@ -48,7 +44,7 @@ exports.calculateGrantschild = async (req, res) => {
         if (child==1){
             baby_bonus= await Grants.baby_bonus_1()}
         else if (child==2){baby_bonus=await Grants.baby_bonus_2()}
-        else if (child>=3){baby_bonus=await Grants.baby_bonus_3()}
+        else {baby_bonus=await Grants.baby_bonus_3()}
 
         var baby_bonus_step
         baby_bonus_step = child * await Grants.baby_bonus_step()

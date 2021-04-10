@@ -207,9 +207,6 @@ export default {
             this.selectedOption = newSelectedOption
         }
     },
-    // created() {
-    //         this.selectedPlan = this.$route.params.index;
-    //     },
     methods: {
         onRowSelected(args) {
             this.selectedOption = args.data

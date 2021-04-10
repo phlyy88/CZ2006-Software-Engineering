@@ -33,7 +33,7 @@ exports.calculateCostHousing = async (req, res) => {
             option_fee = await Tax.option_fee_2room()
         } else if (flat_room=="3 ROOM") {
             option_fee = await Tax.option_fee_3room()
-        } else if (flat_room=='4 ROOM' || flat_room=="5 ROOM" || flat_room == "MULTI-GENERATION") {
+        } else {
             option_fee = await Tax.option_fee_4room()
         }
 
@@ -44,7 +44,7 @@ exports.calculateCostHousing = async (req, res) => {
             stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + await Tax.stamp_duty_n180000() * (price-180000)
         } else if (price>360000 && price<=1000000) {
             stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + await Tax.stamp_duty_n640000() *(price-360000)
-        } else if (price>1000000) {
+        } else {
             stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + (await Tax.stamp_duty_n640000() *640000) + (await Tax.stamp_duty_remain *(price-1000000))
         }  
 
@@ -53,7 +53,7 @@ exports.calculateCostHousing = async (req, res) => {
             conveyancefee = await Tax.conveyance_fee_f30000() * price/1000
         } else if (price>30000 && price<=60000) {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * (price-30000)/1000)
-        } else if (price>60000) {
+        } else {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * 30) + (await Tax.conveyance_fee_remain() * (price-60000)/1000)
         } 
 
@@ -94,7 +94,7 @@ exports.calculateGrantsHousing = async (req, res) => {
             {ehg = await Grants.ehg_14()}
         else if (income== 7)
             {ehg = await Grants.ehg_15()}
-        else if (income== 8)
+        else 
             {ehg = await Grants.ehg_16()}
 
         var total_grants = ehg

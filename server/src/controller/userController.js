@@ -1,4 +1,3 @@
-// const db = require('../models')
 const User = require('../models/User')
 
 exports.registerNewUser = async (req, res) => {
@@ -16,13 +15,6 @@ exports.registerNewUser = async (req, res) => {
         h1,h2,h3,c1,c2,c3
     } = req.body
     try {
-        // console.log(isUser)
-        // if (isUser.length >= 1) {
-        //     return res.status(409).json({
-        //         message: "email already in use"
-        //     })
-        // }
-
         var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{10,100}$/
         if (req.body.password.match(passw)) {
             console.log(req.body.password)
@@ -36,7 +28,6 @@ exports.registerNewUser = async (req, res) => {
         let user = await User.findOne({
             email
         })
-        
         
         if (user) {
             return res.status(409).json({
@@ -54,7 +45,12 @@ exports.registerNewUser = async (req, res) => {
             v1,
             v2,
             v3,
-            h1,h2,h3,c1,c2,c3
+            h1,
+            h2,
+            h3,
+            c1,
+            c2,
+            c3
         })
         let data = await user.save()
         const token = await user.generateAuthToken() // here it is calling the method that we created in the model
@@ -82,31 +78,14 @@ exports.loginUser = async (req, res) => {
 exports.getUserDetails = async (req, res) => {
     try {
         const email = req.body.email
-        console.log(email)
         const user = await User.findByEmail(email)
-        console.log("At controller")
-        console.log(user)
         res.status(201).json({user})
-        //res.send(user)
-        //return user
+
     } catch (err) {
         console.log("Controller error")
         res.status(400).json({err : err})
     }
 }
-
-// exports.getUserDetails = async (req, res) => {
-//     User.find()
-//         .then(data => {
-//             res.send(data)
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message:
-//                     err.message || "Some error occured while retrieving user info"
-//             })
-//         })
-// }
 
 exports.updateUserPlan = async (req) => {
     User.updatePlan(req)

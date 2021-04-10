@@ -74,7 +74,6 @@
 <script>
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
-//import PlanPage from "./PlanPage.vue";
 
 export default {
   data() {

@@ -220,7 +220,6 @@ import { getDetails, calculate } from "../services/systems"
             }
         },
         incomeOptions: [
-            // { value: null, text: "Please select an income range" },
             { value: 1, text: "5,000 - 5,500" },
             { value: 2, text: "5,500 - 6,000" },
             { value: 3, text: "6,000 - 6,500" },

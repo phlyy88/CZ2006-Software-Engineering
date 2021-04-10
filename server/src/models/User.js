@@ -76,12 +76,10 @@ userSchema.statics.findByCredentials = async (email, password) => {
     if (!isPasswordMatch) {
         throw new Error({ error: "Invalid login details" })
     }
-    
     return user
 }
 
 userSchema.statics.findByEmail = async (email) => {
-    //console.log(req.body.email)
     try {
     const user = await User.findOne({email}, 
     function(err){
@@ -93,17 +91,6 @@ userSchema.statics.findByEmail = async (email) => {
     } catch(error) {
         console.log(error)
     }
-}
-
-userSchema.statics.editProfile = async (req) => {
-    const filter = { email: req.email }
-    await User.updateOne(filter,
-        {
-            firstName: req.firstName,
-            lastName: req.lastName,
-            gender: req.gender,
-            dob: req.dob
-        })
 }
 
 userSchema.statics.updatePlan = async (req) => {

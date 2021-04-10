@@ -132,9 +132,6 @@ export default {
     showRegModal() {
       this.$refs.RegForm.show();
     },
-    // showRegModal(){
-    //   this.$refs.RegForm.show();
-    // },
     loginModal() {
       this.$refs.LoginForm.showModal();
     },

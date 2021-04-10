@@ -31,11 +31,6 @@ export const calculate = {
             } else {
                 that.netCost = costBreakdown.data.cost_object.total_cost
             }  
-            // } else if (type=="housing") {
-            //     const grantsBreakdown = await that.$http.post(type.concat("/grantsBreakdown"), that.selectedIncome)
-            //     that.grantsBreakdown = grantsBreakdown
-            //     that.netCost = costBreakdown.data.cost_object.total_cost - grantsBreakdown.data.grants_object.total_grants
-            // }
             that.showPreviousCost = true
             that.isCalculating = false
         } catch (err) {

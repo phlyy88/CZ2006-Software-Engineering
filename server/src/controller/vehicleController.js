@@ -44,19 +44,19 @@ exports.calculateCostVehicle = async (req, res) => {
         if (ves_cost=="A1") {
             ves = await Tax.ves_a1()
         } 
-        if (ves_cost=="A2") {
+        else if (ves_cost=="A2") {
             ves = await Tax.ves_a2()
         }
-        if (ves_cost=='B') {
+        else if (ves_cost=='B') {
             ves = await Tax.ves_b()
         }
-        if (ves_cost=="C1") {
+        else if (ves_cost=="C1") {
             ves = await Tax.ves_c1()
         }
-        if (ves_cost=="C2") {
+        else if (ves_cost=="C2") {
             ves = await Tax.ves_c2()
         }
-        if (ves_cost=="-") {
+        else {
             ves = 0
         }
 
@@ -66,7 +66,7 @@ exports.calculateCostVehicle = async (req, res) => {
         } else if (omv>20000 && omv<=50000) {
             arf = await Tax.by_OMV_ARF_2() * (omv-20000)
             arf = arf + await Tax.by_OMV_ARF_1() * 20000
-        } else if (omv>50000) {
+        } else {
             arf = await Tax.by_OMV_ARF_3() * (omv-50000)
             arf = arf + await Tax.by_OMV_ARF_2() * (omv-20000 - (omv-50000))
             arf = arf + await Tax.by_OMV_ARF_1() * 20000

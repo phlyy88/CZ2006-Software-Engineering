@@ -59,22 +59,12 @@
               required
             ></b-form-select>
           </div>
-<!-- 
-          <div class="form-group">
-            <label for="example-datepicker">Date of Birth</label>
-            <b-form-datepicker
-              v-model="register.dob"
-              class="mb-2"
-            ></b-form-datepicker>
-          </div> -->
-
           <b-button 
           type="submit" 
           variant="info"
           >
             <p1 style="color: white">Sign Up</p1></b-button
           >
-          <!-- on click, call method "login" -->
         </form>
       </div>
     </b-modal>
@@ -99,7 +89,6 @@ export default {
       },
     };
   },
-  //hello@gmail.comA4
   computed: {
     passwordState() {
       if (this.register.password=="") {

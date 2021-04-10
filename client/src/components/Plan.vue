@@ -222,7 +222,6 @@
 <script>
 import VueJwtDecode from "vue-jwt-decode";
 import NavBar from "./NavBar.vue"
-//import calculate from "../services/systems"
 export default {
   data() {
     return {
