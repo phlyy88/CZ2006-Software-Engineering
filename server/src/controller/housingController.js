@@ -19,11 +19,8 @@ exports.getHousingDetails = async (req, res) => {
 exports.calculateCostHousing = async (req, res) => {
     try {
         const selectedhdb = req.body
-        console.log(req.body)
         const price = selectedhdb.price
-        console.log(price)
         const flat_room = selectedhdb.flat_room
-        console.log(flat_room)
 
         const home_insurance_premium = await Tax.home_insurance()
         const caveat_registration = await Tax.caveat_registration()
@@ -51,7 +48,7 @@ exports.calculateCostHousing = async (req, res) => {
             conveyancefee = await Tax.conveyance_fee_f30000() * price/1000
         } else if (price>30000 && price<=60000) {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * (price-30000)/1000)
-        } else if (price>60000) {
+        } else {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * 30) + (await Tax.conveyance_fee_remain() * (price-60000)/1000)
         }
 

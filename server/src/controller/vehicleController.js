@@ -17,19 +17,14 @@ exports.getVehicleDetails = async (req, res) => {
 exports.calculateCostVehicle = async (req, res) => {
     try {
         const selectedVehicle = req.body
-        console.log(req.body)
         const omv = selectedVehicle.omv
-        console.log(omv)
         const category = selectedVehicle.category
-        console.log(category)
         const ves_cost = selectedVehicle.ves_cost
-        console.log(ves_cost)
         const engine_capacity = selectedVehicle.engine_capacity
 
         const registration_fee = await Tax.registration_fee()
         const gst_perc = await Tax.gst()
         const gst = omv * gst_perc
-        console.log(gst)
 
         var excise_duty, excise_duty_perc
         if (category=='D') {
@@ -66,7 +61,7 @@ exports.calculateCostVehicle = async (req, res) => {
         } else if (omv>20000 && omv<=50000) {
             arf = await Tax.by_OMV_ARF_2() * (omv-20000)
             arf = arf + await Tax.by_OMV_ARF_1() * 20000
-        } else if (omv>50000) {
+        } else {
             arf = await Tax.by_OMV_ARF_3() * (omv-50000)
             arf = arf + await Tax.by_OMV_ARF_2() * (omv-20000 - (omv-50000))
             arf = arf + await Tax.by_OMV_ARF_1() * 20000
