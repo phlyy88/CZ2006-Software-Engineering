@@ -45,7 +45,7 @@ exports.calculateCostHousing = async (req, res) => {
         } else if (price>360000 && price<=1000000) {
             stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + await Tax.stamp_duty_n640000() *(price-360000)
         } else if (price>1000000) {
-            stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + (await Tax.stamp_duty_n640000() *640000) + (await Tax.stamp_duty_n640000() *(price-1000000))
+            stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + (await Tax.stamp_duty_n640000() *640000) + (await Tax.stamp_duty_remain *(price-1000000))
         }  
 
         var conveyancefee
@@ -55,7 +55,7 @@ exports.calculateCostHousing = async (req, res) => {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * (price-30000)/1000)
         } else if (price>60000) {
             conveyancefee = (await Tax.conveyance_fee_f30000() * 30) + (await Tax.conveyance_fee_n30000() * 30) + (await Tax.conveyance_fee_remain() * (price-60000)/1000)
-        }
+        } 
 
         const total_cost = home_insurance_premium + caveat_registration + option_fee + stamp_duty + conveyancefee + price
 
