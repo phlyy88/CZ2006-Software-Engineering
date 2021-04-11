@@ -3,7 +3,8 @@
     <div class="modal-body">
         <form @submit.prevent="loginUser">
             <h3>Sign In</h3>
-
+            <!-- for user to enter their email address
+                @params email -->
             <div class="form-group">
                 <label>Email Address</label>
                 <input
@@ -12,7 +13,8 @@
                     v-model="login.email"
                 />
             </div>
-
+            <!-- for user to enter their password
+                @params password -->
             <div class="form-group">
                 <label>Password</label>
                 <input
@@ -44,6 +46,9 @@
             }
         },
         methods: {
+            // login to the website using the email and password
+            // @params email, password
+        
             async loginUser() {
                 try {
                     let response = await this.$http.post("user/login", this.login)

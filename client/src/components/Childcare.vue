@@ -1,4 +1,5 @@
 <template>
+    <!-- drop down for the users to switch between plans -->
     <div class="pageView">
         <NavBar :user="user" />
         <h3>Please select a plan: Plan {{selectedPlan}}</h3>
@@ -11,7 +12,8 @@
            >Plan {{plan.plan}}</b-dropdown-item>
         </b-dropdown>
         </div>
-        <div class="filter">
+        <!-- class to show the filters that users can change based on the listings they want to see -->
+        <div class="filter"> 
             <ejs-grid 
                 ref="grid"
                 class = "e-resizable"
@@ -30,6 +32,7 @@
                 </e-columns>
             </ejs-grid>
         </div>
+                <!-- class that shows the childcare listing that is currently selected -->
                 <div class="info-side">
             <h3>Selected:</h3>
             <b-card
@@ -56,11 +59,13 @@
                     v-model="selectedOption.child"
                     :options="childOptions"
                 >
+                    <!-- dropdown option to let users choose the number of children they want. will affect the grant calculation. -->
                    <template #first>
                         <b-form-select-option :value="null" disabled>-- Please select number of children --</b-form-select-option>
                     </template> 
                 </b-form-select>
                 <div class='wrapper'>
+                    <!-- clicking the "cost breakdown" button will call the calculate function below -->
                     <b-button
                         v-if="displayCostBreakdown && displayChild"
                         v-b-toggle.sidebar-backdrop
@@ -70,12 +75,14 @@
                     </b-button>
                     <div class="button-div" 
                     style="margin-top:10px"> 
+                        <!-- clicking the "add to favorites" button will add the current listing to the plan the user is on -->
                         <b-button v-if="displayFavBtn" @click="addFav"> 
                             <i class="fa fa-star"></i> 
                             <span>Add to Favorites</span> 
                         </b-button> 
                     </div>
                 </div>
+                <!-- shows the detailed breakdown of cost, using values from calculated function -->
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -90,6 +97,7 @@
                             </b-card-header>
                             <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
                                 <b-card-body>
+                                    <!-- shows the name and cost value, together with the total cost which is a sum of all the cost -->
                                     <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                                     <b-card-text v-if="showPreviousCost">
                                         <b-list-group>
@@ -117,6 +125,7 @@
                                 </b-card-body>
                             </b-collapse>
                         </b-card>
+                        <!-- display the grant amount from the calculated function. -->
                         <b-card no-body class="mb-1">
                             <b-card-header header-tag="header" class="p-1" role="tab">
                                 <b-button block v-b-toggle.accordion-3 variant="info">Total Grants</b-button>
@@ -136,6 +145,7 @@
                                 </b-card-body>
                             </b-collapse>
                         </b-card>
+                        <!-- shows the net cost after subtracting the total grants. -->
                         <b-card no-body class="mb-1">
                             <b-card-header header-tag="header" class="p-1" role="tab">
                                 <b-button block v-b-toggle.accordion-4 variant="info">Net Cost</b-button>
@@ -246,21 +256,25 @@
         }
     },
     methods: {
+        // get the user object from user database
         getUserDetails() {
             let token = localStorage.getItem("jwt");
             let decoded = VueJwtDecode.decode(token);
             this.user = decoded;
         },
+        // get the details of the childcare object that is selected
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayChild = true
             this.displayFavBtn = false
             this.netCost = 0
         },
+        // calculate the cost and grants, using the logic from childcareController in the server
         calculate(){
             calculate.calculateCost(this,'childcare')
             this.displayFavBtn = true
         },
+        // add the selected childcare to the selected plan 
         async addFav() {
             this.selectedOption.cost = this.costBreakdown.data.cost_object
             if (this.selectedPlan == 1){
@@ -294,6 +308,7 @@
                     });
             }
         },
+        // open the plan that the user select
         doPlan(plan) {
             this.selectedPlan = plan
         }

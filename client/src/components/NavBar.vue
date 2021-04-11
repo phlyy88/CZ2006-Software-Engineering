@@ -14,7 +14,7 @@
               <em style="color: black">{{user.email}}</em>
             </template>
             <b-dropdown-item href="/plan">My Saved Plans</b-dropdown-item>
-            <b-dropdown-item @click="logUserOut">Sign Out</b-dropdown-item>
+            <b-dropdown-item @click="logUserOut">Sign Out</b-dropdown-item> <!-- call the logUserOut function below -->
           </b-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -34,6 +34,7 @@ export default {
     }
   },
   methods: {
+    // log current user out of website
     logUserOut() {
       localStorage.removeItem("jwt");
       this.$router.push("/");

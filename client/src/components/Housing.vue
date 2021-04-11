@@ -1,4 +1,5 @@
 <template>
+    <!-- drop down for the users to switch between plans -->
     <div class="pageView">
         <NavBar :user="user" />
         <h3>Please select a plan: Plan {{selectedPlan}}</h3>
@@ -11,6 +12,7 @@
            >Plan {{plan.plan}}</b-dropdown-item>
         </b-dropdown>
         </div>
+        <!-- class to show the filters that users can change based on the listings they want to see -->        
         <div class="filter">
             <ejs-grid 
                 ref="grid"
@@ -31,6 +33,7 @@
                 </e-columns>
             </ejs-grid>
         </div>
+                <!-- class that shows the housing listing that is currently selected -->
                 <div class="info-side">
             <h3>Selected:</h3>
             <b-card
@@ -59,6 +62,7 @@
                     v-model="selectedOption.income"
                     :options="incomeOptions"
                 >
+                    <!-- dropdown option to let users choose the income range of the users. will affect the grant calculation. -->
                     <template #first>
                         <b-form-select-option :value="null" disabled>-- Please select an income range --</b-form-select-option>
                     </template>
@@ -66,6 +70,7 @@
                 
                 
                 <div class="wrapper" > 
+                    <!-- clicking the "cost breakdown" button will call the calculate function below -->
                     <b-button
                         v-if="displayCostBreakdown && displayIncome"
                         v-b-toggle.sidebar-backdrop
@@ -78,10 +83,12 @@
                     v-if="displayFavBtn" 
                     @click="addFav"
                     style="margin-top:10px"> 
+                        <!-- clicking the "add to favorites" button will add the current listing to the plan the user is on -->
                         <i class="fa fa-star"></i> 
                         <span>Add to Favorites</span> 
                     </b-button> 
                 </div>
+                <!-- shows the detailed breakdown of cost, using values from calculated function -->
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -126,6 +133,7 @@
                         </b-card-header>
                         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
+                            <!-- shows the name and cost value, together with the total cost which is a sum of all the cost -->
                             <b-spinner v-if="isCalculating" class="ml-auto"></b-spinner>
                             <b-card-text v-if="showPreviousCost">
                                 <b-list-group>
@@ -144,6 +152,7 @@
                             </b-card-body>
                         </b-collapse>
                         </b-card>
+                    <!-- display the total amount from the calculated function, after taking grant into account -->                        
                     <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
                             <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
@@ -255,25 +264,30 @@ import { getDetails, calculate } from "../services/systems"
 
     },
     methods: {
+        // get the user object from user database
         getUserDetails() {
             let token = localStorage.getItem("jwt");
             let decoded = VueJwtDecode.decode(token);
             this.user = decoded;
             console.log(this.costBreakdown.data.cost_object)
         },
+        // get the details of the housing object that is selected
         onRowSelected(args) {
             this.selectedOption = args.data
             this.displayIncome = true
             this.displayFavBtn = false
             this.netCost = 0
         },
+        // calculate the cost and grants, using the logic from housingController in the server
         calculate() {
             calculate.calculateCost(this, 'housing')
             this.displayFavBtn = true
         },
+        // open the plan that the user select
         doPlan(plan) {
             this.selectedPlan = plan
         },
+        // add the selected childcare to the selected plan 
         async addFav() {
             this.selectedOption.cost = this.costBreakdown.data.cost_object
             console.log(this.selectedOption)
