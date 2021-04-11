@@ -4,11 +4,11 @@
         <form @submit.prevent="registerUser">
           <h3>Sign Up</h3>
 
-          <div class="form-group">
+          <div class="form-group"> <!-- let user enter their email address-->
             <label>Email Address</label>
             <b-form-input v-model="register.email" type="email" class="form-control" required></b-form-input>
           </div>
-          <div class="form-group">
+          <div class="form-group"> <!-- let user enter their password-->
             <label>Password</label>
             <b-form-input
               v-model="register.password"
@@ -18,7 +18,7 @@
               class="form-control"
               required
             ></b-form-input>
-            <b-form-invalid-feedback id="password-live-feedback">
+            <b-form-invalid-feedback id="password-live-feedback"> <!-- tell the user the password complexity requirements-->
               Password requires:
               <br>
               1. At least 10 characters
@@ -31,8 +31,8 @@
             </b-form-invalid-feedback>
           </div>
 
-          <div class="form-group">
-            <label>First Name</label>
+          <div class="form-group"> <!-- let user enter their first name-->
+            <label>First Name</label> 
             <b-form-input
               v-model="register.firstName"
               type="text"
@@ -41,7 +41,7 @@
             ></b-form-input>
           </div>
 
-          <div class="form-group">
+          <div class="form-group"> <!-- let user enter their last name-->
             <label>Last Name</label>
             <b-form-input
               v-model="register.lastName"
@@ -51,7 +51,7 @@
             ></b-form-input>
           </div>
 
-          <div class="form-group">
+          <div class="form-group"> <!-- let user enter their gender-->
             <label>Gender</label>
             <b-form-select
               v-model="register.gender"
@@ -59,6 +59,9 @@
               required
             ></b-form-select>
           </div>
+          <!-- submit all the variables that the user pass in earlier
+              @params firstName, lastName, gender, email, password
+              @return user object-->
           <b-button 
           type="submit" 
           variant="info"
@@ -90,6 +93,9 @@ export default {
     };
   },
   computed: {
+    // function to ensure the password contains all the complexity requirement
+    // @params password
+    // return true/false
     passwordState() {
       if (this.register.password=="") {
         return null
@@ -104,6 +110,7 @@ export default {
     }
   },
   methods: {
+    // function to add the user into database upon successful registration
     async registerUser() {
       try {
         let response = await this.$http.post("user/register", this.register);
