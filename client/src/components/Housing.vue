@@ -180,7 +180,7 @@
 import NavBar from './NavBar'
 import VueJwtDecode from 'vue-jwt-decode'
 import { Filter } from '@syncfusion/ej2-vue-grids'
-import { getDetails, calculate } from "../services/systems"
+import { getDetails, calculate, addFavourites } from "../services/systems"
   export default {
     data() {
       return {
@@ -274,41 +274,8 @@ import { getDetails, calculate } from "../services/systems"
         doPlan(plan) {
             this.selectedPlan = plan
         },
-        async addFav() {
-            this.selectedOption.cost = this.costBreakdown.data.cost_object
-            console.log(this.selectedOption)
-            if (this.selectedPlan == 1){
-                this.$set(this.user, 'h1', this.selectedOption)
-                this.user.type = 'h1'
-                console.log(this.user)
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 1!',
-                    text: this.user.h1.flat_type + ' ' + this.user.h1.flat_room + ' at ' + this.user.h1.town 
-                    });
-                console.log("put done")
-            }
-            if (this.selectedPlan == 2) {
-                this.$set(this.user, 'h2', this.selectedOption)
-                this.user.type = 'h2'
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 2!',
-                    text: this.user.h2.flat_type + ' ' + this.user.h2.flat_room + ' at ' + this.user.h2.town
-                    });
-            }
-            if (this.selectedPlan == 3) {
-                this.$set(this.user, 'h3', this.selectedOption)
-                this.user.type = 'h3'
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                group: 'foo',
-                title: 'Added to plan 3!',
-                text: this.user.h3.flat_type + ' ' + this.user.h3.flat_room + ' at ' + this.user.h3.town 
-                });
-            }
+        addFav() {
+            addFavourites.addFavourites(this, 'h')
         }
     },
     provide: {

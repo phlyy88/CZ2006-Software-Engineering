@@ -224,7 +224,7 @@ export default {
             this.selectedPlan = plan
         },
         addFav() {
-            addFavourites.addFavourites(this)
+            addFavourites.addFavourites(this, 'v')
         },
         calculate() {
             this.displayFavBtn = true
