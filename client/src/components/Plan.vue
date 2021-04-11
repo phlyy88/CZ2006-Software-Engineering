@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class = "pageView">
     <NavBar :user="user" />
     <b-container>
@@ -14,7 +14,8 @@
               ></b-card-img>
             </b-col>
             <b-col md="6">
-              
+              <!-- shows all the housing cost based on the listing that was selected by the user
+              @return cost object -->
               <b-card-body v-if="this.plan == 1 && this.userGet.data.user.h1">
                 <h5>{{this.userGet.data.user.h1.flat_type}} {{this.userGet.data.user.h1.flat_room}} at {{this.userGet.data.user.h1.town}}</h5>
                 <b-card-text >
@@ -65,7 +66,8 @@
       <div style="margin-top: 20px">
         <b-card no-body class="overflow-hidden">
           <b-row no-gutters>
-
+              <!-- shows all the vehicle cost based on the listing that was selected by the user
+              @return cost object -->
             <b-col md="6">
               <b-card-img v-if="this.plan == 1 && this.userGet.data.user.v1"
                 v-bind:src="this.userGet.data.user.v1.image_url"
@@ -135,6 +137,8 @@
         </b-card>
       </div>
 
+      <!-- shows the childcare cost and grant based on what was selected by them
+        @return cost object -->
       <div style="margin-top: 20px">
         <b-card no-body class="overflow-hidden">
           <b-row no-gutters>
@@ -204,7 +208,7 @@
             <b-button
             @click="sumCosts()" 
             variant="primary"
-            style="margin-right:10px">Calculate</b-button>
+            style="margin-right:10px">Calculate</b-button> <!-- call the sumCost function below-->
             
               <b-dropdown v-if="displaySavingBtn" text="Select number of years to save" >
               <b-dropdown-item v-for="year in year" :key="year"
@@ -261,20 +265,26 @@ export default {
     NavBar
   },
   methods: {
+    // get the user object from user database
     getUserDetails() {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
     },
+    // get the plan details from user database
     getPlanDetails() {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
     },
+    // get the user plan details from user database
     async getUserPlans() {
       this.userGet = await this.$http.post('user', this.user)
       console.log(this.userGet.data.user.v1)
     },
+    // sum up all the cost from the cost object
+    // @params plan
+    // @return totalCosts
     sumCosts() {
       if (this.plan == 1) {this.totalCosts = this.userGet.data.user.h1.cost.total_cost
       + this.userGet.data.user.v1.cost.total_cost
@@ -290,6 +300,9 @@ export default {
       } 
       this.displaySavingBtn = true
     },
+    // calculate the savings per month, based on how many months the users want to save
+    // @params year
+    // @return monthlySavings
     calculateSaving(year) {
      this.monthlySavings = Math.ceil(this.totalCosts / 12 / year.year)
      this.displayMonthlySaving = true

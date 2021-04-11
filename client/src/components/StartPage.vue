@@ -1,5 +1,6 @@
 <template>
   <div class = "pageView">
+    <!-- formating to display the carousel  -->
     <main>
       <b-carousel
         id="carousel-1"

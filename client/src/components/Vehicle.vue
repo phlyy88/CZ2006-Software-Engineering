@@ -1,4 +1,5 @@
 <template>
+    <!-- drop down for the users to switch between plans -->
     <div class="pageView">
         <NavBar :user="user" />
         <div>
@@ -11,6 +12,7 @@
            >Plan {{plan.plan}}</b-dropdown-item>
         </b-dropdown>
       </div>
+        <!-- class to show the filters that users can change based on the listings they want to see -->
         <div class="filter">
             <ejs-grid 
             ref="grid"
@@ -30,6 +32,7 @@
                 </e-columns>
             </ejs-grid>
         </div>
+        <!-- class that shows the vehicle listing that is currently selected -->
         <div class="info-side">
             <h3>Selected:</h3>
             <b-card
@@ -45,6 +48,7 @@
                     <br>
                     Price: {{ selectedOption.omv }}
                 </b-card-text>
+                <!-- clicking the "cost breakdown" button will call the calculate function below -->
                 <div class="wrapper">
                     <b-button
                     variant="primary"
@@ -52,6 +56,7 @@
                     v-b-toggle.sidebar-backdrop
                     @click="calculate"
                     style="margin-top:10px">Cost Breakdown</b-button>
+                    <!-- clicking the "add to favorites" button will add the current listing to the plan the user is on -->
                     <div class="button-div"
                     style="margin-top:10px"> 
                         <b-button v-if="displayFavBtn" class="fav-button" @click="addFav"> 
@@ -60,6 +65,7 @@
                         </b-button> 
                     </div>
                 </div>
+                <!-- shows the detailed breakdown of cost, using values from calculated function -->
                 <b-sidebar
                     id="sidebar-backdrop"
                     title="Cost Breakdown"
@@ -67,6 +73,7 @@
                     backdrop
                     right
                     shadow>
+                    <!-- shows the name and cost value, together with the total cost which is a sum of all the cost -->
                     <div class="accordion" role="tablist">
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
@@ -122,7 +129,6 @@
                             </b-card-body>
                         </b-collapse>
                         </b-card>
-
                         <b-card no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
                             <b-button block v-b-toggle.accordion-3 variant="info">Total Costs</b-button>
@@ -208,6 +214,7 @@ export default {
         }
     },
     methods: {
+        // get the details of the vehicle object that is selected
         onRowSelected(args) {
             this.selectedOption = args.data
             this.picURL = args.data.image_url
@@ -215,17 +222,21 @@ export default {
             this.displayFavBtn = false
             this.netCost = 0
         },
+        // get the user object from user database
         getUserDetails() {
             let token = localStorage.getItem("jwt");
             let decoded = VueJwtDecode.decode(token);
             this.user = decoded;
         },
+        // open the plan that the user select
         doPlan(plan){
             this.selectedPlan = plan
         },
+        // add the selected vehicle to the selected plan 
         addFav() {
-            addFavourites.addFavourites(this)
+            addFavourites.addFavourites(this, 'v')
         },
+        // calculate the cost and grants, using the logic from vehicleController in the server
         calculate() {
             this.displayFavBtn = true
             calculate.calculateCost(this, 'vehicle')

@@ -19,7 +19,7 @@
               <b-card-text>
                 Choose a housing!
               </b-card-text>
-
+              <!-- show all the house listing -->
               <b-button href="/housing" variant="outline-primary"
                 >View Housing Listing</b-button
               >
@@ -39,7 +39,7 @@
               <b-card-text>
                 Choose a vehicle!
               </b-card-text>
-
+              <!-- show all the vehicle listing -->
               <b-button 
               href="/vehicle" 
               variant="outline-primary"
@@ -59,7 +59,7 @@
               <b-card-text>
                 Choose a childcare!
               </b-card-text>
-
+              <!-- show all the childcare listing -->
               <b-button href="/childcare" variant="outline-primary"
                 >View Childcare Listing</b-button
               >
@@ -91,11 +91,13 @@ export default {
     NavBar
   },
   methods: {
+    // get the user object from database
     getUserDetails() {
       let token = localStorage.getItem("jwt");
       let decoded = VueJwtDecode.decode(token);
       this.user = decoded;
     },
+    // log the current user out of website
     logUserOut() {
       localStorage.removeItem("jwt");
       this.$router.push("/");

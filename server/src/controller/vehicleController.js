@@ -1,6 +1,11 @@
 const Vehicle = require('../models/Vehicle')
 const Tax = require('../models/Tax')
 
+/**
+ * Retrieve data from Vehicle database
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 exports.getVehicleDetails = async (req, res) => {
     Vehicle.find()
         .then(data => {
@@ -14,6 +19,11 @@ exports.getVehicleDetails = async (req, res) => {
         })
 }
 
+/**
+ * Call on model methods to calculate cost for vehicles
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 exports.calculateCostVehicle = async (req, res) => {
     try {
         const selectedVehicle = req.body

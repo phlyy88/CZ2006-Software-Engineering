@@ -1,7 +1,15 @@
-const mongoose = require("mongoose")
+/**
+ * The data-layer for housing listings
+ * @module Housing
+ */
 
+const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
+/**
+ * Creates a housing instance
+ * @constructor housingSchema
+ */
 const housingSchema = new Schema({
     month: {
         type: String
