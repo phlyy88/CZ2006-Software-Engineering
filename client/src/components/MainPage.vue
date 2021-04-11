@@ -1,73 +1,110 @@
 <template>
-  <div>
-    <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/480/?image=52"
-      ></b-carousel-slide>
+  <div class= "pageView">
+    <NavBar :user="user" />
 
-      <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1>Hello world!</h1>
-      </b-carousel-slide>
+    <h1 style = "text-align:center">Start Planning</h1>
+    <div id="plans">
+      <b-container>
+        <b-card-group deck>
+          <div id="Housing">
+            <b-card
+              title="Housing"
+              v-bind:img-src="HousePicURL"
+              img-alt="Image"
+              tag="article"
+              style="width: 20rem"
+              class="mb-2"
+              image-top
+            >
+              <b-card-text>
+                Choose a housing!
+              </b-card-text>
+              <!-- show all the house listing -->
+              <b-button href="/housing" variant="outline-primary"
+                >View Housing Listing</b-button
+              >
+            </b-card>
+          </div>
 
-      <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
+          <div id="vehicle">
+            <b-card
+              title="Vehicle"
+              v-bind:img-src="VehiclePicURL"
+              img-alt="Image"
+              tag="article"
+              style="width: 20rem"
+              class="mb-2"
+              image-top
+            >
+              <b-card-text>
+                Choose a vehicle!
+              </b-card-text>
+              <!-- show all the vehicle listing -->
+              <b-button 
+              href="/vehicle" 
+              variant="outline-primary"
+                >View Vehicle Listing</b-button
+              >
+            </b-card>
+          </div>
 
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-        </p>
-      </b-carousel-slide>
-    </b-carousel>
-
-    <p class="mt-4">
-      Slide #: {{ slide }}<br>
-      Sliding: {{ sliding }}
-    </p>
+          <div id="childcare">
+            <b-card
+              title="Childcare"
+              v-bind:img-src="ChildcarePicURL"
+              style="width: 20rem"
+              class="mb-2"
+              image-top
+            >
+              <b-card-text>
+                Choose a childcare!
+              </b-card-text>
+              <!-- show all the childcare listing -->
+              <b-button href="/childcare" variant="outline-primary"
+                >View Childcare Listing</b-button
+              >
+            </b-card>
+          </div>
+        </b-card-group>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        slide: 0,
-        sliding: null
-      }
+import VueJwtDecode from "vue-jwt-decode";
+import NavBar from "./NavBar.vue"
+
+export default {
+  data() {
+    return {
+      selectedPlan:1,
+      user: {},
+      HousePicURL: "https://lifestyle2.prod.content.iproperty.com/news/wp-content/uploads/sites/2/2017/08/25112917/HDB-house.jpg",
+      VehiclePicURL:
+        "https://cdn.motor1.com/images/mgl/MQWXX/s1/2020-honda-civic-si-coupe.jpg",
+      ChildcarePicURL:
+        "https://www.ourxplor.com/wp-content/uploads/2020/03/CCS-software-for-your-childcare-2.png",
+    };
+  },
+  components:{
+    NavBar
+  },
+  methods: {
+    // get the user object from database
+    getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
     },
-    methods: {
-      
-    }
+    // log the current user out of website
+    logUserOut() {
+      localStorage.removeItem("jwt");
+      this.$router.push("/");
+    },
+  },
+  mounted(){
+    this.getUserDetails()
   }
+};
 </script>
