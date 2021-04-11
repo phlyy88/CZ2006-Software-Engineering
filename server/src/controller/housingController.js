@@ -45,7 +45,7 @@ exports.calculateCostHousing = async (req, res) => {
         } else if (price>360000 && price<=1000000) {
             stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + await Tax.stamp_duty_n640000() *(price-360000)
         } else {
-            stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + (await Tax.stamp_duty_n640000() *640000) + (await Tax.stamp_duty_remain *(price-1000000))
+            stamp_duty = (await Tax.stamp_duty_f180000() * 180000) + (await Tax.stamp_duty_n180000() * 180000) + (await Tax.stamp_duty_n640000() *640000) + (await Tax.stamp_duty_remain() *(price-1000000))
         }  
 
         var conveyancefee
