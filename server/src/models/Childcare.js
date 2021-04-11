@@ -1,7 +1,15 @@
-const mongoose = require("mongoose")
+/**
+ * The data layer for childcare listings
+ * @module Childcare
+ */
 
+const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
+/**
+ * Creates a childcare instance
+ * @constructor childcareSchema
+ */
 const childcareSchema = new Schema({
     childcare_organization: {
         type: String,

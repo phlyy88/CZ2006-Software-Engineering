@@ -1,8 +1,17 @@
+/**
+ * The data layer for users
+ * @module User
+ */
+
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Schema = mongoose.Schema;
 
+/**
+ * Creates a user instance
+ * @constructor userSchema
+ */
 const userSchema = new Schema({
     email: {
         type: String,
@@ -46,7 +55,9 @@ const userSchema = new Schema({
     ]
 })
 
-//this method will hash the password before saving the user model
+/**
+ * Hash the password before saving the user model
+ */
 userSchema.pre("save", async function(next) {
     const user = this
     if (user.isModified("password")) {
@@ -55,7 +66,10 @@ userSchema.pre("save", async function(next) {
     next()
 })
   
-//this method generates an auth token for the user
+/**
+ * Generating an authentication token for the user
+ * @returns {string} Authentication token
+ */
 userSchema.methods.generateAuthToken = async function() {
     const user = this
     const token = jwt.sign({ _id: user._id, name: user.name, email: user.email },
@@ -65,7 +79,12 @@ userSchema.methods.generateAuthToken = async function() {
     return token
 }
   
-//this method search for a user by email and password.
+/**
+ * Searching for a user by email and password
+ * @param {string} email 
+ * @param {string} password 
+ * @returns {InstanceType} user
+ */
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
     
@@ -79,6 +98,11 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user
 }
 
+/**
+ * Searching for a user by email
+ * @param {string} email 
+ * @returns {InstanceType} user
+ */
 userSchema.statics.findByEmail = async (email) => {
     try {
     const user = await User.findOne({email}, 
@@ -93,6 +117,9 @@ userSchema.statics.findByEmail = async (email) => {
     }
 }
 
+/**
+ * @param {import('express').Request<{}, {}, showRequestBody, showRequestQuery>} req
+ */
 userSchema.statics.updatePlan = async (req) => {
     const planType = req.body.type
     try {
@@ -123,5 +150,4 @@ userSchema.statics.updatePlan = async (req) => {
 }
 
 const User = mongoose.model("User", userSchema, "user") //create model
-
 module.exports = User

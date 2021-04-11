@@ -1,7 +1,14 @@
+/**
+ * The data layer for vehicles
+ * @module Vehicle
+ */
 const mongoose = require("mongoose")
-
 const Schema = mongoose.Schema;
 
+/**
+ * Creates a vehicle instance
+ * @constructor vehicleSchema
+ */
 const vehicleSchema = new Schema({
     category: {
         type: String
@@ -60,5 +67,4 @@ const vehicleSchema = new Schema({
 })
 
 const Vehicle = mongoose.model("Vehicle", vehicleSchema, "vehicle") //create model
-
 module.exports = Vehicle
