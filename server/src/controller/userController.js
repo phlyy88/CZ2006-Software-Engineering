@@ -1,5 +1,11 @@
 const User = require('../models/User')
 
+/**
+ * Verifies new user input and saves in database if valid. Generates unique token for user session.
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ * @returns {express.Response} Appropriate success or error message
+ */
 exports.registerNewUser = async (req, res) => {
     const {
         email,
@@ -60,6 +66,12 @@ exports.registerNewUser = async (req, res) => {
     }
 }
 
+/**
+ * Logs user in. Verifies credentials before generating unique session token.
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ * @returns Appropriate success or error message
+ */
 exports.loginUser = async (req, res) => {
     try {
         const email = req.body.email
@@ -75,6 +87,11 @@ exports.loginUser = async (req, res) => {
     }
 }
 
+/**
+ * Retrieves specific user information from user database with unique user email
+ * @param {express.Request} req 
+ * @param {expres.Response} res 
+ */
 exports.getUserDetails = async (req, res) => {
     try {
         const email = req.body.email
@@ -87,6 +104,10 @@ exports.getUserDetails = async (req, res) => {
     }
 }
 
+/**
+ * Calls on User method to update specific user plan
+ * @param {express.Request} req 
+ */
 exports.updateUserPlan = async (req) => {
     User.updatePlan(req)
 }

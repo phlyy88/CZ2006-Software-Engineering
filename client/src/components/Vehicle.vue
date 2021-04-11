@@ -234,7 +234,7 @@ export default {
         },
         // add the selected vehicle to the selected plan 
         addFav() {
-            addFavourites.addFavourites(this)
+            addFavourites.addFavourites(this, 'v')
         },
         // calculate the cost and grants, using the logic from vehicleController in the server
         calculate() {

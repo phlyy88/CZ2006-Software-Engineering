@@ -1,6 +1,11 @@
 const Childcare = require('../models/Childcare')
 const Grants = require('../models/Grants')
 
+/**
+ * Retrieve data from Childcare database
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 exports.getChildcareDetails = async (req, res) => {
     Childcare.find()
         .then(data => {
@@ -14,6 +19,11 @@ exports.getChildcareDetails = async (req, res) => {
         })
 }
 
+/**
+ * Call on model methods to calculate cost for childcare
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 exports.calculateCostchild = async (req, res) => {
     try {
         const selectedchildcare = req.body
@@ -35,6 +45,11 @@ exports.calculateCostchild = async (req, res) => {
     }
 }
 
+/**
+ * Call on model methods to calculate grants for childcare
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 exports.calculateGrantschild = async (req, res) => {
     try {
         const child = req.body.child

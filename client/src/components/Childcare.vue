@@ -180,7 +180,7 @@
 <script>
   import NavBar from './NavBar'
   import { Filter, Page } from '@syncfusion/ej2-vue-grids'
-  import {getDetails, calculate} from "../services/systems"
+  import {getDetails, calculate, addFavourites} from "../services/systems"
   import VueJwtDecode from 'vue-jwt-decode'
 
   export default {
@@ -275,38 +275,8 @@
             this.displayFavBtn = true
         },
         // add the selected childcare to the selected plan 
-        async addFav() {
-            this.selectedOption.cost = this.costBreakdown.data.cost_object
-            if (this.selectedPlan == 1){
-                this.$set(this.user, 'c1', this.selectedOption)
-                this.user.type = 'c1'
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 1!',
-                    text: this.user.c1.child + ' child for ' + this.user.c1.childcare_organization
-                    });
-            }
-            if (this.selectedPlan == 2) {
-                this.$set(this.user, 'c2', this.selectedOption)
-                this.user.type = 'c2'
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 2!',
-                    text: this.user.c2.child + ' child for ' + this.user.c2.childcare_organization
-                    });
-            }
-            if (this.selectedPlan == 3) {
-                this.$set(this.user, 'c3', this.selectedOption)
-                this.user.type = 'c3'
-                this.$http.put('user/update', this.user)
-                this.$notify({
-                    group: 'foo',
-                    title: 'Added to plan 3!',
-                    text: this.user.c3.child + ' child for ' + this.user.c3.childcare_organization
-                    });
-            }
+        addFav() {
+            addFavourites.addFavourites(this, 'c')
         },
         // open the plan that the user select
         doPlan(plan) {

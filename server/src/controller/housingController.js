@@ -2,6 +2,11 @@ const Housing = require('../models/Housing')
 const Tax = require('../models/Tax')
 const Grants = require('../models/Grants')
 
+/**
+ * Retrieve data from Housing database
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 exports.getHousingDetails = async (req, res) => {
     Housing.find()
         .then(data => {
@@ -15,7 +20,11 @@ exports.getHousingDetails = async (req, res) => {
         })
 }
 
-
+/**
+ * Call on model methods to calculate cost for housing
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 exports.calculateCostHousing = async (req, res) => {
     try {
         const selectedhdb = req.body
@@ -75,6 +84,11 @@ exports.calculateCostHousing = async (req, res) => {
     }
 }
 
+/**
+ * Call on model methods to calculate grants for housing
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 exports.calculateGrantsHousing = async (req, res) => {
     try {
         const income = req.body.income

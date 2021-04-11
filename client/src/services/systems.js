@@ -1,4 +1,9 @@
 export const getDetails = {
+    /**
+     * Get vehicle/housing/childcare details from appropriate database to display on Vue interface 
+     * @param {Vue instance} that 
+     * @param {String} type
+     */
     getDetails: async function(that, type) {
         try {
             let details = await that.$http.get(type)
@@ -15,6 +20,12 @@ export const getDetails = {
 }
 
 export const calculate = {
+    /**
+     * Depending on what kind of costs/grants should be calculated for vehicle/housing/childcare, the
+     * appropriate costs and grants are calculated by posting to specific axios routes
+     * @param {Vue instance} that 
+     * @param {String} type 
+     */
     calculateCost: async function(that, type) {
         try {
             that.isCalculating = true
@@ -45,42 +56,44 @@ export const calculate = {
 }
 
 export const addFavourites = {
-    addFavourites: async function(that) {
+    /**
+     * Add user favourite depending on which plan the user is on
+     * @param {Vue instance} that 
+     * @param {string} type
+     */
+    addFavourites: async function(that, type) {
         that.selectedOption.cost = that.costBreakdown.data.cost_object
         console.log(that.selectedOption)
         if (that.selectedPlan == 1){
-            that.$set(that.user, 'v1', that.selectedOption)
-            that.user.type = 'v1'
+            that.$set(that.user, type.concat('1'), that.selectedOption)
+            that.user.type = type.concat('1')
             console.log(that.user.type)
             that.$http.put('user/update', that.user)
             that.$notify({
                 group: 'foo',
                 title: 'Added to plan 1!',
-                text: that.user.v1.name
                 });
             console.log("put done")
         }
         if (that.selectedPlan == 2) {
-            that.$set(that.user, 'v2', that.selectedOption)
-            that.user.type = 'v2'
+            that.$set(that.user, type.concat('2'), that.selectedOption)
+            that.user.type = type.concat('2')
             console.log(that.user.type)
             that.$http.put('user/update', that.user)
             that.$notify({
                 group: 'foo',
                 title: 'Added to plan 2!',
-                text: that.user.v2.name
                 });
             console.log("put done")
         }
         if (that.selectedPlan == 3) {
-            that.$set(that.user, 'v3', that.selectedOption)
-            that.user.type = 'v3'
+            that.$set(that.user, type.concat('3'), that.selectedOption)
+            that.user.type = type.concat('3')
             console.log(that.user.type)
             that.$http.put('user/update', that.user)
             that.$notify({
                 group: 'foo',
                 title: 'Added to plan 3!',
-                text: that.user.v3.name
                 });
             console.log("put done")
         }
