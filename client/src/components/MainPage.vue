@@ -1,73 +1,122 @@
 <template>
   <div>
-    <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/480/?image=52"
-      ></b-carousel-slide>
+    <NavBar />
+    <div>
+        <b-dropdown id="dropdown-1" text="Select Plans" class="m-md-2" variant="outline-primary">
+          <b-dropdown-item 
+          v-for="plan in plan" 
+          :key="plan.plan"
+          @click="selectedPlan => doPlan(plan.plan)"
+           >Plan {{plan.plan}}</b-dropdown-item>
+        </b-dropdown>
+      </div>
 
-      <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1>Hello world!</h1>
-      </b-carousel-slide>
+    <h1 style = "text-align:center">Start doing Plan {{selectedPlan}}</h1>
+    <div id="plans">
+      <b-container>
+        <b-card-group deck>
+          <div id="Housing">
+            <b-card
+              title="Housing"
+              v-bind:img-src="HousePicURL"
+              img-alt="Image"
+              tag="article"
+              style="width: 20rem"
+              class="mb-2"
+              image-top
+            >
+              <b-card-text>
+                Choose a housing!
+              </b-card-text>
 
-      <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
+              <b-button href="/housing" variant="outline-primary"
+                >View Listing</b-button
+              >
+            </b-card>
+          </div>
 
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
+          <div id="vehicle">
+            <b-card
+              title="Vehicle"
+              v-bind:img-src="VehiclePicURL"
+              img-alt="Image"
+              tag="article"
+              style="width: 20rem"
+              class="mb-2"
+              image-top
+            >
+              <b-card-text>
+                Choose a vehicle!
+              </b-card-text>
 
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-        </p>
-      </b-carousel-slide>
-    </b-carousel>
+              <b-button 
+              href="/vehicle" 
+              variant="outline-primary"
+                >View Listing</b-button
+              >
+            </b-card>
+          </div>
 
-    <p class="mt-4">
-      Slide #: {{ slide }}<br>
-      Sliding: {{ sliding }}
-    </p>
+          <div id="childcare">
+            <b-card
+              title="Childcare"
+              v-bind:img-src="ChildcarePicURL"
+              style="width: 20rem"
+              class="mb-2"
+              image-top
+            >
+              <b-card-text>
+                Choose a childcare!
+              </b-card-text>
+
+              <b-button href="/childcare" variant="outline-primary"
+                >View Listing</b-button
+              >
+            </b-card>
+          </div>
+        </b-card-group>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        slide: 0,
-        sliding: null
-      }
+import VueJwtDecode from "vue-jwt-decode";
+import NavBar from "./NavBar.vue"
+//import PlanPage from "./PlanPage.vue";
+
+export default {
+  data() {
+    return {
+      plan: [
+        {plan: 1}, 
+        {plan: 2}, 
+        {plan: 3}],
+      selectedPlan:1,
+      user: {},
+      HousePicURL: "http://m1.sdimgs.com/sd_static/u/201312/52ac736ba8caa.jpg",
+      VehiclePicURL:
+        "https://www.topteny.com/wp-content/uploads/2015/09/Ciprian-Mihai-3.jpg",
+      ChildcarePicURL:
+        "https://s3-ap-southeast-1.amazonaws.com/mindchamps-prod-wp/wp-content/uploads/2019/05/16224647/MindChamps-RaffelsTownclub-1045-1280x853.jpg",
+    };
+  },
+  components:{
+    NavBar
+  },
+  methods: {
+    getUserDetails() {
+      let token = localStorage.getItem("jwt");
+      let decoded = VueJwtDecode.decode(token);
+      this.user = decoded;
     },
-    methods: {
-      
+    logUserOut() {
+      localStorage.removeItem("jwt");
+      this.$router.push("/");
+    },
+    doPlan(plan){
+      this.selectedPlan = plan
     }
-  }
+  },
+};
 </script>
